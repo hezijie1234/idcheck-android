@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+    defaultConfig {
+        applicationId "com.huiyu.tech.zhongxing"
+        minSdkVersion 18
+        targetSdkVersion 23
+        versionCode 107
+        versionName "1.0.7"
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('../key.jks')
+            storePassword 'zteface'
+            keyAlias 'zte'
+            keyPassword 'zteface'
+        }
+        release {
+            storeFile file('../key.jks')
+            storePassword 'zteface'
+            keyAlias 'zte'
+            keyPassword 'zteface'
+        }
+        myConfig {
+            storeFile file('../key.jks')
+            storePassword 'zteface'
+            keyAlias 'zte'
+            keyPassword 'zteface'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    //修改生成的apk名字
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def oldFile = output.outputFile
+           // if (variant.buildType.name.equals('release')) {
+                def releaseApkName = 'jingwutong_' + getVersionName() + '_' + getDate() + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            //}
+        }
+    }
+
+    productFlavors {
+    }
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy-MM-dd')
+    return formattedDate
+}
+
+
+//从androidManifest.xml中获取版本号
+def getVersionName(){
+    return android.defaultConfig.versionName
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    compile project(':library')
+    compile files('libs/fastjson-1.2.17.jar')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.2'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile project(':multi-image-selector')
+    compile project(':picasso')
+    compile project(path: ':openCVLibrary320')
+    compile files('libs/idrbtlib.jar')
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.wang.avi:library:2.1.3'
+    compile 'com.facebook.stetho:stetho:1.3.1'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"/>
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/iv_video"
+        android:layout_alignTop="@id/iv_video"
+        android:padding="3dp"
+        android:src="@mipmap/icon_del" />
+
+    <RelativeLayout
+        android:id="@+id/layout_add"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/btn_add_video">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/zte_79"/>
+    </RelativeLayout>
+    <!--<ImageButton-->
+        <!--android:id="@+id/iv_add_pic"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:background="@drawable/btn_add_video"-->
+        <!--android:src="@mipmap/zte_79" />-->
+</RelativeLayout>

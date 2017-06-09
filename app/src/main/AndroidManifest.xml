@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.huiyu.tech.zhongxing">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+            <!--<action android:name="gzga.intent.action.MAIN" />-->
+            <!--<category android:name="gzga.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+
+        </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FaceLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ModifyPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NoticeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WarningDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HistoryWarningsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.EmergencyNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.EmergencyNoticeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.FaceRecognitionActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+
+        </activity>
+        <activity
+            android:name=".ui.activity.EmergencyHandleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HandleResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SearchResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ComparePicActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SuspectScanActivity"></activity>
+        <activity android:name=".ui.activity.LargeMapActivity"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

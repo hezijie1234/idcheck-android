@@ -1,0 +1,122 @@
+<resources>
+    <string name="app_name">警务通</string>
+
+    <string name="text_login_title">智能身份核查</string>
+    <string name="text_short_name">ZTE</string>
+
+    <string name="text_hint_account">账号</string>
+    <string name="text_hint_pwd">密码</string>
+    <string name="text_hint_oldpwd">输入原密码：</string>
+    <string name="text_hint_newpwd">输入新密码：</string>
+    <string name="text_hint_search">搜索</string>
+    <string name="text_hint_input">请输入内容(最多输入100字)</string>
+
+    <string name="text_name">姓\t名</string>
+    <string name="text_sex">性\t别</string>
+    <string name="text_zu">民\t族</string>
+    <string name="text_born">出\t生</string>
+    <string name="text_year">年</string>
+    <string name="text_month">月</string>
+    <string name="text_day">日</string>
+    <string name="text_addr">住\t宅</string>
+    <string name="text_id">公民身份号码</string>
+    <string name="text_exit">退出账号</string>
+    <string name="text_home">主页</string>
+    <string name="text_contacts">联系人</string>
+    <string name="text_notice">公告</string>
+    <string name="text_me">我</string>
+    <string name="text_modify_pwd">修改密码</string>
+    <string name="text_check_version">检查更新</string>
+    <string name="text_previous">上一条</string>
+    <string name="text_next">下一条</string>
+    <string name="text_suggestion">处理意见</string>
+    <string name="text_handle_now">现在处理</string>
+    <string name="text_handle_pic">处理结果图片</string>
+    <string name="text_handle_video">处理结果视频</string>
+    <string name="text_handle_result">处理结果</string>
+    <string name="text_desc">补充说明（选填）</string>
+    <string name="text_desc2">补充说明</string>
+    <string name="text_undo">待处理</string>
+    <string name="suspect_message">请将摄像头正面对准待扫描人</string>
+
+    <string name="btn_login">登\t\t录</string>
+    <string name="btn_face_login">人脸登录</string>
+    <string name="btn_work">执勤</string>
+    <string name="btn_offwork">退勤</string>
+    <string name="btn_logout">退出当前账号</string>
+    <string name="btn_confirm">确\t\t认</string>
+    <string name="btn_commit">提\t\t交</string>
+    <string name="btn_suspect_scan">嫌犯扫描</string>
+
+    <string name="title_face_login">人证核验</string>
+    <string name="title_fragment_home">异常身份核查</string>
+    <string name="title_fragment_user">个人信息</string>
+    <string name="title_notice">公告消息</string>
+    <string name="title_emergency_notice">紧急布控</string>
+    <string name="title_history_emergency">历史警情</string>
+    <string name="title_emergency_detail">告警详情</string>
+    <string name="title_detail">详情</string>
+    <string name="title_handle_emergency">警情处理</string>
+    <string name="title_handle_result">处理意见</string>
+    <string name="title_contacts">联系人</string>
+
+    <string name="text_download_title">警务通APP安装包</string>
+    <string name="text_downloading">版本下载中：%s</string>
+    <string name="text_download_over">版本下载完毕！</string>
+    <string name="text_downloading2">文件下载中：%s</string>
+    <string name="text_download_over2">文件下载完毕！</string>
+    <string name="id_check">身份核实</string>
+    <string name="check_introduce">请将身份证紧贴读卡器\n读取证件信息</string>
+    <string name="check_warn">人脸与身份证信息不符！</string>
+    <string name="check_pass">人脸与身份证信息一致！</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="name">姓名</string>
+    <string name="gender">性别</string>
+    <string name="nation">民族</string>
+    <string name="birthday">生日</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="address">地址</string>
+    <string name="idno">身份证号</string>
+    <string name="agency">签发机关</string>
+    <string name="expire">有效日期</string>
+    <string name="cardNo">卡体号</string>
+    <string name="readcard_hint">请放卡</string>
+    <string name="search">搜索</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开</string>
+    <string name="pair">配对</string>
+    <string name="search_dev">搜索设备</string>
+    <string name="read_once">读卡一次</string>
+    <string name="read_loop">循环读卡</string>
+    <string name="stop_read_loop">停止读卡</string>
+    <string name="switchToHTMLSolution">网页读证</string>
+    <string name="switchToTypeA">TypeA卡测试</string>
+    <string name="switchToTypeB">读身份证</string>
+    <string name="showIDCardPic">身份证正反面</string>
+    <string name="selected_bt_dev">已选择的蓝牙设备：</string>
+    <string name="please_select_bt_dev">请选择蓝牙设备</string>
+    <string name="test_info_title">测试信息</string>
+    <string name="testInfoStr">测试消耗时间: %1$s\n读卡成功次数: %2$s\n读卡失败次数: %3$s\n单次读卡时间: %4$s</string>
+    <string name="readCardErrorLog">日志</string>
+    <string name="version">DEMO 版本：%1$s\nSDK 版本：%2$s</string>
+    <string name="NoteStrNotFounddBTAdapter">没有找到蓝牙适配器</string>
+    <string name="NoteStrOpenBTPlease">请打开蓝牙适配器</string>
+    <string name="NoteStrMacAddressFormatError">MAC地址格式错误</string>
+    <string name="NoteStrStartToReadCard">开始读卡</string>
+    <string name="NoteStrReadingCard">正在读卡</string>
+    <string name="NoteStrFindCard">找到卡</string>
+    <string name="NoteStrFindCardFailed">找卡错误</string>
+    <string name="NoteStrReadSuccess">读卡成功</string>
+    <string name="NoteStrDevIsDisconnect">设备连接断开了或者异常</string>
+    <string name="NoteStrNotFoundCard">没找到卡</string>
+    <string name="NoteStrOpenDevFailed">打开设备失败</string>
+    <string name="NoteStrDevNotReady">设备没有准备好</string>
+    <string name="NoteStrSelectCardFailed">选卡失败</string>
+    <string name="NoteStrReadCardFailed">读卡失败</string>
+    <string name="show_id_card_pic">身份证正反面</string>
+
+
+</resources>

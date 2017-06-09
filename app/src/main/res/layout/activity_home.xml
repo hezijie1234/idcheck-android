@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.huiyu.tech.zhongxing.ui.activity.HomeActivity">
+
+    <com.huiyu.tech.zhongxing.widget.FixedViewPager
+        android:id="@+id/pager"
+        android:layout_above="@+id/rg_tab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RadioGroup
+        android:id="@id/rg_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="4dp"
+        android:paddingBottom="2dp"
+        android:background="@color/gray_bg2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/rb_style"
+            android:drawableTop="@drawable/tab_home_selector"
+            android:text="@string/text_home" />
+
+        <RadioButton
+            android:id="@+id/rb_contacts"
+            style="@style/rb_style"
+            android:drawableTop="@drawable/tab_contacts_selector"
+            android:text="@string/text_contacts" />
+
+        <RadioButton
+            android:id="@+id/rb_notice"
+            style="@style/rb_style"
+            android:drawableTop="@drawable/tab_notice_selector"
+            android:text="@string/text_notice" />
+
+        <RadioButton
+            android:id="@+id/rb_user"
+            style="@style/rb_style"
+            android:drawableTop="@drawable/tab_user_selector"
+            android:text="@string/text_me" />
+    </RadioGroup>
+</RelativeLayout>

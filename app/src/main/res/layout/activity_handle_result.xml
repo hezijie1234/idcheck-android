@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zz_white"
+    android:orientation="vertical"
+    tools:context="com.huiyu.tech.zhongxing.ui.activity.HandleResultActivity">
+
+    <include
+        android:id="@+id/top_title"
+        layout="@layout/title_bar" />
+
+
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        android:layout_below="@+id/top_title"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_handle_pic"
+                    android:textColor="@color/text_3"
+                    android:textSize="15sp" />
+
+                <com.huiyu.tech.zhongxing.widget.MyGridView
+                    android:id="@+id/gv_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:numColumns="4"
+                    android:horizontalSpacing="5dp"
+                    android:verticalSpacing="8dp"></com.huiyu.tech.zhongxing.widget.MyGridView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_handle_video"
+                    android:textColor="@color/text_3"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/black">
+
+                    <VideoView
+                        android:id="@+id/vv"
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
+                    <ImageView
+                        android:id="@+id/video_background_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_stop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/zte_03" />
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/text_handle_result"
+                    android:textColor="@color/text_3"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=""
+                    android:textColor="@color/text_9"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_desc2"
+                    android:textColor="@color/text_3"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="8dp"
+                    android:text=""
+                    android:textColor="@color/text_9"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@color/main_color"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/zz_white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/zz_white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</LinearLayout>

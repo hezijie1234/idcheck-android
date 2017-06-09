@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:opencv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/zz_white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.FaceRecognitionActivity">
+
+    <include layout="@layout/title_bar"
+        android:visibility="gone"/>
+    <org.opencv.android.JavaCameraView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible"
+        android:id="@+id/face_rec_surface_view"
+        opencv:show_fps="false"
+        opencv:camera_id="any"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@drawable/bg_dash_border_blue">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/loadingView"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallPulseIndicator"
+            app:indicatorColor="@color/zz_colorPrimary"
+            />
+
+        <TextView
+            android:id="@+id/face_rec_intro_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/check_introduce"
+            android:textSize="18sp"
+            android:textColor="@color/zz_colorPrimary"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_centerInParent="true"/>
+
+        <RelativeLayout
+            android:id="@+id/face_rec_card_info_lay"
+            android:layout_width="wrap_content"
+            android:background="@mipmap/icon_id_bg"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_name"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/face_rec_tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="xxxx"
+                        android:textColor="@color/text_dark"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="6dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_sex"
+                            android:textColor="@color/bg_login_btn"
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/face_rec_tv_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:text="xxxx"
+                            android:textColor="@color/text_dark"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_zu"
+                            android:textColor="@color/bg_login_btn"
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/face_rec_tv_nation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:text="xxxx"
+                            android:textColor="@color/text_dark"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_born"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/face_rec_tv_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="xxxx"
+                        android:textColor="@color/text_dark"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_year"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/face_rec_tv_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="xx"
+                        android:textColor="@color/text_dark"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_month"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/face_rec_tv_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="xx"
+                        android:textColor="@color/text_dark"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_day"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_addr"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/face_rec_tv_addr"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="不知道不知道不知道不知道不知道不知道"
+                        android:textColor="@color/text_dark"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="6dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_id"
+                        android:textColor="@color/bg_login_btn"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/face_rec_tv_idcard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="420111198903102331"
+                        android:textColor="@color/text_dark"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/face_rec_iv_head"
+                android:layout_width="72dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="2dp"
+                android:src="@mipmap/id_03"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/face_rec_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="4dp"
+        android:gravity="center"
+        android:background="@drawable/btn_login_selector"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/zte_07"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_check"
+            android:textColor="@color/zz_white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

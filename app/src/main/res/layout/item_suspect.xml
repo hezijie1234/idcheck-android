@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/zz_white"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivAvatarPhone"
+            android:src="@drawable/bg_action_solidyellow"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/ivAvatarServer"
+            android:src="@drawable/bg_action_solidyellow"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:textSize="12sp"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvName"
+            android:layout_marginLeft="10dp"
+            android:text="张文佳"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="12sp"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvCard"
+            android:layout_marginLeft="10dp"
+            android:text="420521199305011535"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="12sp"
+            android:id="@+id/tvType"
+            android:textColor="@color/zz_red"
+            android:layout_marginLeft="10dp"
+            android:text="TF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/gray_bg"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+</LinearLayout>

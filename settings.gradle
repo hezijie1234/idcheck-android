@@ -1,0 +1,3 @@
+include ':app', ':picasso', ':multi-image-selector'
+include ':library'
+include ':openCVLibrary320'

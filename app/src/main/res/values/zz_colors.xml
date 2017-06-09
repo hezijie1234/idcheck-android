@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="zz_colorPrimary">@color/colorPrimary</color>
+    <color name="zz_colorPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="zz_colorAccent">@color/colorAccent</color>
+    <color name="zz_textColorPrimary">#FFFFFF</color>
+
+    <color name="zz_bg_window">#F2F2F2</color>
+
+    <color name="zz_divider">#D9D9D9</color>
+
+    <color name="zz_black">#000000</color>
+    <color name="zz_white">#FFFFFF</color>
+    <color name="zz_white_click">#80FFFFFF</color>
+    <color name="zz_red">#FF0000</color>
+    <color name="zz_orange">#E9967A</color>
+    <color name="zz_yellow">#FFFF00</color>
+    <color name="zz_green">#00FF00</color>
+    <color name="zz_cyan">#00FFFF</color>
+    <color name="zz_blue">#0000ff</color>
+    <color name="zz_purple">#FF00FF</color>
+    <color name="zz_transparent_black">#80000000</color>
+    <color name="zz_transparent_white">#80FFFFFF</color>
+
+</resources>
