@@ -50,6 +50,7 @@ public class MainActivity extends ZZBaseActivity implements View.OnClickListener
             public void onItemClick(ActionItem item, int position) {
                 SharedPrefUtils.setString(MainActivity.this, Constants.SHARE_KEY.KEY_SESSIONID,"");
                 finish();
+                //测试
             }
         });
     }
