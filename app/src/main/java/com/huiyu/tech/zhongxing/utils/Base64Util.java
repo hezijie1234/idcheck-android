@@ -75,7 +75,6 @@ public class Base64Util {
      * @return base64 字符串
      */
     public String bitmaptoString(Bitmap bitmap, int bitmapQuality) {
-
         String string = null;
         ByteArrayOutputStream bStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, bitmapQuality, bStream);

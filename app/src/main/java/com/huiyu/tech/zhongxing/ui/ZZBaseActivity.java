@@ -2,6 +2,7 @@ package com.huiyu.tech.zhongxing.ui;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -119,6 +120,8 @@ public class ZZBaseActivity extends AppCompatActivity {
         if (mTvAction != null) {
             mTvAction.setVisibility(View.VISIBLE);
             mTvAction.setText(str);
+            mTvAction.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+            mTvAction.getPaint().setAntiAlias(true);
             mTvAction.setOnClickListener(listener);
         }
         return mTvAction;

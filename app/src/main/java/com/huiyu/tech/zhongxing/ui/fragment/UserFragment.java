@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ import com.huiyu.tech.zhongxing.api.okdownload.OkDownloadError;
 import com.huiyu.tech.zhongxing.models.UserModel;
 import com.huiyu.tech.zhongxing.models.VersionModel;
 import com.huiyu.tech.zhongxing.ui.BaseFragment;
+import com.huiyu.tech.zhongxing.ui.activity.AddSuspectActivity;
 import com.huiyu.tech.zhongxing.ui.activity.LoginActivity;
 import com.huiyu.tech.zhongxing.ui.activity.ModifyPwdActivity;
 import com.huiyu.tech.zhongxing.utils.CommonUtils;
@@ -76,6 +78,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     private RelativeLayout layoutModifypwd;
     private RelativeLayout layoutCheckVersion;
     private TextView tvLogout;
+    private RelativeLayout addSuspect;
 
     // 存放图片路径的list
     private ArrayList<String> mSelectPath;
@@ -91,6 +94,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_user, container, false);
+        showProgressDialog(true);
+        ApiImpl.getInstance().getUserInfo(this);
         initView();
         initData();
         return view;
@@ -100,14 +105,11 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     public void onUserVisible(boolean firstVisible) {
         super.onUserVisible(firstVisible);
         if (firstVisible) {
-            showProgressDialog(true);
-            ApiImpl.getInstance().getUserInfo(this);
+
         }
     }
 
     private void initView() {
-        showTitleView(getResources().getString(R.string.title_fragment_user));
-
         layoutHead = (LinearLayout) view.findViewById(R.id.layout_head);
         ivHead = (CircleImageView) view.findViewById(R.id.iv_head);
         tvName = (TextView) view.findViewById(R.id.tv_name);
@@ -115,12 +117,19 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         layoutModifypwd = (RelativeLayout) view.findViewById(R.id.layout_modifypwd);
         layoutCheckVersion = (RelativeLayout) view.findViewById(R.id.layout_check_version);
         tvLogout = (TextView) view.findViewById(R.id.tv_logout);
-
+        addSuspect = (RelativeLayout) view.findViewById(R.id.fragment_user_addsuspect);
         tvVersion.setText("当前版本" + CommonUtils.getVersionName(getActivity()));
         layoutHead.setOnClickListener(this);
         layoutModifypwd.setOnClickListener(this);
         layoutCheckVersion.setOnClickListener(this);
         tvLogout.setOnClickListener(this);
+        addSuspect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddSuspectActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData() {

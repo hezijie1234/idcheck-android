@@ -2,275 +2,97 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_check_item"
+    android:background="@drawable/item_checkinfo1"
     android:orientation="vertical"
     >
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="145dp"
+
         >
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:lines="1"
-            android:paddingBottom="6dp"
-            android:layout_alignParentLeft="true"
-            android:text="头像异常"
-            android:textColor="@color/text_3"
-            android:textSize="14sp"/>
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="6dp"
+        <ImageView
+            android:id="@+id/idcard_image"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="20dp"
+            android:src="@mipmap/head_test"
+            android:layout_marginRight="20dp"
+            />
+        <View
+            android:layout_width="1dp"
+            android:background="#cccccc"
+            android:layout_centerInParent="true"
+            android:layout_height="120dp"/>
+        <ImageView
+            android:id="@+id/camera_image"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="15dp"
+            android:scaleType="centerCrop"
             android:layout_alignParentRight="true"
-            android:text="10:32"
-            android:textColor="@color/text_3"
-            android:textSize="13sp"/>
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="20dp"
+            android:src="@mipmap/head_test"
+            />
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/text_12"/>
-
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#cccccc"/>
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="非法上访"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/zz_red"/>
     <RelativeLayout
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
-            android:id="@+id/tv_idcard"
+            android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_centerVertical="true"
-            android:lines="1"
-            android:text="身份证：XXXXXXXXXXXXXXXXXXXXX"
-            android:textColor="@color/text_3"
-            android:textSize="14sp"/>
+            android:text="成都东站"
+            android:textColor="#333333"/>
+        <TextView
+            android:id="@+id/time"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017-1-1 17：23：23"
+            android:textColor="#333333"/>
 
         <TextView
-            android:id="@+id/tvSuspectType"
-            android:layout_marginRight="20dp"
-            android:textColor="@color/text_3"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:text=""
+            android:id="@+id/send"
+            android:layout_gravity="right|bottom"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="15dp"
+            android:background="@drawable/add_suspect_edittext6"
+            android:textColor="@color/zz_white"
+            android:textSize="13sp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="查看详情"
+            android:layout_below="@+id/place"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@mipmap/icon_id_bg"
-            android:layout_height="104dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_name"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="xxxx"
-                    android:textColor="@color/text_dark"
-                    android:textSize="8sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="6dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_sex"
-                        android:textColor="@color/bg_login_btn"
-                        android:textSize="8sp" />
-                    <TextView
-                        android:id="@+id/tv_sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:text="xxxx"
-                        android:textColor="@color/text_dark"
-                        android:textSize="8sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_zu"
-                        android:textColor="@color/bg_login_btn"
-                        android:textSize="8sp" />
-                    <TextView
-                        android:id="@+id/tv_zu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:text="xxxx"
-                        android:textColor="@color/text_dark"
-                        android:textSize="8sp" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_born"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                <TextView
-                    android:id="@+id/tv_year"
-                    android:layout_width="24dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="xxxx"
-                    android:textColor="@color/text_dark"
-                    android:textSize="8sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_year"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                <TextView
-                    android:id="@+id/tv_month"
-                    android:layout_width="12dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:text="xx"
-                    android:textColor="@color/text_dark"
-                    android:textSize="8sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_month"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                <TextView
-                    android:id="@+id/tv_day"
-                    android:layout_width="12dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:text="xx"
-                    android:textColor="@color/text_dark"
-                    android:textSize="8sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_day"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_addr"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                <TextView
-                    android:id="@+id/tv_addr"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="不知道不知道不知道不知道不知道不知道"
-                    android:textColor="@color/text_dark"
-                    android:textSize="7sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="6dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_id"
-                    android:textColor="@color/bg_login_btn"
-                    android:textSize="8sp" />
-                <TextView
-                    android:id="@+id/tv_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:text="123456789123456789"
-                    android:textColor="@color/text_dark"
-                    android:textSize="8sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_head"
-                android:layout_width="48dp"
-                android:layout_height="60dp"
-                android:src="@mipmap/id_03"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
-        <View
-            android:layout_width="4dp"
-            android:layout_height="match_parent"/>
-        <ImageView
-            android:id="@+id/iv_pic"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/jz_07"
-            android:layout_height="104dp" />
-    </LinearLayout>
 </LinearLayout>

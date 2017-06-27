@@ -42,6 +42,7 @@ public class EmergencyNoticeFragment extends BaseFragment implements PullToRefre
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_emergency_notice, container, false);
         initView();
+        initData();
         return view;
     }
 
@@ -61,7 +62,7 @@ public class EmergencyNoticeFragment extends BaseFragment implements PullToRefre
 
     @Override
     public void onUserVisible(boolean firstVisible) {
-        if(firstVisible)initData();
+
     }
 
     private void initData(){

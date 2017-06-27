@@ -1,6 +1,7 @@
 package com.huiyu.tech.zhongxing.ui.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,8 +24,11 @@ import com.huiyu.tech.zhongxing.ui.activity.NoticeDetailActivity;
 import com.huiyu.tech.zhongxing.ui.adapter.NoticeAdapter;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
+import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
 
 import org.json.JSONObject;
+
+import static com.huiyu.tech.zhongxing.Constants.SHARE_KEY.USER_ID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +40,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
     private int max_page;
     private int page = 1;
     private static final int REFRESH_SIZE = 20;
+    private Context context;
 
     private NoticeAdapter noticeAdapter;
 
@@ -43,6 +48,11 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +60,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_notice, container, false);
         initView();
-        //initData();
+        initData();
         return view;
     }
 
@@ -73,7 +83,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
     @Override
     public void onUserVisible(boolean firstVisible) {
-        if(firstVisible)initData();
+
     }
 
     private void initData(){
@@ -83,7 +93,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
     private void loadData(){
         //showProgressDialog(true);
-        ApiImpl.getInstance().getNoticeList(""+page,""+REFRESH_SIZE,this);
+        ApiImpl.getInstance().getNoticeList(SharedPrefUtils.getString(context,USER_ID,""),""+page,""+REFRESH_SIZE,this);
     }
 
     @Override

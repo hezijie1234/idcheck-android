@@ -50,18 +50,18 @@ public class CheckInfoAdapter extends ZZBaseAdapter<CheckInfo.ListBean> {
         }
         holder.tvType.setText(model.getUserName()+" "+model.getStationName() +" "+model.getPlaceNo()+"进站口");
         holder.tvTime.setText(model.getCreateDate());
-        holder.tvIdcard.setText("身份证：" + model.getIdcard());
-        holder.tvSuspectType.setText(model.getAlarmType());
-        holder.tvName.setText(model.getUserName());
-        holder.tvZu.setText(model.getNation());
-        if(!TextUtils.isEmpty(model.getIdcard())&&model.getIdcard().length() == 18){
-            holder.tvYear.setText(model.getIdcard().substring(6,10));
-            holder.tvMonth.setText(model.getIdcard().substring(10,12));
-            holder.tvDay.setText(model.getIdcard().substring(12,14));
-        }
-        holder.tvAddr.setText(model.getAddress());
-        holder.tvCard.setText(model.getIdcard());
-        holder.tvSex.setText("male".equals(model.getSex()) ? "男" : "女");
+//        holder.tvIdcard.setText("身份证：" + model.getIdcard());
+//        holder.tvSuspectType.setText(model.getAlarmType());
+//        holder.tvName.setText(model.getUserName());
+//        holder.tvZu.setText(model.getNation());
+//        if(!TextUtils.isEmpty(model.getIdcard())&&model.getIdcard().length() == 18){
+//            holder.tvYear.setText(model.getIdcard().substring(6,10));
+//            holder.tvMonth.setText(model.getIdcard().substring(10,12));
+//            holder.tvDay.setText(model.getIdcard().substring(12,14));
+//        }
+//        holder.tvAddr.setText(model.getAddress());
+//        holder.tvCard.setText(model.getIdcard());
+//        holder.tvSex.setText("male".equals(model.getSex()) ? "男" : "女");
 //        ImageUtils.setImage(context, model.getAddress(),holder.ivPic,R.mipmap.jz_07);
         if(model.getFrontImg() != null){
             Picasso.with(context).load(ApiImpl.DOMIN +model.getFrontImg().getPath())
@@ -82,34 +82,14 @@ public class CheckInfoAdapter extends ZZBaseAdapter<CheckInfo.ListBean> {
     class ViewHolder {
         private TextView tvType;
         private TextView tvTime;
-        private TextView tvIdcard;
-        private TextView tvSuspectType;
-        private TextView tvName;
-        private TextView tvSex;
-        private TextView tvZu;
-        private TextView tvYear;
-        private TextView tvMonth;
-        private TextView tvDay;
-        private TextView tvAddr;
-        private TextView tvCard;
         private ImageView ivPic;
         private ImageView ivHead;
 
         ViewHolder(View view) {
-            tvType = (TextView) view.findViewById(R.id.tv_type);
-            tvTime = (TextView) view.findViewById(R.id.tv_time);
-            tvIdcard = (TextView) view.findViewById(R.id.tv_idcard);
-            tvSuspectType = (TextView) view.findViewById(R.id.tvSuspectType);
-            tvName = (TextView) view.findViewById(R.id.tv_name);
-            tvSex = (TextView) view.findViewById(R.id.tv_sex);
-            tvZu = (TextView) view.findViewById(R.id.tv_zu);
-            tvYear = (TextView) view.findViewById(R.id.tv_year);
-            tvMonth = (TextView) view.findViewById(R.id.tv_month);
-            tvDay = (TextView) view.findViewById(R.id.tv_day);
-            tvAddr = (TextView) view.findViewById(R.id.tv_addr);
-            tvCard = (TextView) view.findViewById(R.id.tv_card);
-            ivPic = (ImageView)view. findViewById(R.id.iv_pic);
-            ivHead = (ImageView)view. findViewById(R.id.iv_head);
+            tvType = (TextView) view.findViewById(R.id.place);
+            tvTime = (TextView) view.findViewById(R.id.time);
+            ivPic = (ImageView)view. findViewById(R.id.camera_image);
+            ivHead = (ImageView)view. findViewById(R.id.idcard_image);
         }
 
     }

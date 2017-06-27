@@ -66,22 +66,13 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
     }
 
     @Override
-    public void onUserVisible(boolean firstVisible) {
-        super.onUserVisible(firstVisible);
-        if(firstVisible){
-            loadData();
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_contacts, container, false);
-
         initBase();
         initView();
-        initData();
+        loadData();
         return view;
     }
 
@@ -271,6 +262,7 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
 
     @Override
     public void onAPISuccess(String flag, JSONObject json) {
+        Log.e("111", "onAPISuccess:数据加载成功 "+json );
         hideProgressDialog();
         ContactsPageModel checkInfo = JSON.parseObject(json.optString("d"), ContactsPageModel.class);
         if(checkInfo.getList() != null && checkInfo.getList().size() > 0){

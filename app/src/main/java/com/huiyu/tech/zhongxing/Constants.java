@@ -34,6 +34,8 @@ public class Constants {
 
     /**缓存用的单张图片**/
     public static final String CASH_IMG = CASH + "cash.png";
+    //用于存放获取的模板图片
+    public static final String TEMPLATE_IMG = CASH + "module.png";
     /**持续获取到人脸数量后，就使用当前截图**/
     public static final int FACE_SUCCESS_COUNT = 10;
     /**上传到后台对比图片的尺寸**/
@@ -63,6 +65,7 @@ public class Constants {
         public static final String BLUETOOTH_MAC = "bluetooth_mac";
         //  第一次登录
         public static final String FIRST_LOGIN = "first_login";
+        public static final String USER_ID = "userId";
     }
 
     /**

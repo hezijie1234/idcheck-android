@@ -36,8 +36,6 @@ public class SuspectListAdapter extends RecyclerView.Adapter<SuspectListAdapter.
         SuspectInfo info = data.get(position);
         holder.ivAvatarPhone.setImageBitmap(Base64Util.base64ToBitmap(info.phoneImage));
         holder.ivAvatarServer.setImageBitmap(Base64Util.base64ToBitmap(info.serverImage));
-        holder.tvName.setText(info.name);
-        holder.tvCard.setText(info.idcrad);
         holder.tvType.setText(info.type);
     }
 
@@ -50,16 +48,12 @@ public class SuspectListAdapter extends RecyclerView.Adapter<SuspectListAdapter.
 
          private ImageView ivAvatarPhone;
          private ImageView ivAvatarServer;
-         private TextView tvName;
-         private TextView tvCard;
          private TextView tvType;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             ivAvatarPhone = (ImageView) itemView.findViewById(R.id.ivAvatarPhone);
             ivAvatarServer = (ImageView) itemView.findViewById(R.id.ivAvatarServer);
-            tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvCard = (TextView) itemView.findViewById(R.id.tvCard);
             tvType = (TextView) itemView.findViewById(R.id.tvType);
         }
     }

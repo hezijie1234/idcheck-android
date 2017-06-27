@@ -4,9 +4,10 @@
     <color name="colorPrimaryDark">#2C72AE</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="main_color">#2C72AE</color>
+    <color name="main_color">#272E38</color>
     <color name="bg_login_edit">#498EC5</color>
-    <color name="bg_login_btn">#1363A3</color>
+    <color name="bg_login_btn">#027ccc</color>
+    <color name="bg_line">#e7e7e7</color>
     <color name="bg_check_item">#F7F7F7</color>
     <color name="bg_yellow">#E87814</color>
     <color name="bg_face_login">#1D8493</color>
@@ -15,10 +16,13 @@
     <color name="gray_bg">#EDEDED</color>
     <color name="gray_bg2">#E7EEF5</color>
     <color name="gray_light_bg">#30dcdcdc</color>
+    <color name="gray_main">#e6e6e6</color>
     <color name="bg_logout">#BF3332</color>
     <color name="bg_logout_click">#80BF3332</color>
-
-    <color name="text_hint">#dfdede</color>
+    <color name="bg_main">#484848</color>
+    <color name="recon_success">#006600</color>
+    <color name="recon_unsuccess">#ff0000</color>
+    <color name="text_hint">#7a7a7a</color>
 
     <color name="text_dark">#1F1F1F</color>
     <color name="text_3">#333333</color>

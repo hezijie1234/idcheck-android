@@ -5,9 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.huiyu.tech.zhongxing.ui.fragment.UserFragment">
-
-    <include layout="@layout/title_bar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="168dp"
@@ -114,6 +111,40 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:background="@color/gray_light_line"/>
+
+        <RelativeLayout
+            android:id="@+id/fragment_user_addsuspect"
+            android:background="@drawable/list_item_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/text_3"
+                android:textSize="15sp"
+                android:drawableLeft="@mipmap/zte_14"
+                android:gravity="center_vertical"
+                android:drawablePadding="6dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:text="添加嫌犯模板"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/text_3"
+                android:textSize="15sp"
+                android:drawableLeft="@mipmap/zte_40"
+                android:gravity="center_vertical"
+                android:drawablePadding="6dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:layout_marginBottom="16dp"
             android:background="@color/gray_light_line"/>
     </LinearLayout>
@@ -132,4 +163,5 @@
         android:layout_marginTop="64dp"
         android:textColor="@color/zz_white"
         android:textSize="16sp" />
+
 </LinearLayout>

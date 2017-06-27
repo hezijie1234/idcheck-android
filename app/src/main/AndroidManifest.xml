@@ -15,10 +15,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.NFC" />
+
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -46,14 +46,14 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-            <!--<action android:name="gzga.intent.action.MAIN" />-->
-            <!--<category android:name="gzga.intent.category.LAUNCHER" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- <action android:name="gzga.intent.action.MAIN" /> -->
+                <!-- <category android:name="gzga.intent.category.LAUNCHER" /> -->
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
 
-        </intent-filter>
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
@@ -85,14 +85,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.FaceRecognitionActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
-
         </activity>
         <activity
             android:name=".ui.activity.EmergencyHandleActivity"
@@ -106,9 +106,20 @@
         <activity
             android:name=".ui.activity.ComparePicActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.SuspectScanActivity"></activity>
-        <activity android:name=".ui.activity.LargeMapActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SuspectScanActivity" />
+        <activity
+            android:name=".ui.activity.LargeMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AddSuspectActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.MainActivity2" />
+        <activity android:name=".ui.activity.ContactsActivity" />
+        <activity android:name=".ui.activity.FaceRecongResultActivity" />
+        <activity android:name=".ui.activity.ScanRecordActivity" />
+        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.EmergencyActivity" />
+        <activity android:name=".ui.activity.NoticeActivity"></activity>
     </application>
 
 </manifest>

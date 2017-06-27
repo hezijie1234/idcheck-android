@@ -19,6 +19,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcA;
 import android.nfc.tech.NfcB;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -41,6 +42,7 @@ import com.huiyu.tech.zhongxing.btutil.BTCardReader;
 import com.huiyu.tech.zhongxing.btutil.BTDeviceFinder;
 import com.huiyu.tech.zhongxing.btutil.DeviceRecoder;
 import com.huiyu.tech.zhongxing.btutil.IDCardReadTask;
+import com.huiyu.tech.zhongxing.models.IdCardModule;
 import com.huiyu.tech.zhongxing.models.RecognitionModel;
 import com.huiyu.tech.zhongxing.ui.ZZBaseActivity;
 import com.huiyu.tech.zhongxing.utils.Base64Util;
@@ -162,6 +164,14 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
     private void initView() {
         showBackView();
         showTitleView(getResources().getString(R.string.title_face_login));
+        showTextRightAction(getResources().getString(R.string.idcard_record), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FaceRecognitionActivity.this,ScanRecordActivity.class);
+                intent.putExtra("type","recog");
+                startActivity(intent);
+            }
+        });
         bindView();
         faceRecSurfaceView.setCvCameraViewListener(this);
 //        faceRecSurfaceView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
@@ -170,6 +180,8 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 
         recognitionModel = new RecognitionModel();
 //        initBt();
+        BTCardReader read = new BTCardReader();
+        mInfo = new IdCardModule();
     }
 
     /**
@@ -247,6 +259,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
             if (info != null && status == IDCardReadTask.Status_read_successful) {
                 LogUtils.e("==========info=========" + info.toString());
                 showProgress(false);
+                Log.e("111", "readResult: "+info );
                 showUserInfo(info);
                 /*i.name = info.name;
                 i.sex = info.sex;
@@ -261,7 +274,6 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                 i.validDate = info.validDateStart + " - " + info.validDateEnd;
                 i.image = info.image;
                 i.cardNo= info.cardNo;*/
-
             }
 
             Resources resource = getResources();
@@ -424,8 +436,9 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         }
 
     }
-
+    private IdCardModule mInfo ;
     private void showUserInfo(BTCardReader.Info info) {
+
         faceRecCardInfoLay.setVisibility(View.VISIBLE);
 //        private TextView faceRecTvName;
 //        private TextView faceRecTvSex;
@@ -588,7 +601,9 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         mRgba.release();
     }
 
+
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+
         mRgba = inputFrame.rgba();
         //使用后置摄像头时旋转-90度
         Mat rotateMat = Imgproc.getRotationMatrix2D(new Point(mRgba.cols() / 2, mRgba.rows() / 2), -90, 1);
@@ -599,7 +614,8 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                 mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
             }
         }
-
+        //在人脸检测之前将每张图片转换成灰度图，测试是否能提高人脸检测效率
+//        Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2GRAY, 3);
         MatOfRect faces = new MatOfRect();
         if (mJavaDetector != null) {
             mJavaDetector.detectMultiScale(mRgba, faces, 1.1, 2, 2,
@@ -650,11 +666,10 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
-                    num =0;
+                    num = 0;
                 }
             }
             Imgproc.rectangle(mRgba, facesArray[0].tl(), facesArray[0].br(), FACE_RECT_COLOR, 3);
-
         } else {
             num = 0;
         }
@@ -733,7 +748,6 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         if (!passDialog.isShowing()){
             passDialog.show();
         }
-
     }
 
     /**
@@ -744,6 +758,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                 && recognitionModel.getIdcardBean() != null
                 && recognitionModel.getIdCardImage() != null
                 && recognitionModel.getPhoneImage() != null) {
+            Log.e("111", "sendFaceToServer: 发送给服务器" );
             ApiImpl.getInstance().sendFaceDetect(JSON.toJSONString(recognitionModel), this);
             runOnUiThread(new Runnable() {
                 @Override
@@ -752,6 +767,12 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                 }
             });
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recognitionModel.setPhoneImage(null);
     }
 
     @Override
@@ -765,10 +786,19 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     recognitionModel.setPhoneImage(null);
                     recognitionModel.setIdCardImage(null);
                     recognitionModel.setIdcardBean(null);
-                    showPassDialog();
+                    Intent intent = new Intent(this,FaceRecongResultActivity.class);
+                    intent.putExtra("isSuccess",true);
+                    Log.e("111", "onAPISuccess: "+mInfo );
+                    intent.putExtra("info",mInfo);
+                    startActivity(intent);
+//                    showPassDialog();
                 }else {
                     hasImage = false;
-                    showFailDialog();
+//                    showFailDialog();
+                    Intent intent = new Intent(this,FaceRecongResultActivity.class);
+                    intent.putExtra("isSuccess",false);
+                    intent.putExtra("info",mInfo);
+                    startActivity(intent);
                 }
             }else {
                 CustomToast.showToast(this,json.optString("m"));
@@ -874,6 +904,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                             }
                             idcardBeanBean.setIdName(temp);
                             faceRecTvName.setText(temp);
+                            mInfo.setName(temp);
 
                             // 性别
                             temp = new String(tTwoIdInfo.arrTwoIdSex, 0, 2,
@@ -884,6 +915,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                                 temp = "女";
                             idcardBeanBean.setIdSex(temp);
                             faceRecTvSex.setText(temp);
+                            mInfo.setSex(temp);
                             // 民族
                             temp = new String(tTwoIdInfo.arrTwoIdNation, 0, 4,
                                     "UTF-16LE").trim();
@@ -895,24 +927,30 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                             }
                             idcardBeanBean.setIdNation(temp);
                             faceRecTvNation.setText( temp);
+                            mInfo.setNation(temp);
                             // 出生日期
                             temp = new String(tTwoIdInfo.arrTwoIdBirthday, 0,
                                     16, "UTF-16LE").trim();
                             idcardBeanBean.setIdBirthday(temp);
                             faceRecTvYear.setText(temp.substring(0,4));
+                            mInfo.setYear(temp.substring(0,4));
                             faceRecTvMonth.setText(temp.substring(4,6));
+                            mInfo.setMonth(temp.substring(4,6));
                             faceRecTvDay.setText(temp.substring(6,8));
+                            mInfo.setDay(temp.substring(6,8));
                             // 住址
                             temp = new String(tTwoIdInfo.arrTwoIdAddress, 0,
                                     70, "UTF-16LE").trim();
                             idcardBeanBean.setIdAddress(temp);
                             faceRecTvAddr.setText(temp);
+                            mInfo.setAddress(temp);
                             // 身份证号码
                             temp = new String(tTwoIdInfo.arrTwoIdNo, 0, 36,
                                     "UTF-16LE").trim();
                             imageBean.setImgName(temp);
                             idcardBeanBean.setIdCard(temp);
                             faceRecTvIdcard.setText( temp);
+                            mInfo.setCardNo(temp);
                             // 签发机关
                             temp = new String(
                                     tTwoIdInfo.arrTwoIdSignedDepartment, 0, 30,
@@ -938,6 +976,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                                         tTwoIdInfo.unTwoIdPhotoJpegLength);
                                 imageBean.setImgStr(Base64Util.bitmapToBase64(photo));
                                 faceRecIvHead.setImageBitmap(photo);
+                                mInfo.setImage(photo);
                                 Mat mat = new Mat();
                                 Utils.bitmapToMat(photo,mat);
                                feature1 = ZTEUtils.getFaceFeature(mat);

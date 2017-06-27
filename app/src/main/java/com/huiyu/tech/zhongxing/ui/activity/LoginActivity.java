@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -22,6 +24,7 @@ import com.huiyu.tech.zhongxing.widget.ClearEditText;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,8 +36,9 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
     private ClearEditText etAccount;
     private ClearEditText etPwd;
     private TextView tvLogin;
-    private TextView tvFaceLogin;
-
+    private RelativeLayout tvFaceLogin;
+    private CheckBox checkBox;
+    private TextView findPwd;
     private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE};
 
 
@@ -49,13 +53,13 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
                 WindowManager.LayoutParams.FLAG_FULLSCREEN );*/
 
         setContentView(R.layout.activity_login);
-
+        showTitleView(getResources().getString(R.string.text_short_name));
         new RxPermissions(this).request(permissions).subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean granted) {
                 if (granted) {
                     if (OkHttpManager.getInstance().hasCookie()) {
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity2.class));
                         finish();
                     } else {
                         initView();
@@ -72,14 +76,19 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
     }
 
     private void initView() {
+
         etAccount = (ClearEditText) findViewById(R.id.et_account);
         etPwd = (ClearEditText) findViewById(R.id.et_pwd);
         tvLogin = (TextView) findViewById(R.id.tv_login);
-        tvFaceLogin = (TextView) findViewById(R.id.tv_face_login);
+        tvFaceLogin = (RelativeLayout) findViewById(R.id.tv_face_login);
+        checkBox = (CheckBox) findViewById(R.id.activity_login_checkbox);
+        findPwd = (TextView) findViewById(R.id.activity_login_find);
         etAccount.setText(SharedPrefUtils.getString(this, Constants.SHARE_KEY.KEY_ACCOUNT, ""));
-
+        checkBox.setChecked(SharedPrefUtils.getBoolean(this,"checked",false));
+        etPwd.setText(SharedPrefUtils.getString(this,etAccount.getText().toString(),""));
         tvLogin.setOnClickListener(this);
         tvFaceLogin.setOnClickListener(this);
+        findPwd.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +103,12 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
                     CustomToast.showToast(this, "您输入的密码不正确");
                     return;
                 }
+                if(checkBox.isChecked()){
+                    SharedPrefUtils.setString(this,etAccount.getText().toString(),etPwd.getText().toString());
+                }else{
+                    SharedPrefUtils.setString(this,etAccount.getText().toString(),"");
+                }
+                SharedPrefUtils.setBoolean(this,"checked",checkBox.isChecked());
                 showProgressDialog(true);
                 String deviceId = null;
                 boolean first = SharedPrefUtils.getBoolean(this, Constants.SHARE_KEY.FIRST_LOGIN, true);
@@ -104,6 +119,8 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
                 break;
             case R.id.tv_face_login:
                 toFaceLogin();
+            case R.id.activity_login_find :
+                startActivity(new Intent(this,MainActivity2.class));
                 break;
         }
     }
@@ -115,6 +132,7 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
             case ApiImpl.DO_LOGIN:
                 UserModel userModel = JSON.parseObject(json.optString("d"), UserModel.class);
                 SharedPrefUtils.setString(this, Constants.SHARE_KEY.KEY_ACCOUNT, userModel.getUser().getLoginName());
+                SharedPrefUtils.setString(this,Constants.SHARE_KEY.USER_ID,userModel.getUser().getId());
                 SharedPrefUtils.setString(this, Constants.SHARE_KEY.TYPE, userModel.getAlarmright());
                 SharedPrefUtils.setBoolean(this, Constants.SHARE_KEY.FIRST_LOGIN, false);
 //                OkDownloadRequest.Builder builder = new OkDownloadRequest.Builder()
@@ -158,7 +176,7 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
 //                    }
 //                });
 
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, MainActivity2.class);
                 startActivity(intent);
                 finish();
                 break;

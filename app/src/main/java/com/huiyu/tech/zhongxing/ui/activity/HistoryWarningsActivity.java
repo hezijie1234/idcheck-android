@@ -35,7 +35,7 @@ import java.io.Serializable;
  */
 public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRefreshBase.OnRefreshListener2, AdapterView.OnItemClickListener, OnResponseListener {
 
-    private ClearEditText etSearch;
+//    private ClearEditText etSearch;
     private PullToRefreshListView lvInfo;
 
     private CheckInfoAdapter checkInfoAdapter;
@@ -50,7 +50,6 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_warnings);
-
         inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         initView();
         initData();
@@ -60,7 +59,7 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
         showBackView();
         showTitleView(getResources().getString(R.string.title_history_emergency));
 
-        etSearch = (ClearEditText) findViewById(R.id.et_search);
+//        etSearch = (ClearEditText) findViewById(R.id.et_search);
         lvInfo = (PullToRefreshListView) findViewById(R.id.lv_info);
 
         lvInfo.setMode(PullToRefreshBase.Mode.BOTH);
@@ -71,24 +70,24 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
         startLabels.setRefreshingLabel("正在加载...");// 刷新时
         startLabels.setReleaseLabel("松开载入更多");// 下来达到一定距离时，显示的提示
 
-        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        ||(keyEvent != null && keyEvent.getKeyCode()== KeyEvent.KEYCODE_ENTER)) {
-                    //do something;
-                    inputmanger.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
-                    if(TextUtils.isEmpty(etSearch.getText().toString())){
-                        return true;
-                    }
-                    Intent intent = new Intent(HistoryWarningsActivity.this,SearchResultActivity.class);
-                    intent.putExtra("keyword",etSearch.getText().toString());
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
-            }
-        });
+//        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH
+//                        ||(keyEvent != null && keyEvent.getKeyCode()== KeyEvent.KEYCODE_ENTER)) {
+//                    //do something;
+//                    inputmanger.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
+//                    if(TextUtils.isEmpty(etSearch.getText().toString())){
+//                        return true;
+//                    }
+//                    Intent intent = new Intent(HistoryWarningsActivity.this,SearchResultActivity.class);
+//                    intent.putExtra("keyword",etSearch.getText().toString());
+//                    startActivity(intent);
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
         checkInfoAdapter = new CheckInfoAdapter(this);
         lvInfo.setAdapter(checkInfoAdapter);
         lvInfo.setOnItemClickListener(this);

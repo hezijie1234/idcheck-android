@@ -17,7 +17,10 @@ public class ApiImpl {
 //    public static final String DOMIN = "http://192.168.1.251:8080";
 //    public static final String DOMIN = "http://121.42.178.20:7080/idcheck";
 //    public static final String DOMIN = "http://ztesai.3322.org:8800/idcheck";
-    public static final String HOST = "http://192.168.1.19:8080";
+    //测试
+//    public static final String HOST = "http://192.168.1.19:8080";
+    //杨磊
+    public static final String HOST = "http://192.168.1.252:8080";
 //    public static final String HOST = "http://ztesai.3322.org:8800";
 //    public static final String HOST = "http://192.168.20.72:6789";
     public static final String DOMIN = HOST + "/idcheck/";
@@ -54,7 +57,12 @@ public class ApiImpl {
     public static final String FACE_DETECT = "/api/mobile/faceDetect/check";
     public static final String FACE_SCAN = "/api/mobile/criminalSuspectDetect/check";
     public static final String APK_DOWNLOAD = DOMIN + "/api/mobile/download/apk?path=";
-
+    public static final String BLACK_TYPE = "api/mobile/blackList";
+    public static final String TEMPLATE_UPLOAD = "api/mobile/saveCriminalSuspect";
+    //嫌犯扫描和人证核验的记录
+    public static final String RECONG_SCAN_RECORD = "api/mobile/log/check";
+    //模板录入的记录
+    public static final String  BLACK_LIST = "api/mobile/log/blacklist";
 
     public void faceLogin(String deviceId, String imageName, String imageStr, OnResponseListener listener) {
         FormBody.Builder builder = new FormBody.Builder();
@@ -207,8 +215,9 @@ public class ApiImpl {
      *
      * @param listener
      */
-    public void getNoticeList(String page, String size, OnResponseListener listener) {
+    public void getNoticeList(String userId,String page, String size, OnResponseListener listener) {
         FormBody.Builder builder = new FormBody.Builder();
+        builder.add("userId",userId);
         builder.add("page", page);
         builder.add("size", size);
         RequestBody body = builder.build();
@@ -292,6 +301,43 @@ public class ApiImpl {
         OkHttpManager.getInstance().post(DOMIN + HANDLE_EMERGENCY_PIC, body, new ResultParser(HANDLE_EMERGENCY_PIC, listener));
     }
 
+    /** 模板上传
+     * @param id
+     *
+     * @param name
+     * @param type
+     * @param listener
+     */
+    public void templatePicSend(String id,String imageString,String name,String type,OnResponseListener listener){
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("idcard", id);
+        builder.addFormDataPart("userName",name);
+        builder.addFormDataPart("suspectType",type);
+        builder.addFormDataPart("userImageUrl",imageString);
+        RequestBody body = builder.build();
+        OkHttpManager.getInstance().post(DOMIN + TEMPLATE_UPLOAD,body,new ResultParser(TEMPLATE_UPLOAD,listener));
+    }
+
+    public void getBlackType(OnResponseListener listener){
+        OkHttpManager.getInstance().get(DOMIN + BLACK_TYPE , new ResultParser(BLACK_TYPE, listener));
+    }
+
+    public void getRecongRecord(String userId,int pageNo,int type,OnResponseListener listener){
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("userId",userId);
+        builder.addFormDataPart("pageNo",pageNo+"");
+        builder.addFormDataPart("type",type + "");
+        RequestBody body = builder.build();
+        OkHttpManager.getInstance().post(DOMIN + RECONG_SCAN_RECORD,body,new ResultParser(RECONG_SCAN_RECORD,listener));
+    }
+    public void getModelRecord(String userId,int pageNo,OnResponseListener listener){
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("userId",userId);
+        builder.addFormDataPart("pageNo",pageNo+"");
+        RequestBody body = builder.build();
+        OkHttpManager.getInstance().post(DOMIN + BLACK_LIST,body,new ResultParser(BLACK_LIST,listener));
+    }
+
     /**
      * 获得处理结果
      *
@@ -311,7 +357,8 @@ public class ApiImpl {
      * @param jsonData 上传的识别数据
      * @param listener 回调
      */
-    public void sendFaceDetect(String jsonData, OnResponseListener listener) {
+    public void
+    sendFaceDetect(String jsonData, OnResponseListener listener) {
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("jsonData", jsonData);
         RequestBody body = builder.build();

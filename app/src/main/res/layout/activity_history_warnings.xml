@@ -9,35 +9,72 @@
 
     <include layout="@layout/title_bar"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E4E4E4"
-        android:orientation="horizontal">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
 
-        <com.huiyu.tech.zhongxing.widget.ClearEditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:drawableLeft="@mipmap/zte_33"
-            android:drawablePadding="4dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:hint="@string/text_hint_search"
-            android:lines="1"
-            android:inputType="text"
-            android:imeOptions="actionSearch"
-            android:textColor="@color/text_3"
-            android:textColorHint="@color/text_9"
-            android:textSize="14sp"
-            android:background="@drawable/bg_search"/>
-    </LinearLayout>
+        <!--<com.huiyu.tech.zhongxing.widget.ClearEditText-->
+            <!--android:id="@+id/et_search"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="7dp"-->
+            <!--android:layout_marginBottom="7dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:drawableLeft="@mipmap/zte_33"-->
+            <!--android:drawablePadding="4dp"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:hint="@string/text_hint_search"-->
+            <!--android:lines="1"-->
+            <!--android:inputType="text"-->
+            <!--android:imeOptions="actionSearch"-->
+            <!--android:textColor="@color/text_3"-->
+            <!--android:textColorHint="@color/text_9"-->
+            <!--android:textSize="14sp"-->
+            <!--android:background="@drawable/bg_search"/>-->
+        <EditText
+            android:id="@+id/start_time"
+            android:layout_marginLeft="10dp"
+            android:layout_width="105dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_history_warn1"
+            />
+        <TextView
+            android:id="@+id/line"
+            android:layout_toRightOf="@id/start_time"
+            android:layout_centerVertical="true"
+            style="@style/Line"
+            />
+        <EditText
+            android:id="@+id/end_time"
+            android:layout_toRightOf="@id/line"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="105dp"
+            android:layout_height="25dp"
+            android:background="@drawable/shape_history_warn1"
+            />
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            android:background="@drawable/add_suspect_text_bg"
+            android:text="检索"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/zz_black"
+            />
+    </RelativeLayout>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/lv_info"
         android:layout_width="match_parent"
@@ -47,5 +84,7 @@
         android:paddingRight="5dp"
         android:scrollbars="none"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:dividerHeight="10dp">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

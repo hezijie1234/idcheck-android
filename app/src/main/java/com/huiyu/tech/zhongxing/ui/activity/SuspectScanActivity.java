@@ -1,11 +1,15 @@
 package com.huiyu.tech.zhongxing.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.alibaba.fastjson.JSON;
@@ -66,7 +70,16 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_suspect_scan);
-
+        showBackView();
+        showTitleView("嫌犯扫描");
+        showTextRightAction("扫描记录", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SuspectScanActivity.this,ScanRecordActivity.class);
+                intent.putExtra("type","suspect");
+                startActivity(intent);
+            }
+        });
         initView();
 
     }
@@ -88,7 +101,6 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
         if (cameraView != null) {
             cameraView.disableView();
         }
-
     }
 
     @Override
@@ -135,7 +147,8 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                 mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
             }
         }
-
+        //需要时可以使用灰度图来检测人脸。
+//        Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2GRAY, 3);
         MatOfRect faces = new MatOfRect();
         if (mJavaDetector != null) {
             mJavaDetector.detectMultiScale(mRgba, faces, 1.1, 2, 2,
@@ -193,9 +206,9 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
 //                });
             }
 
-            for (int i = 0; i < facesArray.length; i++)
+            for (int i = 0; i < facesArray.length; i++) {
                 Imgproc.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
-
+            }
         } else {
             num = 0;
         }
@@ -205,7 +218,6 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
         return mRgba;
 
     }
-
 
     /**
      * 获取相同尺寸的头像

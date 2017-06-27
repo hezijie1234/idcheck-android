@@ -6,12 +6,15 @@ import android.graphics.Bitmap;
 import com.Routon.iDRBtLib.iDRBtDev;
 import com.Routon.iDRBtLib.iDRBtDev.SecondIDInfo;
 
-public class BTCardReader {
+import java.io.Serializable;
 
+public class BTCardReader implements Serializable{
+
+    private static final long serialVersionUID = -8245670691661995978L;
     private iDRBtDev mBTDevice = null;
     private SecondIDInfo sIDInfo = null;
 
-    private BTCardReader() {
+    public BTCardReader() {
         mBTDevice = new iDRBtDev();
     }
 
@@ -83,7 +86,8 @@ public class BTCardReader {
         return sIDInfo;
     }
     
-    public class Info {
+    public class Info implements Serializable{
+        private static final long serialVersionUID = 9183290547910607731L;
         public String name;
         public String sex;
         public String nation;
@@ -98,6 +102,7 @@ public class BTCardReader {
         public String validDateEnd;
         public Bitmap image;
         public String cardNo;
+
 
         @Override
         public String toString() {

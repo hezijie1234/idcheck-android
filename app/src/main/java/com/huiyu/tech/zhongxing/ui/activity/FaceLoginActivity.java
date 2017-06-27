@@ -123,8 +123,6 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
         faceLoginSurfaceView = (JavaCameraView) findViewById(R.id.face_login_surface_view);
         faceLoginUserLay = (LinearLayout) findViewById(R.id.face_login_user_lay);
         faceLoginImage = (ImageView) findViewById(R.id.face_login_image);
-        faceLoginNameText = (TextView) findViewById(R.id.face_login_name_text);
-        faceLoginIdText = (TextView) findViewById(R.id.face_login_id_text);
         faceLoginConfirm = (TextView) findViewById(R.id.face_login_confirm);
     }
 
@@ -312,6 +310,7 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
             user = userModel.getUser();
             SharedPrefUtils.setString(this, Constants.SHARE_KEY.KEY_ACCOUNT, user.getLoginName());
             SharedPrefUtils.setString(this, Constants.SHARE_KEY.TYPE, userModel.getAlarmright());
+            SharedPrefUtils.setString(this,Constants.SHARE_KEY.USER_ID,userModel.getUser().getId());
             SharedPrefUtils.setBoolean(this, Constants.SHARE_KEY.FIRST_LOGIN, false);
             showInfo(user);
         }
@@ -319,8 +318,6 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
 
     private void showInfo(UserModel.UserBean user) {
         ImageUtils.setHeadImage(this, user.getPhoto(), faceLoginImage);
-        faceLoginNameText.setText("警员："+user.getName());
-        faceLoginIdText.setText("警号："+user.getNo());
         faceLoginConfirm.setEnabled(true);
     }
 

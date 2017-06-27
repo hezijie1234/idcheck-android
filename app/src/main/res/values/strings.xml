@@ -2,15 +2,15 @@
     <string name="app_name">警务通</string>
 
     <string name="text_login_title">智能身份核查</string>
-    <string name="text_short_name">ZTE</string>
+    <string name="text_short_name">ZTE警务通</string>
 
-    <string name="text_hint_account">账号</string>
+    <string name="text_hint_account">警号</string>
     <string name="text_hint_pwd">密码</string>
     <string name="text_hint_oldpwd">输入原密码：</string>
-    <string name="text_hint_newpwd">输入新密码：</string>
+    <string name="text_hint_newpwd">请输入新密码：</string>
     <string name="text_hint_search">搜索</string>
     <string name="text_hint_input">请输入内容(最多输入100字)</string>
-
+    <string name="text_login_num">警号登录</string>
     <string name="text_name">姓\t名</string>
     <string name="text_sex">性\t别</string>
     <string name="text_zu">民\t族</string>
@@ -118,5 +118,5 @@
     <string name="NoteStrReadCardFailed">读卡失败</string>
     <string name="show_id_card_pic">身份证正反面</string>
 
-
+    <string name="idcard_record">核验记录</string>
 </resources>

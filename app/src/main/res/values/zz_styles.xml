@@ -9,7 +9,7 @@
         <!--Action bar color-->
         <item name="colorPrimary">@color/zz_colorPrimary</item>
         <!--Status bar color-->
-        <item name="colorPrimaryDark">@color/zz_colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/zz_white</item>
         <!--Window color-->
         <item name="android:windowBackground">@color/zz_bg_window</item>
         <!--各控制元件(如：check box、switch 或是 radio) 被勾选 (checked) 或是选定 (selected) 的颜色-->
