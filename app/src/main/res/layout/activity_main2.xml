@@ -6,73 +6,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_main"
-    android:layout_marginRight="1dp"
-    android:layout_marginLeft="1dp"
-    android:layout_marginBottom="10dp"
     tools:context="com.huiyu.tech.zhongxing.ui.activity.MainActivity2">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:orientation="horizontal">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/u26"/>-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/u17"/>-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--&gt;-->
+
+            <!--<com.huiyu.tech.zhongxing.widget.ClearEditText-->
+                <!--android:id="@+id/activity_main2_num"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:textColor="@color/zz_black"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:textSize="12sp"-->
+                <!--android:background="@drawable/bg_face_login_et"-->
+                <!--android:hint="警号"/>-->
+
+            <!--<com.huiyu.tech.zhongxing.widget.ClearEditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@color/zz_black"-->
+                <!--android:background="@drawable/bg_face_login_et"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:hint="警员"/>-->
+
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/u26"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/u17"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.huiyu.tech.zhongxing.widget.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginBottom="20dp"
+            android:src="@mipmap/u23"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#1c3b71"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:text="警号:ASQ1007"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            >
-
-            <com.huiyu.tech.zhongxing.widget.ClearEditText
-                android:id="@+id/activity_main2_num"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/zz_black"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="12sp"
-                android:background="@drawable/bg_face_login_et"
-                android:hint="警号"/>
-
-            <com.huiyu.tech.zhongxing.widget.ClearEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="12sp"
-                android:textColor="@color/zz_black"
-                android:background="@drawable/bg_face_login_et"
-                android:layout_marginTop="15dp"
-                android:gravity="center_vertical"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
-                android:hint="警员"/>
-
-        </RelativeLayout>
-
-
+            android:textColor="@color/zz_white"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1dp"
+            android:background="#cccccc"
+            android:layout_gravity="center_vertical"
+            android:layout_height="40dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="警员:张金敏"
+            android:textColor="@color/zz_white"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#cccccc"/>
+        android:background="#eeeeee"/>
     <GridLayout
         android:id="@+id/gridlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/zz_black"
+        android:background="#eeeeee"
         android:rowCount="5"
         android:columnCount="3"
         android:horizontalSpacing="2dip"
@@ -82,7 +125,7 @@
             android:id="@+id/relative1"
             android:layout_columnSpan="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_marginRight="1dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
@@ -96,13 +139,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u39"/>
+                android:src="@mipmap/jwt_1"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="人证核验"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image1"
                 />
@@ -116,7 +159,7 @@
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
             android:gravity="center"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
@@ -126,13 +169,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u43"/>
+                android:src="@mipmap/jwt_2"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="嫌犯扫描"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image3"
                 />
@@ -143,7 +186,7 @@
             android:layout_rowSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="1dp"
@@ -156,13 +199,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u41"/>
+                android:src="@mipmap/jwt_3"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="模板采集"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image4"
                 />
@@ -173,7 +216,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
@@ -186,13 +229,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u61"/>
+                android:src="@mipmap/jwt_5"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="警情处理"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image5"
                 />
@@ -202,7 +245,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
@@ -215,13 +258,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u69"/>
+                android:src="@mipmap/jwt_4"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="历史警情"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image6"
                 />
@@ -231,7 +274,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_rowWeight="1"
             android:gravity="center"
@@ -244,13 +287,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u65"/>
+                android:src="@mipmap/jwt_6"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="警情下达"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image7"
                 />
@@ -260,7 +303,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_rowWeight="1"
             android:gravity="center"
@@ -273,13 +316,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u77"/>
+                android:src="@mipmap/jwt_7"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="通知公告"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image8"
                 />
@@ -289,7 +332,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_width="wrap_content"
             android:layout_rowWeight="1"
             android:gravity="center"
@@ -302,13 +345,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u73"/>
+                android:src="@mipmap/jwt_8"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系人"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image9"
                 />
@@ -318,7 +361,7 @@
             android:layout_columnSpan="1"
             android:layout_columnWeight="1"
             android:layout_rowSpan="1"
-            android:background="@color/bg_main"
+            android:background="@color/zz_white"
             android:layout_rowWeight="1"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -331,189 +374,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/u75"/>
+                android:src="@mipmap/jwt_9"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="密码修改"
+                android:text="设置"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
+                android:textColor="@color/zz_main_text"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image10"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/relative10"
-            android:layout_columnSpan="1"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:background="@color/bg_main"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            >
-            <ImageView
-                android:id="@+id/image11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/u41"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="个人设置"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/image11"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/relative11"
-            android:layout_columnSpan="1"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:background="@color/bg_main"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            >
-            <ImageView
-                android:id="@+id/image12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/u79"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="关于"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/zz_white"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/image12"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/relative12"
-            android:layout_columnSpan="1"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:background="@color/bg_main"
-            android:layout_width="wrap_content"
-            android:layout_rowWeight="1"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            >
-            <ImageView
-                android:id="@+id/image13"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/u39"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人证核验"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone"
-                android:layout_below="@id/image13"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/relative13"
-            android:layout_columnSpan="1"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:background="@color/bg_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:gravity="center"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            >
-            <ImageView
-                android:id="@+id/image14"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/u39"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人证核验"
-                android:visibility="gone"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/image14"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/relative14"
-            android:layout_columnSpan="1"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:background="@color/bg_main"
-            android:gravity="center"
-            android:layout_rowWeight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            >
-            <ImageView
-                android:id="@+id/image15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/u39"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人证核验"
-                android:visibility="gone"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/image15"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/relative15"
-            android:layout_columnSpan="1"
-            android:layout_columnWeight="1"
-            android:layout_rowSpan="1"
-            android:background="@color/bg_main"
-            android:layout_rowWeight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            >
-            <ImageView
-                android:visibility="invisible"
-                android:id="@+id/image16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/u39"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人证核验"
-                android:visibility="invisible"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/image16"
                 />
         </RelativeLayout>
     </GridLayout>

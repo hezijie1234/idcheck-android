@@ -318,7 +318,9 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
                             });
                     builder.show();
                 } else {
-                    CustomToast.showToast(getActivity(), "当前已是最新版本！");
+                    if(getActivity() != null){
+                        CustomToast.showToast(getActivity(), "当前已是最新版本！");
+                    }
                 }
                 break;
         }

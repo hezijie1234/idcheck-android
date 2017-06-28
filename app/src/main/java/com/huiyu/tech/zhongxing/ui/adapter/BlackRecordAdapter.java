@@ -63,6 +63,7 @@ public class BlackRecordAdapter extends BaseAdapter {
         holder.time.setText(dBean.getCreateDate());
         holder.name.setText(dBean.getUserName());
         holder.idCard.setText(dBean.getIdcard());
+        String strin = dBean.getUserImage();
         Picasso.with(context).load(dBean.getUserImage() )
                 .placeholder(R.mipmap.id_03)
                 .error(R.mipmap.id_03)

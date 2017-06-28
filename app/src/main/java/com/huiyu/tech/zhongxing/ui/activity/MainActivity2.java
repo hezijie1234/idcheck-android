@@ -20,8 +20,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     private RelativeLayout relativeLayout7;
     private RelativeLayout relativeLayout8;
     private RelativeLayout relativeLayout9;
-    private RelativeLayout relativeLayout10;
-    private RelativeLayout relativeLayout11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +39,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         relativeLayout7 = (RelativeLayout) findViewById(R.id.relative7);
         relativeLayout8 = (RelativeLayout) findViewById(R.id.relative8);
         relativeLayout9 = (RelativeLayout) findViewById(R.id.relative9);
-        relativeLayout10 = (RelativeLayout) findViewById(R.id.relative10);
-        relativeLayout11 = (RelativeLayout) findViewById(R.id.relative11);
         relativeLayout1.setOnClickListener(this);
         relativeLayout2.setOnClickListener(this);
         relativeLayout3.setOnClickListener(this);
@@ -52,8 +48,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         relativeLayout7.setOnClickListener(this);
         relativeLayout8.setOnClickListener(this);
         relativeLayout9.setOnClickListener(this);
-        relativeLayout10.setOnClickListener(this);
-        relativeLayout11.setOnClickListener(this);
 
     }
 
@@ -70,7 +64,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(MainActivity2.this,AddSuspectActivity.class));
                 break;
             case R.id.relative4:
-
+                startActivity(new Intent(MainActivity2.this,WarningDealActivity.class));
                 break;
             case R.id.relative5:
                 startActivity(new Intent(MainActivity2.this,HistoryWarningsActivity.class));
@@ -85,13 +79,14 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(MainActivity2.this,ContactsActivity.class));
                 break;
             case R.id.relative9:
-                startActivity(new Intent(MainActivity2.this,ModifyPwdActivity.class));
-                break;
-            case R.id.relative10:
-                break;
-            case R.id.relative11:
+//                startActivity(new Intent(MainActivity2.this,ModifyPwdActivity.class));
                 startActivity(new Intent(MainActivity2.this,SettingActivity.class));
                 break;
+//            case R.id.relative10:
+//                break;
+//            case R.id.relative11:
+//
+//                break;
         }
     }
 }

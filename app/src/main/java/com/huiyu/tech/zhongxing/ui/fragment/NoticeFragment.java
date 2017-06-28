@@ -149,7 +149,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
     public void onAPIError(String flag, int code, String error) {
         lvInfo.onRefreshComplete();
         hideProgressDialog();
-        CustomToast.showToast(getActivity(),error);
+//        CustomToast.showToast(getActivity(),error);
     }
 
 }

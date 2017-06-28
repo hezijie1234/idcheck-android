@@ -8,7 +8,7 @@
     <color name="zz_bg_window">#F2F2F2</color>
 
     <color name="zz_divider">#D9D9D9</color>
-
+    <color name="zz_main_text">#959595</color>
     <color name="zz_black">#000000</color>
     <color name="zz_white">#FFFFFF</color>
     <color name="zz_white_click">#80FFFFFF</color>

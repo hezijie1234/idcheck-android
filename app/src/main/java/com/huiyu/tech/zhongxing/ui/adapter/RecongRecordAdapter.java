@@ -58,13 +58,10 @@ public class RecongRecordAdapter extends BaseAdapter {
         }
         RecongRecordModel.DBean dBean = mDataList.get(position);
         holder.time.setText(dBean.getOperation_time());
-        String return_score = dBean.getReturn_score();
-        double doubleScore = Double.parseDouble(return_score);
-        int score = (int) doubleScore + 1;
-        if(score > 75){
+        if(dBean.getIs_marry().equals("1")){
             holder.typeName.setText("人证相符");
             holder.typeName.setTextColor(context.getResources().getColor(R.color.recon_success));
-        }else {
+        }else if(dBean.getIs_marry().equals("0")){
             holder.typeName.setText("人证不符");
             holder.typeName.setTextColor(context.getResources().getColor(R.color.recon_unsuccess));
         }

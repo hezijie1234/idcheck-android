@@ -119,7 +119,8 @@
         <activity android:name=".ui.activity.ScanRecordActivity" />
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.EmergencyActivity" />
-        <activity android:name=".ui.activity.NoticeActivity"></activity>
+        <activity android:name=".ui.activity.NoticeActivity" />
+        <activity android:name=".ui.activity.WarningDealActivity"></activity>
     </application>
 
 </manifest>

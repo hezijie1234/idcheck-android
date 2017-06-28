@@ -49,10 +49,10 @@ import org.json.JSONObject;
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener,PullToRefreshBase.OnRefreshListener2, AdapterView.OnItemClickListener, OnResponseListener {
 
-    private LinearLayout layoutFaceRecognize;
-    private LinearLayout layoutEmergency;
+//    private LinearLayout layoutFaceRecognize;
+//    private LinearLayout layoutEmergency;
     private PullToRefreshListView lvInfo;
-    private TextView tvNewNum;
+//    private TextView tvNewNum;
 
     private CheckInfoAdapter checkInfoAdapter;
 
@@ -117,20 +117,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
         view = inflater.inflate(R.layout.fragment_home, container, false);
         type = SharedPrefUtils.getString(getActivity(), Constants.SHARE_KEY.TYPE, "0");
         initView();
-//        initData();
+        initData();
         return view;
     }
 
     private void initView(){
-        showTitleView(getResources().getString(R.string.title_fragment_home));
-        showRightViewOne(R.mipmap.zte_23,this);
+//        showTitleView(getResources().getString(R.string.title_fragment_home));
+//        showRightViewOne(R.mipmap.zte_23,this);
 
-        layoutFaceRecognize = (LinearLayout) view.findViewById(R.id.layout_face_recognize);
-        layoutEmergency = (LinearLayout) view.findViewById(R.id.layout_emergency);
+//        layoutFaceRecognize = (LinearLayout) view.findViewById(R.id.layout_face_recognize);
+//        layoutEmergency = (LinearLayout) view.findViewById(R.id.layout_emergency);
         lvInfo = (PullToRefreshListView) view.findViewById(R.id.lv_info);
-        tvNewNum = (TextView) view.findViewById(R.id.tv_new_num);
-
-        tvNewNum.setVisibility(View.INVISIBLE);
+//        tvNewNum = (TextView) view.findViewById(R.id.tv_new_num);
+//
+//        tvNewNum.setVisibility(View.INVISIBLE);
 
         lvInfo.setMode(PullToRefreshBase.Mode.BOTH);
         lvInfo.setPullToRefreshOverScrollEnabled(false);
@@ -142,8 +142,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
         checkInfoAdapter = new CheckInfoAdapter(getActivity());
         lvInfo.setAdapter(checkInfoAdapter);
 
-        layoutFaceRecognize.setOnClickListener(this);
-        layoutEmergency.setOnClickListener(this);
+//        layoutFaceRecognize.setOnClickListener(this);
+//        layoutEmergency.setOnClickListener(this);
         lvInfo.setOnItemClickListener(this);
     }
 
@@ -187,16 +187,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.btn_action_one:
-                startActivity(new Intent(getActivity(),HistoryWarningsActivity.class));
-                break;
-            case R.id.layout_face_recognize:
-                startActivity(new Intent(getActivity(),FaceRecognitionActivity.class));
-                break;
-            case R.id.layout_emergency:
-                //startActivity(new Intent(getActivity(),EmergencyNoticeActivity.class));
-                startActivity(new Intent(getActivity(), SuspectScanActivity.class));
-                break;
+//            case R.id.btn_action_one:
+//                startActivity(new Intent(getActivity(),HistoryWarningsActivity.class));
+//                break;
+//            case R.id.layout_face_recognize:
+//                startActivity(new Intent(getActivity(),FaceRecognitionActivity.class));
+//                break;
+//            case R.id.layout_emergency:
+//                //startActivity(new Intent(getActivity(),EmergencyNoticeActivity.class));
+//                startActivity(new Intent(getActivity(), SuspectScanActivity.class));
+//                break;
         }
     }
 
@@ -256,11 +256,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
         if(!TextUtils.isEmpty(checkInfo.getListcount())){
             newCount = Integer.parseInt(checkInfo.getListcount());
             if(newCount > 0){
-                tvNewNum.setVisibility(View.VISIBLE);
-                tvNewNum.setText("（您有"+newCount+"条新警情）");
+//                tvNewNum.setVisibility(View.VISIBLE);
+//                tvNewNum.setText("（您有"+newCount+"条新警情）");
                 sendNotivication(newCount);
             }else{
-                tvNewNum.setVisibility(View.GONE);
+//                tvNewNum.setVisibility(View.GONE);
             }
         }
         if(checkInfo.getList() != null && checkInfo.getList().size() > 0){
