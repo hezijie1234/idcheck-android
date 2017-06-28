@@ -3,6 +3,7 @@ package com.huiyu.tech.zhongxing.api;
 import android.text.TextUtils;
 
 import java.io.File;
+import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -322,18 +323,19 @@ public class ApiImpl {
         OkHttpManager.getInstance().get(DOMIN + BLACK_TYPE , new ResultParser(BLACK_TYPE, listener));
     }
 
-    public void getRecongRecord(String userId,int pageNo,int type,OnResponseListener listener){
+    public void getRecongRecord(Map<String,Object> params, OnResponseListener listener){
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        builder.addFormDataPart("userId",userId);
-        builder.addFormDataPart("pageNo",pageNo+"");
-        builder.addFormDataPart("type",type + "");
+        for(String key : params.keySet()){
+            builder.addFormDataPart(key,params.get(key)+"");
+        }
         RequestBody body = builder.build();
         OkHttpManager.getInstance().post(DOMIN + RECONG_SCAN_RECORD,body,new ResultParser(RECONG_SCAN_RECORD,listener));
     }
-    public void getModelRecord(String userId,int pageNo,OnResponseListener listener){
+    public void getModelRecord(Map<String,Object> params,OnResponseListener listener){
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        builder.addFormDataPart("userId",userId);
-        builder.addFormDataPart("pageNo",pageNo+"");
+        for(String key : params.keySet()){
+            builder.addFormDataPart(key,params.get(key)+"");
+        }
         RequestBody body = builder.build();
         OkHttpManager.getInstance().post(DOMIN + BLACK_LIST,body,new ResultParser(BLACK_LIST,listener));
     }
