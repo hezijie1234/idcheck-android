@@ -58,6 +58,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginBottom="20dp"
             android:layout_height="match_parent"
+
             android:src="@mipmap/recong_1"/>
     </FrameLayout>
     <FrameLayout
