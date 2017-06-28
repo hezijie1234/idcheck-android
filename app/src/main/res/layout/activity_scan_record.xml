@@ -8,18 +8,22 @@
     tools:context="com.huiyu.tech.zhongxing.ui.activity.ScanRecordActivity">
     <include layout="@layout/title_bar"/>
     <RelativeLayout
+        android:id="@+id/relSearch"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E4E4E4"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         >
-        <EditText
+        <TextView
+            android:textSize="13sp"
+            android:gravity="center"
+            android:hint="输入开始时间"
             android:id="@+id/start_time"
             android:layout_marginLeft="10dp"
             android:layout_width="105dp"
             android:layout_height="25dp"
-            android:textCursorDrawable="@null"
             android:layout_marginRight="10dp"
             android:background="@drawable/shape_history_warn1"
             />
@@ -29,20 +33,22 @@
             android:layout_centerVertical="true"
             style="@style/Line"
             />
-        <EditText
+        <TextView
+            android:textSize="13sp"
+            android:gravity="center"
+            android:hint="输入结束时间"
             android:id="@+id/end_time"
             android:layout_toRightOf="@id/line"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_width="105dp"
             android:layout_height="25dp"
-            android:textCursorDrawable="@null"
             android:background="@drawable/shape_history_warn1"
             />
+
         <Button
             android:layout_width="70dp"
             android:layout_height="25dp"
-            android:layout_alignParentRight="true"
             android:textSize="12sp"
             android:background="@drawable/add_suspect_text_bg"
             android:text="检索"
@@ -50,7 +56,9 @@
             android:paddingLeft="20dp"
             android:layout_marginRight="10dp"
             android:textColor="@color/zz_black"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/search" />
     </RelativeLayout>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/lv_info"

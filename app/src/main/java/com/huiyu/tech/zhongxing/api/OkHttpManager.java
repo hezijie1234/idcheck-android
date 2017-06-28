@@ -64,7 +64,10 @@ public class OkHttpManager {
                     return true;
                 }
             });
-
+            okhttp3.logging.HttpLoggingInterceptor loggingInterceptor = new okhttp3.logging.HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BODY);
+            //设置 Debug Log 模式
+            okHttpClientBuilder.addInterceptor(loggingInterceptor);
             mOkHttpClient = okHttpClientBuilder.build();
         } else {
             mOkHttpClient = okHttpClient;
