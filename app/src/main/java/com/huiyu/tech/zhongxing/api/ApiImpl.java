@@ -20,9 +20,9 @@ public class ApiImpl {
 //    public static final String DOMIN = "http://121.42.178.20:7080/idcheck";
 //    public static final String DOMIN = "http://ztesai.3322.org:8800/idcheck";
     //测试
-    public static final String HOST = "http://192.168.1.19:8080";
+//    public static final String HOST = "http://192.168.1.19:8080";
     //杨磊
-//    public static final String HOST = "http://192.168.1.252:8080";
+    public static final String HOST = "http://192.168.1.252:8080";
 //    public static final String HOST = "http://ztesai.3322.org:8800";
 //    public static final String HOST = "http://192.168.20.72:6789";
     public static final String DOMIN = HOST + "/idcheck/";
@@ -65,7 +65,7 @@ public class ApiImpl {
     public static final String RECONG_SCAN_RECORD = "api/mobile/log/check";
     //模板录入的记录
     public static final String  BLACK_LIST = "api/mobile/log/blacklist";
-
+    public static final String WARN_NUM = "api/mobile/alarm/count";
     public void faceLogin(String deviceId, String imageName, String imageStr, OnResponseListener listener) {
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("deviceId", deviceId);
@@ -166,6 +166,19 @@ public class ApiImpl {
         builder.add("id", id);
         RequestBody body = builder.build();
         OkHttpManager.getInstance().post(DOMIN + GET_CHECK_DETAIL, body, new ResultParser(GET_CHECK_DETAIL, listener));
+    }
+
+    /**获取最新的警情数量
+     * @param userId
+     * @param date
+     * @param listener
+     */
+    public  void getWarningNum(String userId,String date,OnResponseListener listener){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("userId",userId);
+        builder.add("time",date);
+        RequestBody body = builder.build();
+        OkHttpManager.getInstance().post(DOMIN+WARN_NUM,body,new ResultParser(WARN_NUM,listener));
     }
 
     /**

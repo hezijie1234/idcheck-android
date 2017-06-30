@@ -36,10 +36,14 @@ public class EmergencyNoticeAdapter extends ZZBaseAdapter<EmergencyNoticeModel.L
         Collections.sort(mDataList, new Comparator<EmergencyNoticeModel.ListBean>() {
             @Override
             public int compare(EmergencyNoticeModel.ListBean listBean, EmergencyNoticeModel.ListBean t1) {
-                Date date1 = DataUtils.string2Data(listBean.getPubeDate());
-                Date date2 = DataUtils.string2Data(t1.getPubeDate());
-                if(date1.before(date2)){
-                    return 1;
+                if(listBean != null && t1 != null){
+                    Date date1 = DataUtils.string2Data(listBean.getPubeDate());
+                    Date date2 = DataUtils.string2Data(t1.getPubeDate());
+                    if(date1 != null && date2 != null){
+                        if(date1.before(date2)){
+                            return 1;
+                        }
+                    }
                 }
                 return -1;
             }

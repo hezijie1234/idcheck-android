@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -31,8 +33,11 @@ import com.huiyu.tech.zhongxing.R;
 import com.huiyu.tech.zhongxing.api.ApiImpl;
 import com.huiyu.tech.zhongxing.api.OnResponseListener;
 import com.huiyu.tech.zhongxing.models.CheckInfo;
+import com.huiyu.tech.zhongxing.models.WarningDealModel;
 import com.huiyu.tech.zhongxing.ui.BaseFragment;
+import com.huiyu.tech.zhongxing.ui.activity.EmergencyHandleActivity;
 import com.huiyu.tech.zhongxing.ui.activity.FaceRecognitionActivity;
+import com.huiyu.tech.zhongxing.ui.activity.HandleResultActivity;
 import com.huiyu.tech.zhongxing.ui.activity.HistoryWarningsActivity;
 import com.huiyu.tech.zhongxing.ui.activity.HomeActivity;
 import com.huiyu.tech.zhongxing.ui.activity.SuspectScanActivity;
@@ -101,21 +106,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        LogUtils.i("isVisibleToUserxxx="+isVisibleToUser);
-        if(isVisibleToUser){
-            handler.sendEmptyMessage(REFRESH);
-        }else{
-            handler.removeCallbacks(runnable);
-        }
+    public void onResume() {
+        super.onResume();
+        handler.sendEmptyMessage(REFRESH);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
+    }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        LogUtils.i("isVisibleToUserxxx="+isVisibleToUser);
+//        if(isVisibleToUser){
+//            handler.sendEmptyMessage(REFRESH);
+//        }else{
+//            handler.removeCallbacks(runnable);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         type = SharedPrefUtils.getString(getActivity(), Constants.SHARE_KEY.TYPE, "0");
+        Log.e("111", "onCreateView: type = "+type );
         initView();
         initData();
         return view;
@@ -177,11 +195,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
     }
 
     private void loadData(){
-        if(!type.equals("0")){
+//        if(!type.equals("0")){
             showProgressDialog(true);
             LogUtils.i("serialno2="+serialno);
             ApiImpl.getInstance().searchAlarmList(null,""+page,""+REFRESH_SIZE,"0",serialno,this);
-        }
+//        }
     }
 
     @Override
@@ -239,38 +257,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         int pos = position - lvInfo.getRefreshableView().getHeaderViewsCount();
-        Intent intent = new Intent(getActivity(),WarningDetailActivity.class);
-        intent.putExtra("info",checkInfoAdapter.getItem(pos));
-        intent.putExtra("has_handle",false);
+        Intent intent = new Intent(getActivity(),EmergencyHandleActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.KEY_ID,checkInfoAdapter.getItem(pos).getId());
         startActivityForResult(intent,Constants.REQUEST_REFRESH_LIST);
     }
 
     @Override
     public void onAPISuccess(String flag, JSONObject json) {
+        Gson gson = new Gson();
         hideProgressDialog();
         handler.postDelayed(runnable,30000);
         lvInfo.onRefreshComplete();
         LogUtils.i("json="+json);
-        CheckInfo checkInfo = JSON.parseObject(json.optString("d"), CheckInfo.class);
-        max_page = checkInfo.getMax_page();
-        if(!TextUtils.isEmpty(checkInfo.getListcount())){
-            newCount = Integer.parseInt(checkInfo.getListcount());
+        WarningDealModel checkInfo = gson.fromJson(json.toString(),WarningDealModel.class);
+        max_page = checkInfo.getD().getMax_page();
+        if(!TextUtils.isEmpty(checkInfo.getD().getList().size()+"")){
+            newCount = checkInfo.getD().getList().size();
             if(newCount > 0){
 //                tvNewNum.setVisibility(View.VISIBLE);
 //                tvNewNum.setText("（您有"+newCount+"条新警情）");
-                sendNotivication(newCount);
+//                sendNotivication(newCount);
             }else{
 //                tvNewNum.setVisibility(View.GONE);
             }
         }
-        if(checkInfo.getList() != null && checkInfo.getList().size() > 0){
+        if(checkInfo.getD().getList() != null && checkInfo.getD().getList().size() > 0){
             if (page > 1) {
-                checkInfoAdapter.addItems(checkInfo.getList());
+                checkInfoAdapter.addItems(checkInfo.getD().getList());
             } else {
-                checkInfoAdapter.setItems(checkInfo.getList());
+                checkInfoAdapter.setItems(checkInfo.getD().getList());
             }
-            serialno = checkInfoAdapter.getItem(0).getSerialno();
-            LogUtils.i("serialno1="+serialno);
+//            serialno = checkInfoAdapter.getItem(0).getSerialno();
         }else{
             checkInfoAdapter.clearItems();
             CustomToast.showToast(getActivity(),"暂无数据");

@@ -23,9 +23,9 @@ import java.util.List;
 public class RecongRecordAdapter extends BaseAdapter {
 
     private Context context;
-    private List<RecongRecordModel.DBean> mDataList;
+    private List<RecongRecordModel.DBean.ListBean> mDataList;
 
-    public RecongRecordAdapter(Context context, List<RecongRecordModel.DBean> mDataList) {
+    public RecongRecordAdapter(Context context, List<RecongRecordModel.DBean.ListBean> mDataList) {
         this.context = context;
         this.mDataList = mDataList;
     }
@@ -56,7 +56,7 @@ public class RecongRecordAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        RecongRecordModel.DBean dBean = mDataList.get(position);
+        RecongRecordModel.DBean.ListBean dBean = mDataList.get(position);
         holder.time.setText(dBean.getOperation_time());
         if(dBean.getIs_marry().equals("1")){
             holder.typeName.setText("人证相符");

@@ -1,14 +1,22 @@
 package com.huiyu.tech.zhongxing.ui.fragment;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
@@ -23,10 +31,19 @@ import com.huiyu.tech.zhongxing.ui.BaseFragment;
 import com.huiyu.tech.zhongxing.ui.activity.NoticeDetailActivity;
 import com.huiyu.tech.zhongxing.ui.adapter.NoticeAdapter;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
+import com.huiyu.tech.zhongxing.utils.DataUtils;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
 import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
+import com.huiyu.tech.zhongxing.utils.TimeRenderUtils;
 
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import static com.huiyu.tech.zhongxing.Constants.SHARE_KEY.USER_ID;
 
@@ -36,14 +53,17 @@ import static com.huiyu.tech.zhongxing.Constants.SHARE_KEY.USER_ID;
 public class NoticeFragment extends BaseFragment implements PullToRefreshBase.OnRefreshListener2, AdapterView.OnItemClickListener, OnResponseListener {
 
     private PullToRefreshListView lvInfo;
-
+    private LinearLayout startLinear;
+    private LinearLayout endLinear;
+    private TextView startText;
+    private TextView endText;
     private int max_page;
     private int page = 1;
     private static final int REFRESH_SIZE = 20;
     private Context context;
-
+    private List<NoticeModel.ListBean> allItems = new ArrayList<>();
     private NoticeAdapter noticeAdapter;
-
+    private Button searchBtn;
     public NoticeFragment() {
         // Required empty public constructor
     }
@@ -68,6 +88,11 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         //showTitleView(getResources().getString(R.string.title_notice));
 
         lvInfo = (PullToRefreshListView) view.findViewById(R.id.lv_info);
+        startLinear = (LinearLayout) view.findViewById(R.id.start_linear);
+        endLinear = (LinearLayout) view.findViewById(R.id.end_linear);
+        startText = (TextView) view.findViewById(R.id.start_time);
+        endText = (TextView) view.findViewById(R.id.end_time);
+        searchBtn = (Button) view.findViewById(R.id.search_btn);
         lvInfo.setMode(PullToRefreshBase.Mode.BOTH);
         lvInfo.setPullToRefreshOverScrollEnabled(false);
         lvInfo.setOnRefreshListener(this);
@@ -77,8 +102,88 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         startLabels.setReleaseLabel("松开载入更多");// 下来达到一定距离时，显示的提示
         noticeAdapter = new NoticeAdapter(getActivity());
         lvInfo.setAdapter(noticeAdapter);
-
         lvInfo.setOnItemClickListener(this);
+        startLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(startText);
+            }
+        });
+        endLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(endText);
+            }
+        });
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeFilter();
+            }
+        });
+    }
+
+    public void timeFilter(){
+        String startStr = startText.getText().toString();
+        Log.e("111", "onClick: 开始时间"+startStr );
+        String endStr = endText.getText().toString();
+        Log.e("111", "onClick:结束时间 "+startStr );
+        long now = System.currentTimeMillis();
+        String nowTime = TimeRenderUtils.getDate("yyyy-MM-dd HH:mm:ss", now);
+        if(startStr.equals("开始时间")){
+            startStr = "2017-1-1 00:00:01";
+        }else {
+            startStr += " 00:00:01";
+        }
+        if(endStr.equals("结束时间")){
+            endStr = nowTime;
+        }else {
+            endStr += " 23:59:59" ;
+        }
+        Date date1 = DataUtils.string2Data(startStr);
+        Date date2 = DataUtils.string2Data(endStr);
+        if(date1 != null && date2 != null){
+            if(date1.after(date2)){
+                Toast.makeText(context, "开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            List<NoticeModel.ListBean> newItems = new ArrayList<NoticeModel.ListBean>();
+            if(allItems != null && allItems.size() > 0){
+                for(NoticeModel.ListBean listBean : allItems){
+                    String createDate = listBean.getCreateDate();
+                    if(createDate == null){
+                        continue;
+                    }
+                    Date itemDate = DataUtils.string2Data(createDate);
+                    if(itemDate == null){
+                        continue;
+                    }
+                    if(itemDate.after(date1) && itemDate.before(date2)){
+                        newItems.add(listBean);
+                    }
+                }
+                noticeAdapter.setItems(newItems);
+            }
+        }
+    }
+    private void showDatePickerDialog(final TextView result) {
+        Calendar calendar = Calendar.getInstance();
+        if (TextUtils.isEmpty(result.getText())) {
+            calendar.setTime(new Date());
+        } else {
+            try {
+                calendar.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(result.getText().toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        new DatePickerDialog(context,R.style.ThemeDialog,new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String date = year + "-" + (month < 10 ? "0" : "") + (month + 1) + "-" + (dayOfMonth < 10 ? "0" : "") + dayOfMonth;
+                result.setText(date);
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     @Override
@@ -135,9 +240,13 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         max_page = noticeModel.getMax_page();
         if(noticeModel.getList() != null && noticeModel.getList().size() > 0){
             if (page > 1) {
-                noticeAdapter.addItems(noticeModel.getList());
+                allItems.addAll(noticeModel.getList());
+                //刷新时根据时间段筛选数据，
+                timeFilter();
             } else {
-                noticeAdapter.setItems(noticeModel.getList());
+                allItems.clear();
+                allItems.addAll(noticeModel.getList());
+                timeFilter();
             }
         }else{
             noticeAdapter.clearItems();

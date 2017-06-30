@@ -1,6 +1,7 @@
 package com.huiyu.tech.zhongxing.ui.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.huiyu.tech.zhongxing.Constants;
 import com.huiyu.tech.zhongxing.R;
 import com.huiyu.tech.zhongxing.api.ApiImpl;
 import com.huiyu.tech.zhongxing.api.OnResponseListener;
@@ -25,6 +27,7 @@ import com.huiyu.tech.zhongxing.ui.BaseFragment;
 import com.huiyu.tech.zhongxing.ui.adapter.ContactsAdapter;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
+import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
 import com.huiyu.tech.zhongxing.utils.pinyin.CharacterParser;
 import com.huiyu.tech.zhongxing.utils.pinyin.PinyinComparator2;
 import com.huiyu.tech.zhongxing.widget.ClearEditText;
@@ -50,6 +53,7 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
     private List<ContactsPageModel.ListBean> mAllContactsList;
     private List<ContactsModel> sortList;//排序后的数据
     private ContactsAdapter contactsAdapter;
+    private Context context;
 
     /**
      * 汉字转换成拼音的类
@@ -63,6 +67,12 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
 
     public ContactsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -267,6 +277,13 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
         ContactsPageModel checkInfo = JSON.parseObject(json.optString("d"), ContactsPageModel.class);
         if(checkInfo.getList() != null && checkInfo.getList().size() > 0){
             mAllContactsList.addAll(checkInfo.getList());
+            for (ContactsPageModel.ListBean listBean : mAllContactsList){
+                if(listBean != null){
+                    if(SharedPrefUtils.getString(context, Constants.SHARE_KEY.USER_ID,"").equals(listBean.getId())){
+                        mAllContactsList.remove(listBean);
+                    }
+                }
+            }
             sortList = getSortContacts(mAllContactsList);
             contactsAdapter.setItems(sortList);
         }

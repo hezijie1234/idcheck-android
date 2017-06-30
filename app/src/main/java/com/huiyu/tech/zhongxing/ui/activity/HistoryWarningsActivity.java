@@ -297,7 +297,7 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
                 e.printStackTrace();
             }
         }
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(this, R.style.ThemeDialog,new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String date = year + "-" + (month < 10 ? "0" : "") + (month + 1) + "-" + (dayOfMonth < 10 ? "0" : "") + dayOfMonth;

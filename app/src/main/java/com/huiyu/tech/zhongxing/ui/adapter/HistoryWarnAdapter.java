@@ -2,6 +2,7 @@ package com.huiyu.tech.zhongxing.ui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,8 +19,8 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by ml on 2016/8/5.
  */
-public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListBean> {
-    public CheckInfoAdapter(Context context) {
+public class HistoryWarnAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListBean> {
+    public HistoryWarnAdapter(Context context) {
         super(context);
     }
 
@@ -36,6 +37,7 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         if(model.getFaceImage() != null){
             Picasso.with(context).load(model.getFaceImage())
                     .placeholder(R.mipmap.id_03)
@@ -53,18 +55,7 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         holder.tvTime.setText(model.getCreateDate());
         holder.name.setText(model.getAlarmName());
         holder.idCard.setText(model.getAlarmIdcard());
-//        holder.tvIdcard.setText("身份证：" + model.getIdcard());
-//        holder.tvSuspectType.setText(model.getAlarmType());
-//        holder.tvName.setText(model.getUserName());
-//        holder.tvZu.setText(model.getNation());
-//        if(!TextUtils.isEmpty(model.getIdcard())&&model.getIdcard().length() == 18){
-//            holder.tvYear.setText(model.getIdcard().substring(6,10));
-//            holder.tvMonth.setText(model.getIdcard().substring(10,12));
-//            holder.tvDay.setText(model.getIdcard().substring(12,14));
-//        }
-//        holder.tvAddr.setText(model.getAddress());
-//        holder.tvCard.setText(model.getIdcard());
-//        holder.tvSex.setText("male".equals(model.getSex()) ? "男" : "女");
+        holder.send.setText("查看详情");
 //        ImageUtils.setImage(context, model.getAddress(),holder.ivPic,R.mipmap.jz_07);
         if(model.getModelImage() != null){
             Picasso.with(context).load(model.getModelImage())
@@ -89,6 +80,7 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         private ImageView ivHead;
         private TextView name;
         private TextView idCard;
+        private TextView send;
 
         ViewHolder(View view) {
             tvType = (TextView) view.findViewById(R.id.place);
@@ -97,6 +89,7 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
             ivHead = (ImageView)view. findViewById(R.id.idcard_image);
             name = (TextView) view.findViewById(R.id.name);
             idCard = (TextView) view.findViewById(R.id.idcard);
+            send = (TextView) view.findViewById(R.id.send);
         }
 
     }

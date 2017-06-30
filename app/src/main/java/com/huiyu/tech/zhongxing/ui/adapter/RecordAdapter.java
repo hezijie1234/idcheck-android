@@ -23,9 +23,9 @@ import java.util.List;
 public class RecordAdapter extends BaseAdapter {
 
     private Context context;
-    private List<SuspectRecordModel.DBean> mDataList;
+    private List<SuspectRecordModel.DBean.ListBean> mDataList;
 
-    public RecordAdapter(Context context, List<SuspectRecordModel.DBean> mDataList) {
+    public RecordAdapter(Context context, List<SuspectRecordModel.DBean.ListBean> mDataList) {
         this.context = context;
         this.mDataList = mDataList;
     }
@@ -56,7 +56,7 @@ public class RecordAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        SuspectRecordModel.DBean dBean = mDataList.get(position);
+        SuspectRecordModel.DBean.ListBean dBean = mDataList.get(position);
         holder.time.setText(dBean.getOperation_time());
         holder.typeName.setText(dBean.getSuspectTypeName());
         Picasso.with(context).load(dBean.getFace_img_src() )

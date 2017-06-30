@@ -25,9 +25,9 @@ import static com.huiyu.tech.zhongxing.api.ApiImpl.DOMIN;
 public class BlackRecordAdapter extends BaseAdapter {
 
     private Context context;
-    private List<BlackRecordModel.DBean> mDataList;
+    private List<BlackRecordModel.DBean.ListBean> mDataList;
 
-    public BlackRecordAdapter(Context context, List<BlackRecordModel.DBean> mDataList) {
+    public BlackRecordAdapter(Context context, List<BlackRecordModel.DBean.ListBean> mDataList) {
         this.context = context;
         this.mDataList = mDataList;
     }
@@ -58,18 +58,27 @@ public class BlackRecordAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        BlackRecordModel.DBean dBean = mDataList.get(position);
+        BlackRecordModel.DBean.ListBean dBean = mDataList.get(position);
 
         holder.time.setText(dBean.getCreateDate());
         holder.name.setText(dBean.getUserName());
         holder.idCard.setText(dBean.getIdcard());
-        String strin = dBean.getUserImage();
-        Picasso.with(context).load(dBean.getUserImage() )
+        String imageStr = dBean.getUserImage();
+        int i = imageStr.indexOf("|");
+
+        String firstImage = imageStr.substring(0,i);
+        String secondImage = null;
+        if((i+1) < imageStr.length()){
+            secondImage = imageStr.substring(i+1,imageStr.length() - 1);
+        }
+
+        Log.e("111", "getView: "+firstImage + "----"+secondImage );
+        Picasso.with(context).load(firstImage )
                 .placeholder(R.mipmap.id_03)
                 .error(R.mipmap.id_03)
                 .fit()
-                .into(holder.idCardImage);
-        Picasso.with(context).load(DOMIN+dBean.getUserImageUrl() )
+                .into(holder.cameraImage);
+        Picasso.with(context).load(secondImage )
                 .placeholder(R.mipmap.id_03)
                 .error(R.mipmap.id_03)
                 .fit()

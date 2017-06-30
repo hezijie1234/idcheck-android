@@ -187,7 +187,7 @@
                 android:paddingBottom="5dp"
                 android:textColor="@color/zz_white"
                 android:background="#234a8c"
-                android:text="查看详情"/>
+                android:text="立即处理"/>
         </LinearLayout>
     </LinearLayout>
 

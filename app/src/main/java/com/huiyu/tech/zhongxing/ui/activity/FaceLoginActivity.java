@@ -30,6 +30,7 @@ import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.ImageUtils;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
 import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 import org.opencv.android.BaseLoaderCallback;
@@ -241,6 +242,7 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
                 isRequesting = true;
                 Mat mat = getDefaultCompareSize(mRgba.submat(facesArray[0]));
 //                compare(mat,headMat);
+                Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGBA2BGR, 3);
                 Imgcodecs.imwrite(Constants.CASH_IMG, mat);
                 Bitmap bitmap = BitmapFactory.decodeFile(Constants.CASH_IMG);
                 bitmap = ImageUtils.compressImage(bitmap);
@@ -328,6 +330,11 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
 
     private void showInfo(UserModel.UserBean user) {
         ImageUtils.setHeadImage(this, user.getPhoto(), faceLoginImage);
+        Picasso.with(this).load(user.getPhoto())
+                .placeholder(R.mipmap.id_03)
+                .error(R.mipmap.id_03)
+                .fit()
+                .into(faceLoginImage);
         faceLoginConfirm.setEnabled(true);
     }
 

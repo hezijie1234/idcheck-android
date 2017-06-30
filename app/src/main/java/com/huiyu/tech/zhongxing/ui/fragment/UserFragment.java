@@ -5,10 +5,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,8 +25,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +36,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.huiyu.tech.zhongxing.Constants;
@@ -70,7 +76,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     private static final int REQUEST_IMAGE = 2;
     private static final int REQUEST_CODE_SYSTEM_CROP = 3;
     private static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
-
+    private Context context;
     private LinearLayout layoutHead;
     private CircleImageView ivHead;
     private TextView tvName;
@@ -78,12 +84,22 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     private RelativeLayout layoutModifypwd;
     private RelativeLayout layoutCheckVersion;
     private TextView tvLogout;
-    private RelativeLayout addSuspect;
 
     // 存放图片路径的list
     private ArrayList<String> mSelectPath;
     private Uri avatarUri;
+    private int NOTIFICATION_ID_LIVE = 1000;
+    private String NOTIFICATION_DELETED_ACTION;
+    private String PUSH_TYPE = "type";
+    private String PUSH_TYPE_LIVE = "typeLive";
+    private NotificationManager manager;
+    private LocalBroadcastManager localManager;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public UserFragment() {
         // Required empty public constructor
@@ -117,19 +133,13 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         layoutModifypwd = (RelativeLayout) view.findViewById(R.id.layout_modifypwd);
         layoutCheckVersion = (RelativeLayout) view.findViewById(R.id.layout_check_version);
         tvLogout = (TextView) view.findViewById(R.id.tv_logout);
-        addSuspect = (RelativeLayout) view.findViewById(R.id.fragment_user_addsuspect);
-        tvVersion.setText("当前版本" + CommonUtils.getVersionName(getActivity()));
+        tvVersion.setText("当前版本" + CommonUtils.getVersionName(context));
         layoutHead.setOnClickListener(this);
         layoutModifypwd.setOnClickListener(this);
         layoutCheckVersion.setOnClickListener(this);
         tvLogout.setOnClickListener(this);
-        addSuspect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddSuspectActivity.class);
-                startActivity(intent);
-            }
-        });
+        localManager = LocalBroadcastManager.getInstance(context);
+        localManager.registerReceiver(mBroadcastReceiver,new IntentFilter("local"));
     }
 
     private void initData() {
@@ -168,7 +178,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
 
     private void pickImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
                     getString(R.string.mis_permission_rationale),
@@ -280,16 +290,16 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
             case ApiImpl.GET_USER_INFO:
                 UserModel.UserBean userModel = JSON.parseObject(json.optString("d"), UserModel.UserBean.class);
                 tvName.setText(userModel.getName());
-                Picasso.with(getActivity()).load(Constants.IMG_HOST + userModel.getPhoto())
+                Picasso.with(context).load(userModel.getPhoto())
                         .placeholder(R.mipmap.icon_default_head)
                         .error(R.mipmap.icon_default_head)
                         .fit()
                         .into(ivHead);
                 break;
             case ApiImpl.UPDATE_HEAD:
-                CustomToast.showToast(getActivity(), "上传成功！");
+                CustomToast.showToast(context, "上传成功！");
                 String head = json.optString("d");
-                Picasso.with(getActivity()).load(Constants.IMG_HOST + head)
+                Picasso.with(context).load(head)
                         .placeholder(R.mipmap.icon_default_head)
                         .error(R.mipmap.icon_default_head)
                         .fit()
@@ -329,7 +339,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onAPIError(String flag, int code, String error) {
         hideProgressDialog();
-        CustomToast.showToast(getActivity(), error);
+        CustomToast.showToast(context, error);
 
     }
 
@@ -337,7 +347,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
 
     private void downloadNewVersion(String url) {
         if (TextUtils.isEmpty(url)) {
-            CustomToast.showToast(getActivity(), "下载地址错误！");
+            CustomToast.showToast(context, "下载地址错误！");
             return;
         }
 
@@ -349,7 +359,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
             String name = url.substring(url.lastIndexOf("/") + 1, url.length());
             newVersionName = Constants.PROJECT_FOLDER_PATH + name;
         } else {
-            CustomToast.showToast(getActivity(), "SD卡错误！");
+            CustomToast.showToast(context, "SD卡错误！");
             return;
         }
 
@@ -408,7 +418,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void sendNotivication(int prograess) {
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_logo);
         builder.setLargeIcon(bitmap);
@@ -416,13 +426,14 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         builder.setWhen(System.currentTimeMillis());
         builder.setTicker("安装包下载中……");
         builder.setContentTitle(getString(R.string.text_download_title));
+//        .setDeleteIntent(PendingIntent.getBroadcast(context, 1000, new Intent(NOTIFICATION_DELETED_ACTION).putExtra(PUSH_TYPE, PUSH_TYPE_LIVE), 0));
         if (prograess < 100) {
             builder.setContentText(getString(R.string.text_downloading, prograess + "%"));
         } else {
             builder.setContentText(getString(R.string.text_download_over));
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
-        builder.setAutoCancel(true);
+//        builder.setAutoCancel(true);
 //        Intent installIntent = new Intent(Intent.ACTION_VIEW);
 //        installIntent.setDataAndType(Uri.fromFile(new File(newVersionName))
 //                , "application/vnd.android.package-archive");
@@ -433,6 +444,24 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         int notifyId = 1000;
         manager.notify(notifyId, builder.build());
     }
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent == null || context == null) {
+                return;
+            }
+            String action = intent.getAction();
+            manager.cancel(1000);
+
+            String type = intent.getStringExtra(PUSH_TYPE);
+            if (PUSH_TYPE_LIVE.equals(type)) {
+                //mNumLives = 0;
+                Log.e("111", "onReceive: 停止更新" );
+            }
+            //这里可以重新计数
+        }
+    };
 
     private final int MSG_DOWNLOAD_START = 0x1001;
     private final int MSG_DOWNLOAD_STOP = 0x1002;
@@ -444,6 +473,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
             switch (msg.what) {
                 case MSG_DOWNLOAD_START:
 //                    showDialog();
+                    Toast.makeText(context, "开始下载", Toast.LENGTH_LONG).show();
                     break;
                 case MSG_DOWNLOAD_STOP:
                     installApk();
