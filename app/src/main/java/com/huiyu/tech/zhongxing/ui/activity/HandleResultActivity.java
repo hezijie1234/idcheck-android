@@ -108,7 +108,7 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
 
     private void initView() {
         showBackView();
-        showTitleView(getResources().getString(R.string.title_handle_result));
+        showTitleView("警情处理详情");
 
         gvPic = (MyGridView) findViewById(R.id.gv_pic);
         layoutContainer = (RelativeLayout) findViewById(R.id.layout_container);

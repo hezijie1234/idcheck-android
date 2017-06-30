@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="85dp"
+    android:layout_height="85dp">
 
     <ImageView
         android:id="@+id/iv_pic"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerInParent="true"
         android:scaleType="centerCrop"/>
 
     <ImageView
         android:id="@+id/iv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/iv_video"
+        android:layout_alignRight="@id/iv_pic"
+        android:layout_marginRight="-5dp"
+        android:layout_marginTop="-5dp"
         android:layout_alignTop="@id/iv_video"
         android:padding="3dp"
-        android:src="@mipmap/icon_del" />
+        android:src="@mipmap/handle_2" />
 
     <RelativeLayout
         android:id="@+id/layout_add"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerInParent="true"
         android:background="@drawable/btn_add_video">
         <ImageView
+            android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@mipmap/zte_79"/>
+        <TextView
+            android:layout_below="@id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_centerInParent="true"
+            android:textColor="#e1e1e1"
+            android:text="添加图片"/>
     </RelativeLayout>
     <!--<ImageButton-->
         <!--android:id="@+id/iv_add_pic"-->

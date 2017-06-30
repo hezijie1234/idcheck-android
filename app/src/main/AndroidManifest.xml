@@ -113,14 +113,22 @@
         <activity
             android:name=".ui.activity.AddSuspectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.MainActivity2" />
-        <activity android:name=".ui.activity.ContactsActivity" />
-        <activity android:name=".ui.activity.FaceRecongResultActivity" />
-        <activity android:name=".ui.activity.ScanRecordActivity" />
-        <activity android:name=".ui.activity.SettingActivity" />
-        <activity android:name=".ui.activity.EmergencyActivity" />
-        <activity android:name=".ui.activity.NoticeActivity" />
-        <activity android:name=".ui.activity.WarningDealActivity"></activity>
+        <activity android:name=".ui.activity.MainActivity2"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.FaceRecongResultActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.ScanRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.EmergencyActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.NoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.WarningDealActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

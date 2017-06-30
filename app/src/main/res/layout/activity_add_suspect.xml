@@ -88,61 +88,72 @@
         <!--android:text="确认上传"-->
         <!--android:layout_gravity="center_horizontal"-->
         <!--/>-->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:background="@drawable/add_suspect_text_bg"
-        android:text="添加照片"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/zz_black"
-        />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         >
-        <ImageView
-            android:id="@+id/camera_image"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_width="100dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="20dp"
-            android:src="@mipmap/head_test"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/camera_image"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/head_test"
+                android:layout_marginRight="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="模板图一"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"
+                android:textColor="#c3c3c3"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            />
-        <View
-            android:layout_width="1dp"
-            android:background="#cccccc"
-            android:layout_centerInParent="true"
-            android:layout_height="120dp"/>
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
         <ImageView
             android:id="@+id/idcard_image"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:layout_width="100dp"
             android:layout_height="120dp"
             android:layout_gravity="bottom"
             android:layout_marginRight="30dp"
             android:scaleType="centerCrop"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="20dp"
             android:src="@mipmap/head_test"
             />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="模板图二"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"
+                android:textColor="#c3c3c3"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/add_suspect_edittext5"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
@@ -156,6 +167,7 @@
             android:layout_width="match_parent"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
+            android:maxLength="20"
             android:background="@drawable/add_suspect_editbg"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -180,11 +192,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:maxLength="18"
             android:textCursorDrawable="@null"
             android:textColor="@color/zz_black"
             android:layout_marginRight="50dp"
             />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
         <LinearLayout
+            android:id="@+id/spinner_linear"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginLeft="10dp"
@@ -196,48 +215,39 @@
             <Spinner
                 android:id="@+id/spinner"
                 android:background="@null"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 >
 
             </Spinner>
-            <TextView
-                android:id="@+id/text"
-                android:layout_gravity="center_vertical"
+
+        </LinearLayout>
+            <ImageView
+                android:id="@+id/spinner_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="▼"
-                android:textColor="@color/zz_black"
-                android:gravity="right"
-
-                />
-        </LinearLayout>
+                android:layout_marginRight="55dp"
+                android:layout_gravity="right|center_vertical"
+                android:src="@mipmap/addsuspect_1"/>
+        </FrameLayout>
 
 
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="姓名必填"
-        android:textSize="12sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="#ff0000"/>
         <TextView
             android:id="@+id/send"
-            android:layout_gravity="right|bottom"
-            android:layout_width="wrap_content"
+            android:layout_gravity=""
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="30dp"
+
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="30dp"
+
             android:background="@drawable/add_suspect_edittext6"
             android:textColor="@color/zz_white"
             android:textSize="13sp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:gravity="center"
             android:text="保存"/>
 </LinearLayout>

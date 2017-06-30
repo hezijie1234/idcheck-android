@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -80,13 +81,14 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_face_login);
-
         initView();
     }
 
     private void initView() {
         ImageButton backView = showBackView();
         showTitleView(getResources().getString(R.string.btn_face_login));
+        faceLoginIdText = (TextView) findViewById(R.id.tv_no);
+        faceLoginNameText = (TextView) findViewById(R.id.tv_person);
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +105,7 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
             public void onClick(View v) {
                 if(user!=null){
                     showProgressDialog();
-                    ApiImpl.getInstance().faceLoginConfirm(user.getLoginName(), FaceLoginActivity.this);
+                    ApiImpl.getInstance().faceLoginConfirm(user.getNo(), FaceLoginActivity.this);
                 }
             }
         });
@@ -299,16 +301,24 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
     public void onAPISuccess(String flag, JSONObject json) {
         hideProgressDialog();
         if(ApiImpl.FACE_LOGIN_CONFIRM.equals(flag)){
-            Intent intent = new Intent(FaceLoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(FaceLoginActivity.this, MainActivity2.class);
+            if(user != null){
+                intent.putExtra("photo",user.getPhoto());
+                intent.putExtra("no",user.getNo());
+                intent.putExtra("userName",user.getName());
+            }
             startActivity(intent);
             finish();
         }else{
             isFinished = true;
             isRequesting = false;
             faceLoginUserLay.setVisibility(View.VISIBLE);
+            Log.e("111", "onAPISuccess: "+json );
             UserModel userModel = JSON.parseObject(json.optString("d"), UserModel.class);
             user = userModel.getUser();
-            SharedPrefUtils.setString(this, Constants.SHARE_KEY.KEY_ACCOUNT, user.getLoginName());
+            faceLoginNameText.setText("警员:"+user.getName());
+            faceLoginIdText.setText("警号:"+user.getNo());
+            SharedPrefUtils.setString(this, Constants.SHARE_KEY.KEY_ACCOUNT, user.getNo());
             SharedPrefUtils.setString(this, Constants.SHARE_KEY.TYPE, userModel.getAlarmright());
             SharedPrefUtils.setString(this,Constants.SHARE_KEY.USER_ID,userModel.getUser().getId());
             SharedPrefUtils.setBoolean(this, Constants.SHARE_KEY.FIRST_LOGIN, false);

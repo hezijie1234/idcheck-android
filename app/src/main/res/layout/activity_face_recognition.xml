@@ -11,6 +11,8 @@
     <include layout="@layout/title_bar"
         />
     <FrameLayout
+        android:id="@+id/frame"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp">
@@ -19,6 +21,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         >
         <org.opencv.android.JavaCameraView
             android:layout_width="match_parent"
@@ -53,12 +56,20 @@
         <ImageView
             android:layout_width="match_parent"
             android:scaleType="fitXY"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="18dp"
             android:layout_height="match_parent"
-
+            android:src="@mipmap/suspect_1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="match_parent"
             android:src="@mipmap/recong_1"/>
     </FrameLayout>
     <FrameLayout
@@ -78,7 +89,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bg_dash_border_blue">
+        >
 
 
         <TextView
@@ -87,7 +98,7 @@
             android:layout_height="wrap_content"
             android:text="请将身份证紧贴手机背部\n读取证件信息"
             android:textSize="18sp"
-            android:textColor="@color/zz_colorPrimary"
+            android:textColor="@color/zz_white"
             android:gravity="center"
             android:textAlignment="center"
             android:layout_centerInParent="true"/>
@@ -261,6 +272,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/text_id"
+                        android:layout_marginTop="20dp"
                         android:textColor="@color/bg_login_btn"
                         android:textSize="12sp" />
                     <TextView

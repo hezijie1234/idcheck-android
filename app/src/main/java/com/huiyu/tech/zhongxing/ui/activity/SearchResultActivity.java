@@ -16,6 +16,7 @@ import com.huiyu.tech.zhongxing.api.OnResponseListener;
 import com.huiyu.tech.zhongxing.models.CheckInfo;
 import com.huiyu.tech.zhongxing.ui.ZZBaseActivity;
 import com.huiyu.tech.zhongxing.ui.adapter.CheckInfoAdapter;
+import com.huiyu.tech.zhongxing.ui.adapter.HistoryWarnAdapter;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
 
@@ -27,7 +28,7 @@ public class SearchResultActivity extends ZZBaseActivity implements PullToRefres
 
     private PullToRefreshListView lvInfo;
 
-    private CheckInfoAdapter checkInfoAdapter;
+    private HistoryWarnAdapter checkInfoAdapter;
 
     private int max_page;
     private int page = 1;
@@ -67,7 +68,7 @@ public class SearchResultActivity extends ZZBaseActivity implements PullToRefres
         startLabels.setRefreshingLabel("正在加载...");// 刷新时
         startLabels.setReleaseLabel("松开载入更多");// 下来达到一定距离时，显示的提示
 
-        checkInfoAdapter = new CheckInfoAdapter(this);
+        checkInfoAdapter = new HistoryWarnAdapter(this);
         lvInfo.setAdapter(checkInfoAdapter);
         lvInfo.setOnItemClickListener(this);
     }
@@ -156,9 +157,9 @@ public class SearchResultActivity extends ZZBaseActivity implements PullToRefres
         max_page = checkInfo.getMax_page();
         if(checkInfo.getList() != null && checkInfo.getList().size() > 0){
             if (page > 1) {
-                checkInfoAdapter.addItems(checkInfo.getList());
+//                checkInfoAdapter.addItems(checkInfo.getList());
             } else {
-                checkInfoAdapter.setItems(checkInfo.getList());
+//                checkInfoAdapter.setItems(checkInfo.getList());
             }
         }else{
             checkInfoAdapter.clearItems();

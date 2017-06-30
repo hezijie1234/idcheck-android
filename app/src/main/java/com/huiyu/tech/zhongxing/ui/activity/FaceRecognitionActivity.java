@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -121,6 +122,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
     private String[][] mTechLists;
     private LotusCardDriver mLotusCardDriver;
     private long m_nDeviceHandle = -1;
+    private FrameLayout frameLayout;
     private byte[] feature1;
 
 
@@ -203,6 +205,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         faceRecTvIdcard = (TextView) findViewById(R.id.face_rec_tv_idcard);
         faceRecIvHead = (ImageView) findViewById(R.id.face_rec_iv_head);
         faceRecConfirm = (LinearLayout) findViewById(R.id.face_rec_confirm);
+        frameLayout = (FrameLayout) findViewById(R.id.frame);
         faceRecConfirm.setOnClickListener(this);
     }
 
@@ -571,6 +574,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
     @Override
     public void onResume() {
         super.onResume();
+
         if (!OpenCVLoader.initDebug()) {
             LogUtils.i("Internal OpenCV library not found. Using OpenCV Manager for initialization");
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_2_0, this, mLoaderCallback);
@@ -788,6 +792,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     recognitionModel.setIdcardBean(null);
                     Intent intent = new Intent(this,FaceRecongResultActivity.class);
                     intent.putExtra("isSuccess",true);
+                    frameLayout.setVisibility(View.GONE);
                     Log.e("111", "onAPISuccess: "+mInfo );
                     intent.putExtra("info",mInfo);
                     startActivity(intent);
@@ -797,6 +802,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 //                    showFailDialog();
                     Intent intent = new Intent(this,FaceRecongResultActivity.class);
                     intent.putExtra("isSuccess",false);
+                    frameLayout.setVisibility(View.VISIBLE);
                     intent.putExtra("info",mInfo);
                     startActivity(intent);
                 }
@@ -871,6 +877,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 //							m_nDeviceHandle, "192.168.1.52", "username",
 //							"password", tTwoIdInfo, 2);
                     if (!bResult) {
+                        frameLayout.setVisibility(View.GONE);
                         CustomToast.showToast(this,"身份证信息获取失败");
                         //AddLog("Call GetTwoIdInfoByMcuServer Error! ErrorCode:" + mLotusCardDriver.GetTwoIdErrorCode(m_nDeviceHandle));
                         return;
@@ -891,6 +898,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 
                     }
                     if (true == bResult) {
+                        frameLayout.setVisibility(View.VISIBLE);
                         faceRecCardInfoLay.setVisibility(View.VISIBLE);
                         // 姓名
                         try {
@@ -1000,6 +1008,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                         }
 
                     } else {
+                        frameLayout.setVisibility(View.GONE);
                         CustomToast.showToast(this,"身份证信息获取失败");
                         //AddLog("GetTwoIdInfoByMcuServer执行失败");
                     }
@@ -1010,6 +1019,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     // AddLog(e.getMessage());
                     // }
                 }else{
+                    frameLayout.setVisibility(View.GONE);
                     CustomToast.showToast(this,"连接失败");
                 }
             }

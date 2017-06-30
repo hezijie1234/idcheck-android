@@ -43,7 +43,8 @@
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
-                <com.huiyu.tech.zhongxing.widget.ClearEditText
+                <TextView
+                    android:id="@+id/tv_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -54,10 +55,10 @@
                     android:background="@drawable/bg_face_login_et"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    />
 
-                    android:hint="警号"/>
-
-            <com.huiyu.tech.zhongxing.widget.ClearEditText
+            <TextView
+                android:id="@+id/tv_person"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -69,7 +70,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
 
-                android:hint="警员"/>
+               />
 
             <TextView
                 android:enabled="false"

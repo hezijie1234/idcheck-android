@@ -98,13 +98,26 @@
                             android:padding="3dp"
                             android:src="@mipmap/icon_del" />
                     </RelativeLayout>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageButton
+                            android:id="@+id/iv_add_video"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/btn_add_video"
+                            android:src="@mipmap/handle_1" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:text="添加视屏"
+                            android:textSize="12sp"
+                            android:textColor="#e2e2e3"/>
+                    </FrameLayout>
 
-                    <ImageButton
-                        android:id="@+id/iv_add_video"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/btn_add_video"
-                        android:src="@mipmap/zte_82" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -122,6 +135,7 @@
                 android:paddingTop="14dp">
 
                 <TextView
+                    android:id="@+id/text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -138,10 +152,29 @@
                     android:paddingBottom="3dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
+                    android:visibility="gone"
                     android:paddingTop="3dp"
                     android:text="@string/text_undo"
                     android:textColor="@color/main_color"
                     android:textSize="14sp" />
+                <RadioGroup
+                    android:id="@+id/deal_result"
+                    android:layout_below="@id/text4"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="-5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:text="处理完成"
+                        android:layout_width="wrap_content"
+                        android:textColor="#9e9e9e"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:text="未处理完成"
+                        android:textColor="#9e9e9e"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
             </RelativeLayout>
 
             <View
@@ -186,8 +219,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/btn_login_selector"
                 android:gravity="center"

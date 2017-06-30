@@ -112,15 +112,13 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
                 showProgressDialog(true);
                 String deviceId = null;
                 boolean first = SharedPrefUtils.getBoolean(this, Constants.SHARE_KEY.FIRST_LOGIN, true);
-                if (first) {
-                    deviceId = CommonUtils.getDeviceId(this);
-                }
+                deviceId = CommonUtils.getDeviceId(this);
                 ApiImpl.getInstance().doLogin(etAccount.getText().toString(), etPwd.getText().toString(), deviceId, this);
                 break;
             case R.id.tv_face_login:
                 toFaceLogin();
             case R.id.activity_login_find :
-                startActivity(new Intent(this,MainActivity2.class));
+//                startActivity(new Intent(this,MainActivity2.class));
                 break;
         }
     }
@@ -131,7 +129,7 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
         switch (flag) {
             case ApiImpl.DO_LOGIN:
                 UserModel userModel = JSON.parseObject(json.optString("d"), UserModel.class);
-                SharedPrefUtils.setString(this, Constants.SHARE_KEY.KEY_ACCOUNT, userModel.getUser().getLoginName());
+                SharedPrefUtils.setString(this, Constants.SHARE_KEY.KEY_ACCOUNT, userModel.getUser().getNo());
                 SharedPrefUtils.setString(this,Constants.SHARE_KEY.USER_ID,userModel.getUser().getId());
                 SharedPrefUtils.setString(this, Constants.SHARE_KEY.TYPE, userModel.getAlarmright());
                 SharedPrefUtils.setBoolean(this, Constants.SHARE_KEY.FIRST_LOGIN, false);
@@ -177,6 +175,14 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
 //                });
 
                 Intent intent = new Intent(this, MainActivity2.class);
+                if(userModel != null){
+                    UserModel.UserBean user = userModel.getUser();
+                    if(user != null){
+                        intent.putExtra("photo",user.getPhone());
+                        intent.putExtra("no",user.getNo());
+                        intent.putExtra("userName",user.getName());
+                    }
+                }
                 startActivity(intent);
                 finish();
                 break;

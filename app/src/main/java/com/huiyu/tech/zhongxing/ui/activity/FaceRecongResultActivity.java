@@ -30,6 +30,7 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
     private TextView mId;
     private ImageView mIdCardImageView;
     private Button goToBack;
+    private ImageView mResultImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +46,17 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
         Log.e("111", "initData: "+info );
         if(isSuccess){
             resultText.setText("【人证相符】");
+            mResultImage.setImageResource(R.mipmap.result_1);
             resultText.setTextColor(getResources().getColor(R.color.recon_success));
         }else {
             resultText.setText("【人证不符】");
+            mResultImage.setImageResource(R.mipmap.result_2);
             resultText.setTextColor(getResources().getColor(R.color.recon_unsuccess));
         }
         if(info != null){
             mIdCardImage.setImageBitmap(info.image);
             mIdCardImageView.setImageBitmap(info.image);
+
             mCardName.setText(info.name);
             mSex.setText(info.sex);
             mNation.setText(info.nation);
@@ -68,6 +72,7 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
     private void initView() {
         showBackView();
         showTitleView("人证核验结果");
+        mResultImage = (ImageView) findViewById(R.id.result_image);
         resultText = (TextView) findViewById(R.id.result_tv);
         mCameraImage = (ImageView) findViewById(R.id.camera_image);
         mIdCardImage = (ImageView) findViewById(R.id.idcard_image);

@@ -1,6 +1,7 @@
 package com.huiyu.tech.zhongxing.api;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.File;
 import java.util.Map;
@@ -19,9 +20,9 @@ public class ApiImpl {
 //    public static final String DOMIN = "http://121.42.178.20:7080/idcheck";
 //    public static final String DOMIN = "http://ztesai.3322.org:8800/idcheck";
     //测试
-//    public static final String HOST = "http://192.168.1.19:8080";
+    public static final String HOST = "http://192.168.1.19:8080";
     //杨磊
-    public static final String HOST = "http://192.168.1.252:8080";
+//    public static final String HOST = "http://192.168.1.252:8080";
 //    public static final String HOST = "http://ztesai.3322.org:8800";
 //    public static final String HOST = "http://192.168.20.72:6789";
     public static final String DOMIN = HOST + "/idcheck/";
@@ -76,6 +77,7 @@ public class ApiImpl {
 
     public void faceLoginConfirm(String loginName, OnResponseListener listener) {
         FormBody.Builder builder = new FormBody.Builder();
+        Log.e("111", "faceLoginConfirm: "+loginName );
         builder.add("account", loginName);
         RequestBody body = builder.build();
         OkHttpManager.getInstance().post(DOMIN + FACE_LOGIN_CONFIRM, body, new ResultParser(FACE_LOGIN_CONFIRM, listener));
@@ -176,7 +178,7 @@ public class ApiImpl {
         if (!TextUtils.isEmpty(keyword)) {
             builder.add("keyword", keyword);
         }
-        builder.add("page", page);
+        builder.add("pageNo", page);
         builder.add("size", size);
         builder.add("status", status);
         if (!TextUtils.isEmpty(id)) {

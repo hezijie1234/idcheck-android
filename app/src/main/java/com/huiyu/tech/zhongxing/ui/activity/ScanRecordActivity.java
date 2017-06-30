@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.ILoadingLayout;
@@ -47,13 +48,13 @@ import static com.huiyu.tech.zhongxing.api.ApiImpl.RECONG_SCAN_RECORD;
 public class ScanRecordActivity extends ZZBaseActivity implements OnResponseListener {
     private PullToRefreshListView mListView;
     private int pageNo = 1;
-    private List<SuspectRecordModel.DBean> mSusList;
-    private List<RecongRecordModel.DBean> mRecongList;
+    private List<SuspectRecordModel.DBean.ListBean> mSusList;
+    private List<RecongRecordModel.DBean.ListBean> mRecongList;
     private RecordAdapter mSusAdapter;
     private int recordType;
     private int max_page;
     private RecongRecordAdapter mRecongAdapter;
-    private ArrayList<BlackRecordModel.DBean> mBlackList;
+    private ArrayList<BlackRecordModel.DBean.ListBean> mBlackList;
     private BlackRecordAdapter mBlackAdapter;
 
     private RelativeLayout relSearch;
@@ -163,6 +164,16 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                if(max_page > pageNo){
+                    Toast.makeText(ScanRecordActivity.this, "没有更多信息", Toast.LENGTH_SHORT).show();
+                    mListView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListView.onRefreshComplete();
+                        }
+                    },1000);
+                    return;
+                }
                 pageNo++;
                 loadData(recordType);
             }
@@ -248,32 +259,34 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
                 if (recordType == 2) {
                     Log.e("111", "onAPISuccess: " + recordType);
                     SuspectRecordModel record = gson.fromJson(json.toString(), SuspectRecordModel.class);
-                    Log.e("111", "onAPISuccess: " + record.getD().size());
+                    max_page = record.getD().getMax_page();
                     if (pageNo == 1) {
                         mSusList.clear();
                     }
-                    if(record.getD()!=null&&record.getD().size()>0){
-                        mSusList.addAll(record.getD());
+                    if(record.getD()!=null&&record.getD().getList().size()>0){
+                        mSusList.addAll(record.getD().getList());
                     }
                     Log.e("111", "onAPISuccess: " + mSusList.size());
                     mSusAdapter.notifyDataSetChanged();
                 } else if (recordType == 1) {
                     RecongRecordModel recongRecordModel = gson.fromJson(json.toString(), RecongRecordModel.class);
+                    max_page = recongRecordModel.getD().getMax_page();
                     if (pageNo <= 1) {
                         mRecongList.clear();
                     }
-                    mRecongList.addAll(recongRecordModel.getD());
+                    mRecongList.addAll(recongRecordModel.getD().getList());
                     mRecongAdapter.notifyDataSetChanged();
                 }
             }
         } else if (flag.equals(BLACK_LIST)) {
             if (recordType == 3) {
                 BlackRecordModel blackRecordModel = gson.fromJson(json.toString(), BlackRecordModel.class);
+                max_page = blackRecordModel.getD().getMax_page();
                 if (pageNo <= 1) {
                     mBlackList.clear();
                 }
-                if(blackRecordModel.getD()!=null&&blackRecordModel.getD().size()>0){
-                    mBlackList.addAll(blackRecordModel.getD());
+                if(blackRecordModel.getD()!=null&&blackRecordModel.getD().getList() != null){
+                    mBlackList.addAll(blackRecordModel.getD().getList());
                 }
                 mBlackAdapter.notifyDataSetChanged();
             }

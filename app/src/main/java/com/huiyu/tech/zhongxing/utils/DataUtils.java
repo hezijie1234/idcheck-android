@@ -19,8 +19,11 @@ public class DataUtils {
         //从第一个字符开始解析
         ParsePosition position = new ParsePosition(0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date dateValue = sdf.parse(dateString,position);
-        return dateValue;
+        if(dateString != null){
+            Date dateValue = sdf.parse(dateString,position);
+            return dateValue;
+        }
+        return null;
     }
 
 }

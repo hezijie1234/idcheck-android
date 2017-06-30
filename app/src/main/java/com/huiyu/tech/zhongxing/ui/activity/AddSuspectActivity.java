@@ -71,7 +71,8 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
     private String firstImageString;
     private String secondImageString;
     private ArrayAdapter<String> adapter;
-
+    private ImageView mSpinnerImage;
+    private LinearLayout mSpinnerLinear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +111,7 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSpinnerImage.setImageResource(R.mipmap.addsuspect_2);
                 if(list != null && list.size() > 0){
                     if(position > 0){
                         BlackTypeModel.DBean dBean = list.get(position - 1);
@@ -123,6 +125,17 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
 
             }
         });
+        mSpinnerLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(spinner.isShown()){
+                    mSpinnerImage.setImageResource(R.mipmap.addsuspect_1);
+                }else {
+                    mSpinnerImage.setImageResource(R.mipmap.addsuspect_2);
+                }
+            }
+        });
+
 
         mSendText.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,7 +151,9 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
                     Toast.makeText(AddSuspectActivity.this, "证件号不能为空", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(value)){
                     Toast.makeText(AddSuspectActivity.this, "请选择嫌犯类型", Toast.LENGTH_SHORT).show();
-                }else  {
+                }else if (mIdCardEdit.getText().toString().length() != 18){
+                        Toast.makeText(AddSuspectActivity.this, "身份证号是18位", Toast.LENGTH_SHORT).show();
+                }else{
                     showProgressDialog();
                     ApiImpl.getInstance().templatePicSend(mIdCardEdit.getText().toString(),imageString,mNameEdit.getText().toString(),value,AddSuspectActivity.this);
                     mImageString.clear();
@@ -170,8 +185,12 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         mNameEdit = (EditText) findViewById(R.id.name_edit);
         mIdCardEdit = (EditText) findViewById(R.id.idCard_edit);
         spinner = (Spinner) findViewById(R.id.spinner);
+        mSpinnerLinear = (LinearLayout) findViewById(R.id.spinner_linear);
         mSendText = (TextView) findViewById(R.id.send);
+        mSpinnerImage = (ImageView) findViewById(R.id.spinner_image);
+//        spinner.setDropDownVerticalOffset(70);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mTypeList);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
@@ -209,8 +228,12 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         if(flag.equals(ApiImpl.TEMPLATE_UPLOAD)){
             firstImageString = "";
             secondImageString = "";
+
             firstImage.setImageResource(R.mipmap.head_test);
             secondImage.setImageResource(R.mipmap.head_test);
+            mNameEdit.setText("");
+            mIdCardEdit.setText("");
+            imageString = "";
             if(json.optInt("c") == 0){
                 Toast.makeText(this, "上传成功", Toast.LENGTH_SHORT).show();
             }
