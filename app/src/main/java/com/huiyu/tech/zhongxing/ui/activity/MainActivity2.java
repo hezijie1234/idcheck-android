@@ -54,6 +54,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     private TextView no;
     private String date ;
     private Handler handler;
+    private TextView mDotNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     }
 
     private void initView() {
-
+        mDotNum = (TextView) findViewById(R.id.item_recent_hotdot);
         relativeLayout1 = (RelativeLayout) findViewById(R.id.relative1);
         relativeLayout2 = (RelativeLayout) findViewById(R.id.relative2);
         relativeLayout3 = (RelativeLayout) findViewById(R.id.relative3);
@@ -134,6 +135,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
                 startActivity(new Intent(MainActivity2.this,AddSuspectActivity.class));
                 break;
             case R.id.relative4:
+                mDotNum.setVisibility(View.GONE);
                 startActivity(new Intent(MainActivity2.this,WarningDealActivity.class));
                 break;
             case R.id.relative5:
@@ -205,6 +207,8 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
             int count = warningNumModel.getD().getCount();
             if( count> 0){
                 sendNotivication(count);
+                mDotNum.setVisibility(View.VISIBLE);
+                mDotNum.setText(count);
             }
             Log.e("111", "onAPISuccess: "+warningNumModel.getD().getCount() );
             getData();
@@ -229,6 +233,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     }
 
     private void sendNotivication(int count) {
+
         NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_logo);

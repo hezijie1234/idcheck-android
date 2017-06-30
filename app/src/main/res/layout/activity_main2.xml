@@ -242,6 +242,20 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/image5"
                 />
+            <TextView
+                android:id="@+id/item_recent_hotdot"
+                android:layout_width="18dp"
+                android:layout_height="15dp"
+                android:layout_alignRight="@id/image5"
+                android:layout_alignTop="@id/image5"
+                android:layout_marginRight="-6dp"
+                android:layout_marginTop="-4dp"
+                android:text="99"
+                android:textColor="@color/zz_white"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:visibility="gone"
+                android:background="@drawable/shape_red_dot"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/relative5"
