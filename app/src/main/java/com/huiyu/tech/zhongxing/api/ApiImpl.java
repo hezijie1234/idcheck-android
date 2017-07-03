@@ -24,7 +24,8 @@ public class ApiImpl {
     //杨磊
     public static final String HOST = "http://192.168.1.252:8080";
 //    public static final String HOST = "http://ztesai.3322.org:8800";
-//    public static final String HOST = "http://192.168.20.72:6789";
+    //四川
+//    public static final String HOST = "http://10.202.164.30:8080";
     public static final String DOMIN = HOST + "/idcheck/";
 //    public static final String DOMIN = "http://192.168.0.249:8080/idcheck/";
 
@@ -47,7 +48,7 @@ public class ApiImpl {
     public static final String GET_CHECK_LIST = "/api/mobile/idcheckAlarm/list";
     public static final String GET_CHECK_DETAIL = "/api/mobile/idcheckAlarm/detail";
     public static final String GET_EMERGENCY_LIST = "/api/mobile/idcheckEmergencyDeploy/list";
-    public static final String GET_EMERGENCY_DETAIL = "/api/mobile/idcheckEmergencyDeploy/detail";
+    public static final String GET_EMERGENCY_DETAIL = "/api/mobile/notice/detail";
     public static final String GET_NOTICE_LIST = "/api/mobile/notice/list";
     public static final String GET_NOTICE_DETAIL = "/api/mobile/notice/detail";
     public static final String GET_CONTACTS_LIST = "/api/mobile/idcheckContacts/list";
@@ -194,8 +195,9 @@ public class ApiImpl {
         builder.add("pageNo", page);
         builder.add("size", size);
         builder.add("status", status);
-        if (!TextUtils.isEmpty(id)) {
-            builder.add("id", id);
+        Log.e("111", "searchAlarmList: "+id );
+        if(!TextUtils.isEmpty(id)){
+            builder.add("userId", id);
         }
         RequestBody body = builder.build();
         OkHttpManager.getInstance().post(DOMIN + SEARCH_CHECK_LIST, body, new ResultParser(SEARCH_CHECK_LIST, listener));

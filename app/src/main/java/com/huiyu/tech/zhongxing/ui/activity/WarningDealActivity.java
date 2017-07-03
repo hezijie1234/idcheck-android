@@ -8,6 +8,7 @@ import com.huiyu.tech.zhongxing.R;
 import com.huiyu.tech.zhongxing.ui.ZZBaseActivity;
 import com.huiyu.tech.zhongxing.ui.fragment.ContactsFragment;
 import com.huiyu.tech.zhongxing.ui.fragment.HomeFragment;
+import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
 
 public class WarningDealActivity extends ZZBaseActivity {
 
@@ -20,5 +21,11 @@ public class WarningDealActivity extends ZZBaseActivity {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         HomeFragment fragment = new HomeFragment();
         supportFragmentManager.beginTransaction().add(R.id.activity_contacts_frame,fragment).commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPrefUtils.setInt(this,"news",0);
     }
 }

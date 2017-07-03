@@ -19,7 +19,7 @@
 
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/bg_logout" />
+            <solid android:color="#ef395a" />
 
             <corners android:radius="5dp" />
         </shape>

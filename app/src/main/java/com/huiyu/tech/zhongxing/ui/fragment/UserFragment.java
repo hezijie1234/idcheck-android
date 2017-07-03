@@ -295,9 +295,15 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
                         .error(R.mipmap.icon_default_head)
                         .fit()
                         .into(ivHead);
+                Intent intent1 = new Intent();
+                intent1.setAction("picSuccess");
+                localManager.sendBroadcast(intent1);
                 break;
             case ApiImpl.UPDATE_HEAD:
                 CustomToast.showToast(context, "上传成功！");
+                Intent send = new Intent();
+                send.setAction("picSuccess");
+                localManager.sendBroadcast(send);
                 String head = json.optString("d");
                 Picasso.with(context).load(head)
                         .placeholder(R.mipmap.icon_default_head)

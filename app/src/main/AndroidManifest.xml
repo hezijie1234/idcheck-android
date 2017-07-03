@@ -38,7 +38,7 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/icon_logo"
+        android:icon="@mipmap/u7"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -55,6 +55,12 @@
 
             </intent-filter>
         </activity>
+        <receiver android:name=".ui.activity.MainActivity2$NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="notification_cancelled"/>
+                <action android:name="notification_clicked"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait" />

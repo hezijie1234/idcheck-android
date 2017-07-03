@@ -4,7 +4,9 @@ package com.huiyu.tech.zhongxing.ui.fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -104,12 +106,14 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
         lvInfo.setAdapter(noticeAdapter);
         lvInfo.setOnItemClickListener(this);
         startLinear.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(startText);
             }
         });
         endLinear.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(endText);
@@ -166,6 +170,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
             }
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     private void showDatePickerDialog(final TextView result) {
         Calendar calendar = Calendar.getInstance();
         if (TextUtils.isEmpty(result.getText())) {

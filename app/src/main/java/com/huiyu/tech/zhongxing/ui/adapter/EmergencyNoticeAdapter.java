@@ -32,6 +32,7 @@ public class EmergencyNoticeAdapter extends ZZBaseAdapter<EmergencyNoticeModel.L
     /**对数据按时间倒序排列
      * @param mDataList
      */
+
     private void sortData(List<EmergencyNoticeModel.ListBean> mDataList) {
         Collections.sort(mDataList, new Comparator<EmergencyNoticeModel.ListBean>() {
             @Override
@@ -49,7 +50,6 @@ public class EmergencyNoticeAdapter extends ZZBaseAdapter<EmergencyNoticeModel.L
             }
         });
     }
-
     @Override
     public int getCount() {
         sortData(list);

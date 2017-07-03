@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text=""
+                    android:text="处理完毕"
                     android:textColor="@color/text_9"
                     android:textSize="15sp" />
             </RelativeLayout>

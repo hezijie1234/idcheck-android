@@ -58,6 +58,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
 //    private LinearLayout layoutEmergency;
     private PullToRefreshListView lvInfo;
 //    private TextView tvNewNum;
+    private Context context;
 
     private CheckInfoAdapter checkInfoAdapter;
 
@@ -103,6 +104,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
             LogUtils.i("firstVisible22");
 //            handler.sendEmptyMessage(REFRESH);
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -198,7 +205,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,P
 //        if(!type.equals("0")){
             showProgressDialog(true);
             LogUtils.i("serialno2="+serialno);
-            ApiImpl.getInstance().searchAlarmList(null,""+page,""+REFRESH_SIZE,"0",serialno,this);
+            ApiImpl.getInstance().searchAlarmList(null,""+page,""+REFRESH_SIZE,"0",SharedPrefUtils.getString(context,Constants.SHARE_KEY.USER_ID,""),this);
 //        }
     }
 

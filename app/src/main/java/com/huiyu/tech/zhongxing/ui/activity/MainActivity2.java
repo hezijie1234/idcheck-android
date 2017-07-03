@@ -3,12 +3,15 @@ package com.huiyu.tech.zhongxing.ui.activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -32,6 +35,7 @@ import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.DataUtils;
 import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
 import com.huiyu.tech.zhongxing.widget.CircleImageView;
+import com.huiyu.tech.zhongxing.widget.NotificationClickReceiver;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -55,7 +59,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     private String date ;
     private Handler handler;
     private TextView mDotNum;
-
+    private LocalBroadcastManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,8 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
             date = lastDate;
         }
         Log.e("111", "onCreate: "+date );
+        manager = LocalBroadcastManager.getInstance(this);
+        manager.registerReceiver(receiver,new IntentFilter("picSuccess"));
         initBase();
         initView();
     }
@@ -83,6 +89,19 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         showProgressDialog();
         ApiImpl.getInstance().getUserInfo(this);
         ApiImpl.getInstance().getWarningNum(SharedPrefUtils.getString(this,Constants.SHARE_KEY.USER_ID,""),date,this);
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ApiImpl.getInstance().getUserInfo(MainActivity2.this);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        manager.unregisterReceiver(receiver);
     }
 
     private void initView() {
@@ -172,6 +191,9 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
             date = lastDate;
         }
         Log.e("111", "onResume: "+date );
+        if(SharedPrefUtils.getInt(this, "news", 0) == 0){
+            mDotNum.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -188,7 +210,6 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
                     .fit()
                     .into(imageView);
         }else if(flag.equals(ApiImpl.WARN_NUM)){
-            Log.e("111.", "onAPISuccess: "+json );
             WarningNumModel warningNumModel = gons.fromJson(json.toString(), WarningNumModel.class);
             String lastDate = SharedPrefUtils.getString(this, "lastDate", "");
             if(TextUtils.isEmpty(lastDate)){
@@ -205,12 +226,19 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
                 }
             }
             int count = warningNumModel.getD().getCount();
+            int news = SharedPrefUtils.getInt(this, "news", 0);
             if( count> 0){
+                SharedPrefUtils.setInt(this,"news",news + count);
                 sendNotivication(count);
                 mDotNum.setVisibility(View.VISIBLE);
-                mDotNum.setText(count);
+                mDotNum.setText(count + news + "");
+            }else if (news > 0){
+                mDotNum.setVisibility(View.VISIBLE);
+                mDotNum.setText(news + "");
+            }else {
+                mDotNum.setVisibility(View.GONE);
             }
-            Log.e("111", "onAPISuccess: "+warningNumModel.getD().getCount() );
+            Log.e("111", "onAPISuccess:新消息数量 "+warningNumModel.getD().getCount() );
             getData();
         }
     }
@@ -219,8 +247,8 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.e("111", "run: 请求网络时的时间" + date );
                 ApiImpl.getInstance().getWarningNum(SharedPrefUtils.getString(MainActivity2.this,Constants.SHARE_KEY.USER_ID,""),date,MainActivity2.this);
-                Log.e("111", "run: " + "请求网络" );
             }
         },10000);
     }
@@ -233,7 +261,6 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     }
 
     private void sendNotivication(int count) {
-
         NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_logo);
@@ -245,14 +272,51 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         builder.setContentText("点击查看");
         builder.setDefaults(Notification.DEFAULT_ALL);
         builder.setAutoCancel(true);
-        Intent installIntent = new Intent(Intent.ACTION_VIEW);
-        installIntent.setClass(this, WarningDealActivity.class);
-        installIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-
+//        Intent clickIntent = new Intent(this, NotificationBroadcastReceiver.class);
+//        clickIntent.setAction("notification_clicked");
+//        clickIntent.putExtra(NotificationBroadcastReceiver.TYPE, "-1");
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,clickIntent,PendingIntent.FLAG_ONE_SHOT);
+//
+//        Intent intentCancel = new Intent(this, NotificationBroadcastReceiver.class);
+//        intentCancel.setAction("notification_cancelled");
+//        intentCancel.putExtra(NotificationBroadcastReceiver.TYPE, "-1");
+//        PendingIntent pendingIntentCancel = PendingIntent.getBroadcast(this, 0, intentCancel, PendingIntent.FLAG_ONE_SHOT);
+        Intent installIntent = new Intent(this, WarningDealActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, installIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
+//        builder.setDeleteIntent(pendingIntentCancel);
         int notifyId = 1001;
         manager.notify(notifyId, builder.build());
+    }
+
+    public class NotificationBroadcastReceiver extends BroadcastReceiver {
+
+        public static final String TYPE = "type"; //这个type是为了Notification更新信息的，这个不明白的朋友可以去搜搜，很多
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            int type = intent.getIntExtra(TYPE, -1);
+            Log.e("111", "onReceive: "+intent.getAction() );
+            if (type != -1) {
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(type);
+            }
+
+            if (action.equals("notification_clicked")) {
+                //处理点击事件
+                Log.e("111", "onReceive: 处理点击时间" );
+                if(mDotNum != null){
+                    mDotNum.setText(0 + "");
+                }
+                Intent newIntent = new Intent(context, WarningDealActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newIntent);
+            }
+
+            if (action.equals("notification_cancelled")) {
+                //处理滑动清除和点击删除事件
+                Log.e("111", "onReceive: 处理删除时间" );
+            }
+        }
     }
 }

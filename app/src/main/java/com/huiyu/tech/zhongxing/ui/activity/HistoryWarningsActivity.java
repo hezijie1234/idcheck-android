@@ -36,6 +36,7 @@ import com.huiyu.tech.zhongxing.ui.adapter.HistoryWarnAdapter;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.DataUtils;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
+import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
 import com.huiyu.tech.zhongxing.utils.TimeRenderUtils;
 import com.huiyu.tech.zhongxing.widget.ClearEditText;
 
@@ -191,7 +192,7 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
 
     private void loadData(){
         showProgressDialog(true);
-        ApiImpl.getInstance().searchAlarmList(null,""+page,""+REFRESH_SIZE,"1",null,this);
+        ApiImpl.getInstance().searchAlarmList(null,""+page,""+REFRESH_SIZE,"1", SharedPrefUtils.getString(this,Constants.SHARE_KEY.USER_ID,""),this);
     }
 
     @Override

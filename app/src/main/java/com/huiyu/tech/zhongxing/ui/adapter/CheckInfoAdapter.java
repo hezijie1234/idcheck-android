@@ -11,9 +11,16 @@ import com.huiyu.tech.zhongxing.Constants;
 import com.huiyu.tech.zhongxing.R;
 import com.huiyu.tech.zhongxing.api.ApiImpl;
 import com.huiyu.tech.zhongxing.models.CheckInfo;
+import com.huiyu.tech.zhongxing.models.EmergencyNoticeModel;
 import com.huiyu.tech.zhongxing.models.WarningDealModel;
 import com.huiyu.tech.zhongxing.ui.ZZBaseAdapter;
+import com.huiyu.tech.zhongxing.utils.DataUtils;
 import com.squareup.picasso.Picasso;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ml on 2016/8/5.
@@ -22,7 +29,29 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
     public CheckInfoAdapter(Context context) {
         super(context);
     }
+    private void sortData(List<WarningDealModel.DBean.ListBean> mDataList) {
+        Collections.sort(mDataList, new Comparator<WarningDealModel.DBean.ListBean>() {
+            @Override
+            public int compare(WarningDealModel.DBean.ListBean listBean, WarningDealModel.DBean.ListBean t1) {
+                if(listBean != null && t1 != null){
+                    Date date1 = DataUtils.string2Data(listBean.getCreateDate());
+                    Date date2 = DataUtils.string2Data(t1.getCreateDate());
+                    if(date1 != null && date2 != null){
+                        if(date1.before(date2)){
+                            return 1;
+                        }
+                    }
+                }
+                return -1;
+            }
+        });
+    }
 
+    @Override
+    public int getCount() {
+        sortData(list);
+        return super.getCount();
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
