@@ -793,6 +793,8 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     Intent intent = new Intent(this,FaceRecongResultActivity.class);
                     intent.putExtra("isSuccess",true);
                     frameLayout.setVisibility(View.GONE);
+                    faceRecCardInfoLay.setVisibility(View.INVISIBLE);
+                    faceRecIntroText.setVisibility(View.VISIBLE);
                     Log.e("111", "onAPISuccess: "+mInfo );
                     intent.putExtra("info",mInfo);
                     startActivity(intent);

@@ -104,9 +104,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_width="100dp"
                 android:layout_height="120dp"
-                android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/head_test"
+                android:src="@mipmap/muban"
                 android:layout_marginRight="20dp"
                 />
             <TextView
@@ -132,8 +131,7 @@
             android:layout_height="120dp"
             android:layout_gravity="bottom"
             android:layout_marginRight="30dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/head_test"
+            android:src="@mipmap/muban"
             />
             <TextView
                 android:layout_width="wrap_content"
@@ -168,6 +166,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:maxLength="20"
+            android:paddingLeft="5dp"
             android:background="@drawable/add_suspect_editbg"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -191,6 +190,7 @@
             android:background="@drawable/add_suspect_editbg"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:paddingLeft="5dp"
             android:layout_marginTop="10dp"
             android:maxLength="18"
             android:textCursorDrawable="@null"

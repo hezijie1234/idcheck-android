@@ -3,6 +3,7 @@ package com.huiyu.tech.zhongxing.api;
 import android.content.Intent;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.huiyu.tech.zhongxing.MyApplication;
 import com.huiyu.tech.zhongxing.ui.activity.LoginActivity;

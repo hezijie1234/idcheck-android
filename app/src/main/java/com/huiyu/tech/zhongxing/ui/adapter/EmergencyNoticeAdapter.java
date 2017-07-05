@@ -1,6 +1,8 @@
 package com.huiyu.tech.zhongxing.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -52,6 +54,7 @@ public class EmergencyNoticeAdapter extends ZZBaseAdapter<EmergencyNoticeModel.L
     }
     @Override
     public int getCount() {
+        Log.e("111", "getCount: "+list.size() );
         sortData(list);
         return super.getCount();
     }
@@ -70,14 +73,17 @@ public class EmergencyNoticeAdapter extends ZZBaseAdapter<EmergencyNoticeModel.L
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tvTitle.setText(model.getTitle());
-        holder.tvDesc.setText(model.getRemarks());
-        holder.tvTime.setText(model.getPubeDate());
+        holder.tvDesc.setText(model.getDesc());
+        holder.tvTime.setText(model.getCreateDate());
         holder.publisher.setText(model.getCreateName());
-        Picasso.with(context).load(Constants.IMG_HOST + model.getImage())
-                .placeholder(R.mipmap.jz_11)
-                .error(R.mipmap.jz_11)
-                .fit()
-                .into(holder.ivPic);
+        Log.e("111", "getView: "+model.getImage() );
+        if(!TextUtils.isEmpty(model.getImage())){
+            Picasso.with(context).load(model.getImage())
+                    .placeholder(R.mipmap.jz_11)
+                    .error(R.mipmap.jz_11)
+                    .fit()
+                    .into(holder.ivPic);
+        }
 //        ImageUtils.setImage(context,model.getImage(),holder.ivPic,R.mipmap.jz_11);
         return convertView;
     }

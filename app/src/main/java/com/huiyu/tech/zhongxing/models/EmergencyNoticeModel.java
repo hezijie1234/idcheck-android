@@ -57,6 +57,15 @@ public class EmergencyNoticeModel {
         private String pubeDate;
         private String department;
         private String createName;
+        private String desc;
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
 
         public void setCreateName(String createName) {
             this.createName = createName;

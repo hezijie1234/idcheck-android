@@ -35,6 +35,7 @@ import com.huiyu.tech.zhongxing.models.BlackTypeModel;
 import com.huiyu.tech.zhongxing.models.CheckInfo;
 import com.huiyu.tech.zhongxing.ui.ZZBaseActivity;
 import com.huiyu.tech.zhongxing.utils.Base64Util;
+import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.ImageUtils;
 
 import org.json.JSONObject;
@@ -147,13 +148,9 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
                     Toast.makeText(AddSuspectActivity.this, "图片不可为空", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(mNameEdit.getText().toString())){
                     Toast.makeText(AddSuspectActivity.this, "名称不能为空", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(mIdCardEdit.getText().toString())){
-                    Toast.makeText(AddSuspectActivity.this, "证件号不能为空", Toast.LENGTH_SHORT).show();
-                }else if(TextUtils.isEmpty(value)){
+                }else  if(TextUtils.isEmpty(value)){
                     Toast.makeText(AddSuspectActivity.this, "请选择嫌犯类型", Toast.LENGTH_SHORT).show();
-                }else if (mIdCardEdit.getText().toString().length() != 18){
-                        Toast.makeText(AddSuspectActivity.this, "身份证号是18位", Toast.LENGTH_SHORT).show();
-                }else{
+                }else {
                     showProgressDialog();
                     ApiImpl.getInstance().templatePicSend(mIdCardEdit.getText().toString(),imageString,mNameEdit.getText().toString(),value,AddSuspectActivity.this);
                     mImageString.clear();
@@ -229,8 +226,8 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
             firstImageString = "";
             secondImageString = "";
 
-            firstImage.setImageResource(R.mipmap.head_test);
-            secondImage.setImageResource(R.mipmap.head_test);
+            firstImage.setImageResource(R.mipmap.muban);
+            secondImage.setImageResource(R.mipmap.muban);
             mNameEdit.setText("");
             mIdCardEdit.setText("");
             imageString = "";
@@ -260,8 +257,8 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
 
     @Override
     public void onAPIError(String flag, int code, String error) {
-        Log.e("111", "onAPIError: "+code + error );
         hideProgressDialog();
+        CustomToast.showToast(this,error);
     }
 
     @Override

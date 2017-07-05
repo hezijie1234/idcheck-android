@@ -20,12 +20,12 @@ public class ApiImpl {
 //    public static final String DOMIN = "http://121.42.178.20:7080/idcheck";
 //    public static final String DOMIN = "http://ztesai.3322.org:8800/idcheck";
     //测试
-//    public static final String HOST = "http://192.168.1.19:8080";
+    public static final String HOST = "http://192.168.1.19:8080";
     //杨磊
-    public static final String HOST = "http://192.168.1.252:8080";
+//    public static final String HOST = "http://192.168.1.252:8080";
 //    public static final String HOST = "http://ztesai.3322.org:8800";
     //四川
-//    public static final String HOST = "http://10.202.164.30:8080";
+//    public static final String HOST = "http://192.168.3.30:8080";
     public static final String DOMIN = HOST + "/idcheck/";
 //    public static final String DOMIN = "http://192.168.0.249:8080/idcheck/";
 
@@ -328,6 +328,9 @@ public class ApiImpl {
      */
     public void templatePicSend(String id,String imageString,String name,String type,OnResponseListener listener){
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if(TextUtils.isEmpty(id)){
+            id = "";
+        }
         builder.addFormDataPart("idcard", id);
         builder.addFormDataPart("userName",name);
         builder.addFormDataPart("suspectType",type);

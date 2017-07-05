@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
@@ -53,6 +54,7 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
                 WindowManager.LayoutParams.FLAG_FULLSCREEN );*/
 
         setContentView(R.layout.activity_login);
+        Log.e("111", "onCreate: 进入登录界面" );
         showTitleView(getResources().getString(R.string.text_short_name));
         new RxPermissions(this).request(permissions).subscribe(new Action1<Boolean>() {
             @Override

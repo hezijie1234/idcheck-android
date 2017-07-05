@@ -60,6 +60,8 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     private Handler handler;
     private TextView mDotNum;
     private LocalBroadcastManager manager;
+    private NotificationManager notificationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
      }
      */
     private void initBase() {
+        notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         handler = new Handler();
         showProgressDialog();
         ApiImpl.getInstance().getUserInfo(this);
@@ -101,7 +104,11 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("111", "onDestroy: MainActivity2结束" );
         manager.unregisterReceiver(receiver);
+        if(handler != null){
+            handler.removeCallbacks(runnable);
+        }
     }
 
     private void initView() {
@@ -155,6 +162,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
                 break;
             case R.id.relative4:
                 mDotNum.setVisibility(View.GONE);
+                notificationManager.cancel(1001);
                 startActivity(new Intent(MainActivity2.this,WarningDealActivity.class));
                 break;
             case R.id.relative5:
@@ -229,7 +237,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
             int news = SharedPrefUtils.getInt(this, "news", 0);
             if( count> 0){
                 SharedPrefUtils.setInt(this,"news",news + count);
-                sendNotivication(count);
+                sendNotivication(count + news);
                 mDotNum.setVisibility(View.VISIBLE);
                 mDotNum.setText(count + news + "");
             }else if (news > 0){
@@ -242,15 +250,15 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
             getData();
         }
     }
-
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.e("111", "run: 请求网络时的时间" + date );
+            ApiImpl.getInstance().getWarningNum(SharedPrefUtils.getString(MainActivity2.this,Constants.SHARE_KEY.USER_ID,""),date,MainActivity2.this);
+        }
+    };
     public void getData(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.e("111", "run: 请求网络时的时间" + date );
-                ApiImpl.getInstance().getWarningNum(SharedPrefUtils.getString(MainActivity2.this,Constants.SHARE_KEY.USER_ID,""),date,MainActivity2.this);
-            }
-        },10000);
+        handler.postDelayed(runnable,5000);
     }
 
     @Override
@@ -261,7 +269,6 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     }
 
     private void sendNotivication(int count) {
-        NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_logo);
         builder.setLargeIcon(bitmap);
@@ -286,7 +293,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         builder.setContentIntent(pendingIntent);
 //        builder.setDeleteIntent(pendingIntentCancel);
         int notifyId = 1001;
-        manager.notify(notifyId, builder.build());
+        notificationManager.notify(notifyId, builder.build());
     }
 
     public class NotificationBroadcastReceiver extends BroadcastReceiver {

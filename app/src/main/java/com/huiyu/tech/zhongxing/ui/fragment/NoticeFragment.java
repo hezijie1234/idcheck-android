@@ -169,6 +169,7 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
                 noticeAdapter.setItems(newItems);
             }
         }
+
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     private void showDatePickerDialog(final TextView result) {

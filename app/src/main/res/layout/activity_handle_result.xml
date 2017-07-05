@@ -50,7 +50,8 @@
                     android:layout_marginTop="8dp"
                     android:numColumns="4"
                     android:horizontalSpacing="5dp"
-                    android:verticalSpacing="8dp"></com.huiyu.tech.zhongxing.widget.MyGridView>
+                    android:verticalSpacing="8dp">
+                </com.huiyu.tech.zhongxing.widget.MyGridView>
             </LinearLayout>
 
             <LinearLayout
@@ -79,9 +80,10 @@
 
                     <VideoView
                         android:id="@+id/vv"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="210dp"
                         android:focusable="false"
+                        android:layout_centerHorizontal="true"
                         android:focusableInTouchMode="false" />
                     <ImageView
                         android:id="@+id/video_background_iv"

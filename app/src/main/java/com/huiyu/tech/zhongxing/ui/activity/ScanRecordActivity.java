@@ -80,7 +80,7 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
         String type = intent.getStringExtra("type");
         if (type.equals("suspect")) {
             //加载扫描记录
-            showTitleView("人证扫描记录");
+            showTitleView("嫌犯扫描记录");
             recordType = 2;
             initView(2);
             initData(2);
@@ -194,7 +194,7 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
             @Override
             public void onClick(View v) {
                 beginDate = start_time.getText().toString();
-                endDate = end_time.getText().toString();
+                endDate = end_time.getText().toString() + " 23:59:59";
                 if (TextUtils.isEmpty(beginDate)) {
                     CustomToast.showToast(ScanRecordActivity.this, "请输入开始时间");
                     return;

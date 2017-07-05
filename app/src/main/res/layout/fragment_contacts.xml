@@ -5,9 +5,6 @@
     android:orientation="vertical"
     android:background="@color/zz_white"
     tools:context="com.huiyu.tech.zhongxing.ui.fragment.ContactsFragment">
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

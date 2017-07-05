@@ -92,8 +92,6 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
     }
 
     private void initView() {
-        showTitleView(getResources().getString(R.string.title_contacts));
-
         etSearch = (ClearEditText) view.findViewById(R.id.et_search);
         lvContacts = (ListView) view.findViewById(R.id.lv_contacts);
         tvDialog = (TextView) view.findViewById(R.id.tv_dialog);
@@ -275,11 +273,12 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
         Log.e("111", "onAPISuccess:数据加载成功 "+json );
         hideProgressDialog();
         ContactsPageModel checkInfo = JSON.parseObject(json.optString("d"), ContactsPageModel.class);
+        String userId = SharedPrefUtils.getString(context, Constants.SHARE_KEY.USER_ID, "");
         if(checkInfo.getList() != null && checkInfo.getList().size() > 0){
             mAllContactsList.addAll(checkInfo.getList());
-            for (ContactsPageModel.ListBean listBean : mAllContactsList){
+            for (ContactsPageModel.ListBean listBean : checkInfo.getList()){
                 if(listBean != null){
-                    if(SharedPrefUtils.getString(context, Constants.SHARE_KEY.USER_ID,"").equals(listBean.getId())){
+                    if(userId.equals(listBean.getId())){
                         mAllContactsList.remove(listBean);
                     }
                 }

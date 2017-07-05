@@ -74,7 +74,7 @@
             android:layout_gravity="center"
             android:background="@color/colorPrimaryDark"
             android:layout_marginBottom="20dp"
-            android:src="@mipmap/u23"/>
+            android:src="@mipmap/icon_default_head"/>
     </LinearLayout>
 
     <LinearLayout

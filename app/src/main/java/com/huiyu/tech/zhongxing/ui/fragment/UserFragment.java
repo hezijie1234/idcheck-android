@@ -313,10 +313,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case ApiImpl.DO_LOGOUT:
                 OkHttpManager.getInstance().deleteCookie();
+                Log.e("111", "onAPISuccess: 登出成功" );
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+//                getActivity().finishAffinity();
                 break;
             case ApiImpl.CHECK_VERSION:
                 VersionModel versionModel = JSON.parseObject(json.optString("d"), VersionModel.class);
