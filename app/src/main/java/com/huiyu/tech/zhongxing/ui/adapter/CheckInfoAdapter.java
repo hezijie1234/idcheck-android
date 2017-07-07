@@ -82,6 +82,9 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         holder.tvTime.setText(model.getCreateDate());
         holder.name.setText(model.getAlarmName());
         holder.idCard.setText(model.getAlarmIdcard());
+        if(!TextUtils.isEmpty(model.getAlarmRemark())){
+            holder.remark.setText(model.getAlarmRemark());
+        }
 //        holder.tvIdcard.setText("身份证：" + model.getIdcard());
 //        holder.tvSuspectType.setText(model.getAlarmType());
 //        holder.tvName.setText(model.getUserName());
@@ -118,6 +121,7 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         private ImageView ivHead;
         private TextView name;
         private TextView idCard;
+        private TextView remark;
 
         ViewHolder(View view) {
             tvType = (TextView) view.findViewById(R.id.place);
@@ -126,6 +130,7 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
             ivHead = (ImageView)view. findViewById(R.id.idcard_image);
             name = (TextView) view.findViewById(R.id.name);
             idCard = (TextView) view.findViewById(R.id.idcard);
+            remark = (TextView) view.findViewById(R.id.type);
         }
 
     }

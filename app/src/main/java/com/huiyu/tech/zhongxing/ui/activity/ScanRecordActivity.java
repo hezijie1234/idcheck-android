@@ -131,13 +131,13 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
                 mListView.setAdapter(mRecongAdapter);
                 break;
             case 2:
-                Log.e("111", "initView: 设置适配器");
+//                Log.e("111", "initView: 设置适配器");
                 mSusList = new ArrayList<>();
                 mSusAdapter = new RecordAdapter(this, mSusList);
                 mListView.setAdapter(mSusAdapter);
                 break;
             case 3:
-                Log.e("111", "initView: 模板记录空间初始化");
+//                Log.e("111", "initView: 模板记录空间初始化");
                 mBlackList = new ArrayList<>();
                 mBlackAdapter = new BlackRecordAdapter(this, mBlackList);
                 mListView.setAdapter(mBlackAdapter);
@@ -242,7 +242,7 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
                 break;
             case 2:
 
-                Log.e("111", "initData: " + SharedPrefUtils.getString(this, Constants.SHARE_KEY.USER_ID, ""));
+//                Log.e("111", "initData: " + SharedPrefUtils.getString(this, Constants.SHARE_KEY.USER_ID, ""));
                 loadData(2);
                 break;
             case 3:
@@ -253,13 +253,13 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
 
     @Override
     public void onAPISuccess(String flag, JSONObject json) {
-        Log.e("111", "onAPISuccess: " + json);
+//        Log.e("111", "onAPISuccess: " + json);
         mListView.onRefreshComplete();
         Gson gson = new Gson();
         if (flag.equals(RECONG_SCAN_RECORD)) {
             if (json.optInt("c") == 0) {
                 if (recordType == 2) {
-                    Log.e("111", "onAPISuccess: " + recordType);
+//                    Log.e("111", "onAPISuccess: " + recordType);
                     SuspectRecordModel record = gson.fromJson(json.toString(), SuspectRecordModel.class);
                     max_page = record.getD().getMax_page();
                     if (pageNo == 1) {
@@ -268,7 +268,7 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
                     if(record.getD()!=null&&record.getD().getList().size()>0){
                         mSusList.addAll(record.getD().getList());
                     }
-                    Log.e("111", "onAPISuccess: " + mSusList.size());
+//                    Log.e("111", "onAPISuccess: " + mSusList.size());
                     mSusAdapter.notifyDataSetChanged();
                 } else if (recordType == 1) {
                     RecongRecordModel recongRecordModel = gson.fromJson(json.toString(), RecongRecordModel.class);
@@ -312,7 +312,8 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
     @Override
     public void onAPIError(String flag, int code, String error) {
         mListView.onRefreshComplete();
-        Log.e("111", "onAPIError: 记录获取失败" + code);
+//        Log.e("111", "onAPIError: 记录获取失败" + code);
+        CustomToast.showToast(this,error);
     }
 
 }

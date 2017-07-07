@@ -43,7 +43,7 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
         Intent intent = getIntent();
         boolean isSuccess = intent.getBooleanExtra("isSuccess",false);
         IdCardModule info = intent.getParcelableExtra("info");
-        Log.e("111", "initData: "+info );
+//        Log.e("111", "initData: "+info );
         if(isSuccess){
             resultText.setText("【人证相符】");
             mResultImage.setImageResource(R.mipmap.result_1);

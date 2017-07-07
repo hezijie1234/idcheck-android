@@ -54,7 +54,7 @@ public class LoginActivity extends ZZBaseActivity implements View.OnClickListene
                 WindowManager.LayoutParams.FLAG_FULLSCREEN );*/
 
         setContentView(R.layout.activity_login);
-        Log.e("111", "onCreate: 进入登录界面" );
+//        Log.e("111", "onCreate: 进入登录界面" );
         showTitleView(getResources().getString(R.string.text_short_name));
         new RxPermissions(this).request(permissions).subscribe(new Action1<Boolean>() {
             @Override

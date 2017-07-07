@@ -62,8 +62,8 @@ public class EmergencyNoticeDetailActivity extends ZZBaseActivity implements OnR
         LogUtils.i("json="+json);
         EmergencyNoticeDetailModel noticeDetailModel = JSON.parseObject(json.optString("d"), EmergencyNoticeDetailModel.class);
         String content =
-                "<html><head><meta name=\"viewport\" content=\"target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0\"></head><body>"
-                        + noticeDetailModel.getContent() + "</body></html>";
+                "<html><head><meta name=\"viewport\" content=\"target-densitydpi=device-dpi, width=device-width,initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0\"></head><body>"
+                        + noticeDetailModel.getContent().replaceAll("<img","<img style='width:100%;'") + "</body></html>";
         wv.loadDataWithBaseURL(ApiImpl.DOMIN, content, "text/html", "utf-8", null);
     }
 

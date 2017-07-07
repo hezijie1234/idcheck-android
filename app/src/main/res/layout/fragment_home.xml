@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/zz_white"
+    android:background="#eeeeee"
     tools:context="com.huiyu.tech.zhongxing.ui.fragment.HomeFragment">
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->

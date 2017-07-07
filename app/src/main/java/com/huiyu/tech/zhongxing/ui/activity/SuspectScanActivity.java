@@ -165,7 +165,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                 for (int i = 0; i < facesArray.length; i++) {
                     try {
                         final Mat mat = getDefaultCompareSize(mRgba.submat(getImageRect(mRgba.size(), facesArray[i])));
-                        LogUtils.i("==截图==");
+//                        LogUtils.i("==截图==");
                         //解决截取图片脸显示为蓝色的问题 http://blog.csdn.net/yang_xian521/article/details/7010475
                         //Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGBA2BGR, 3);
                         bmp = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888);
@@ -267,7 +267,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS: {
-                    LogUtils.i("OpenCV loaded successfully");
+//                    LogUtils.i("OpenCV loaded successfully");
                     try {
                         // load cascade file from application resources
                         InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
@@ -285,15 +285,15 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
 
                         mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
                         if (mJavaDetector.empty()) {
-                            LogUtils.i("Failed to load cascade classifier");
+//                            LogUtils.i("Failed to load cascade classifier");
                             mJavaDetector = null;
                         } else {
-                            LogUtils.i("Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
+//                            LogUtils.i("Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
                         }
                         cascadeDir.delete();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
+//                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
                     }
 
                     cameraView.enableView();
@@ -318,7 +318,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                 });
                 if (infos.size() > 0) {
                     int size = data.size();
-                    LogUtils.i("size---" + infos.size());
+//                    LogUtils.i("size---" + infos.size());
                     data.addAll(infos);
                     adapter.notifyItemRangeChanged(size, infos.size());
                     list.scrollToPosition(data.size() - 1);

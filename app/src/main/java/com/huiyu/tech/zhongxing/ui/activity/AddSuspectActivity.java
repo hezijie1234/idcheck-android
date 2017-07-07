@@ -39,6 +39,9 @@ import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.ImageUtils;
 
 import org.json.JSONObject;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -97,6 +100,7 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         firstImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Mat rotateMat = Imgproc.getRotationMatrix2D(new Point(), -90, 1);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,1);
             }

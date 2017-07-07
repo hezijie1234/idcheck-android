@@ -10,7 +10,7 @@
         android:id="@+id/iv_pic"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@mipmap/per"
+        android:src="@mipmap/jz_11"
         android:scaleType="fitXY"/>
 
     <TextView

@@ -142,9 +142,9 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
     }
     public void timeFilter(int type){
         String startStr = startText.getText().toString();
-        Log.e("111", "onClick: 开始时间"+startStr );
+//        Log.e("111", "onClick: 开始时间"+startStr );
         String endStr = endText.getText().toString();
-        Log.e("111", "onClick:结束时间 "+startStr );
+//        Log.e("111", "onClick:结束时间 "+startStr );
         long now = System.currentTimeMillis();
         String nowTime = TimeRenderUtils.getDate("yyyy-MM-dd HH:mm:ss", now);
         if(startStr.equals("开始时间")){
@@ -261,7 +261,7 @@ public class HistoryWarningsActivity extends ZZBaseActivity implements PullToRef
     @Override
     public void onAPISuccess(String flag, JSONObject json) {
         Gson gson = new Gson();
-        Log.e("111", "onAPISuccess: "+json );
+//        Log.e("111", "onAPISuccess: "+json );
         hideProgressDialog();
         lvInfo.onRefreshComplete();
         WarningDealModel checkInfo = gson.fromJson(json.toString(),WarningDealModel.class);

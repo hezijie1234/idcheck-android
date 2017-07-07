@@ -72,7 +72,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         }else {
             date = lastDate;
         }
-        Log.e("111", "onCreate: "+date );
+//        Log.e("111", "onCreate: "+date );
         manager = LocalBroadcastManager.getInstance(this);
         manager.registerReceiver(receiver,new IntentFilter("picSuccess"));
         initBase();
@@ -104,7 +104,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("111", "onDestroy: MainActivity2结束" );
+//        Log.e("111", "onDestroy: MainActivity2结束" );
         manager.unregisterReceiver(receiver);
         if(handler != null){
             handler.removeCallbacks(runnable);
@@ -198,7 +198,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         }else {
             date = lastDate;
         }
-        Log.e("111", "onResume: "+date );
+//        Log.e("111", "onResume: "+date );
         if(SharedPrefUtils.getInt(this, "news", 0) == 0){
             mDotNum.setVisibility(View.GONE);
         }
@@ -238,27 +238,35 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
             if( count> 0){
                 SharedPrefUtils.setInt(this,"news",news + count);
                 sendNotivication(count + news);
-                mDotNum.setVisibility(View.VISIBLE);
-                mDotNum.setText(count + news + "");
+                setDotNum(count + news);
             }else if (news > 0){
-                mDotNum.setVisibility(View.VISIBLE);
-                mDotNum.setText(news + "");
+                setDotNum(news);
             }else {
                 mDotNum.setVisibility(View.GONE);
             }
-            Log.e("111", "onAPISuccess:新消息数量 "+warningNumModel.getD().getCount() );
+//            Log.e("111", "onAPISuccess:新消息数量 "+warningNumModel.getD().getCount() );
             getData();
         }
     }
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Log.e("111", "run: 请求网络时的时间" + date );
+//            Log.e("111", "run: 请求网络时的时间" + date );
             ApiImpl.getInstance().getWarningNum(SharedPrefUtils.getString(MainActivity2.this,Constants.SHARE_KEY.USER_ID,""),date,MainActivity2.this);
         }
     };
     public void getData(){
         handler.postDelayed(runnable,5000);
+    }
+
+    private void setDotNum(int count){
+        if(count > 99){
+            mDotNum.setText("99");
+        }else {
+            mDotNum.setText(count + "");
+        }
+        mDotNum.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -296,34 +304,34 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         notificationManager.notify(notifyId, builder.build());
     }
 
-    public class NotificationBroadcastReceiver extends BroadcastReceiver {
-
-        public static final String TYPE = "type"; //这个type是为了Notification更新信息的，这个不明白的朋友可以去搜搜，很多
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            int type = intent.getIntExtra(TYPE, -1);
-            Log.e("111", "onReceive: "+intent.getAction() );
-            if (type != -1) {
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancel(type);
-            }
-
-            if (action.equals("notification_clicked")) {
-                //处理点击事件
-                Log.e("111", "onReceive: 处理点击时间" );
-                if(mDotNum != null){
-                    mDotNum.setText(0 + "");
-                }
-                Intent newIntent = new Intent(context, WarningDealActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(newIntent);
-            }
-
-            if (action.equals("notification_cancelled")) {
-                //处理滑动清除和点击删除事件
-                Log.e("111", "onReceive: 处理删除时间" );
-            }
-        }
-    }
+//    public class NotificationBroadcastReceiver extends BroadcastReceiver {
+//
+//        public static final String TYPE = "type"; //这个type是为了Notification更新信息的，这个不明白的朋友可以去搜搜，很多
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String action = intent.getAction();
+//            int type = intent.getIntExtra(TYPE, -1);
+//            Log.e("111", "onReceive: "+intent.getAction() );
+//            if (type != -1) {
+//                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//                notificationManager.cancel(type);
+//            }
+//
+//            if (action.equals("notification_clicked")) {
+//                //处理点击事件
+//                Log.e("111", "onReceive: 处理点击时间" );
+//                if(mDotNum != null){
+//                    mDotNum.setText(0 + "");
+//                }
+//                Intent newIntent = new Intent(context, WarningDealActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(newIntent);
+//            }
+//
+//            if (action.equals("notification_cancelled")) {
+//                //处理滑动清除和点击删除事件
+//                Log.e("111", "onReceive: 处理删除时间" );
+//            }
+//        }
+//    }
 }

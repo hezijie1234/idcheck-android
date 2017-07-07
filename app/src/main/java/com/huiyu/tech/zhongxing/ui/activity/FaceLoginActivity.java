@@ -117,6 +117,7 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
         back();
     }
 
+
     private void back() {
         startActivity(new Intent(this,LoginActivity.class));
         finish();
@@ -135,7 +136,7 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS: {
-                    LogUtils.i("OpenCV loaded successfully");
+//                    LogUtils.i("OpenCV loaded successfully");
                     try {
                         // load cascade file from application resources
                         InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
@@ -153,16 +154,16 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
 
                         mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
                         if (mJavaDetector.empty()) {
-                            LogUtils.i("Failed to load cascade classifier");
+//                            LogUtils.i("Failed to load cascade classifier");
                             mJavaDetector = null;
                         } else {
-                            LogUtils.i("Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
+//                            LogUtils.i("Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
                         }
                         cascadeDir.delete();
                         //getLocalHeadMat();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
+//                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
                     }
 
                     faceLoginSurfaceView.enableView();
@@ -190,10 +191,10 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
     public void onResume() {
         super.onResume();
         if (!OpenCVLoader.initDebug()) {
-            LogUtils.i("Internal OpenCV library not found. Using OpenCV Manager for initialization");
+//            LogUtils.i("Internal OpenCV library not found. Using OpenCV Manager for initialization");
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_2_0, this, mLoaderCallback);
         } else {
-            LogUtils.i("OpenCV library found inside package. Using it!");
+//            LogUtils.i("OpenCV library found inside package. Using it!");
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
     }
@@ -201,6 +202,8 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
     public void onDestroy() {
         super.onDestroy();
         if (faceLoginSurfaceView != null) {
+//            Log.e("111", "onDestroy: 登录界面销毁" );
+            faceLoginSurfaceView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_BACK);
             faceLoginSurfaceView.disableView();
         }
     }
@@ -315,7 +318,7 @@ public class FaceLoginActivity extends ZZBaseActivity implements CameraBridgeVie
             isFinished = true;
             isRequesting = false;
             faceLoginUserLay.setVisibility(View.VISIBLE);
-            Log.e("111", "onAPISuccess: "+json );
+//            Log.e("111", "onAPISuccess: "+json );
             UserModel userModel = JSON.parseObject(json.optString("d"), UserModel.class);
             user = userModel.getUser();
             faceLoginNameText.setText("警员:"+user.getName());

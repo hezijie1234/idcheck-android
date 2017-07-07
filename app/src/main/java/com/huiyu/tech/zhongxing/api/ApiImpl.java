@@ -26,6 +26,7 @@ public class ApiImpl {
 //    public static final String HOST = "http://ztesai.3322.org:8800";
     //四川
 //    public static final String HOST = "http://192.168.3.30:8080";
+//    public static final String HOST = "http://192.168.1.223:8080";
     public static final String DOMIN = HOST + "/idcheck/";
 //    public static final String DOMIN = "http://192.168.0.249:8080/idcheck/";
 

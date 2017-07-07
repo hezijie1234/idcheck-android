@@ -1,6 +1,7 @@
 package com.huiyu.tech.zhongxing.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,11 +76,13 @@ public class NoticeAdapter extends ZZBaseAdapter<NoticeModel.ListBean> {
         holder.publisherTv.setText(model.getCreateName());
         holder.publishTime.setText(model.getCreateDate());
         Log.e("111", "getView: "+model.getImage() );
-        Picasso.with(context).load(model.getImage())
-                .placeholder(R.mipmap.jz_11)
-                .error(R.mipmap.jz_11)
-                .fit()
-                .into(holder.ivPic);
+        if(!TextUtils.isEmpty(model.getImage())){
+            Picasso.with(context).load(model.getImage())
+                    .placeholder(R.mipmap.jz_11)
+                    .error(R.mipmap.jz_11)
+                    .fit()
+                    .into(holder.ivPic);
+        }
         return convertView;
     }
 

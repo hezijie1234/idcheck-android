@@ -262,7 +262,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
             if (info != null && status == IDCardReadTask.Status_read_successful) {
                 LogUtils.e("==========info=========" + info.toString());
                 showProgress(false);
-                Log.e("111", "readResult: "+info );
+//                Log.e("111", "readResult: "+info );
                 showUserInfo(info);
                 /*i.name = info.name;
                 i.sex = info.sex;
@@ -392,7 +392,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
      * 读取身份证
      */
     private void readIDCard() {
-        LogUtils.e("=====readIDCard=====");
+//        LogUtils.e("=====readIDCard=====");
         showProgress(true);
         faceRecIntroText.setVisibility(View.VISIBLE);
         faceRecCardInfoLay.setVisibility(View.INVISIBLE);
@@ -402,7 +402,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         status = readTask.readCard(mUserSelectedBTDevMac, false);
         Resources resource = getResources();
         String strStatus = "value:" + status + "  description:";
-        LogUtils.e("=====strStatus=====" + strStatus);
+//        LogUtils.e("=====strStatus=====" + strStatus);
         switch (status) {
             case IDCardReadTask.Status_error_mac_format_incorrect: {
                 strStatus += resource.getString(R.string.NoteStrMacAddressFormatError);
@@ -521,7 +521,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS: {
-                    LogUtils.i("OpenCV loaded successfully");
+//                    LogUtils.i("OpenCV loaded successfully");
                     try {
                         // load cascade file from application resources
                         InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
@@ -539,15 +539,15 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 
                         mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
                         if (mJavaDetector.empty()) {
-                            LogUtils.i("Failed to load cascade classifier");
+//                            LogUtils.i("Failed to load cascade classifier");
                             mJavaDetector = null;
                         } else {
-                            LogUtils.i("Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
+//                            LogUtils.i("Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
                         }
                         cascadeDir.delete();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
+//                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
                     }
 
                     faceRecSurfaceView.enableView();
@@ -576,10 +576,10 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         super.onResume();
 
         if (!OpenCVLoader.initDebug()) {
-            LogUtils.i("Internal OpenCV library not found. Using OpenCV Manager for initialization");
+//            LogUtils.i("Internal OpenCV library not found. Using OpenCV Manager for initialization");
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_2_0, this, mLoaderCallback);
         } else {
-            LogUtils.i("OpenCV library found inside package. Using it!");
+//            LogUtils.i("OpenCV library found inside package. Using it!");
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
 
@@ -636,7 +636,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     //0 <= roi.x && 0 <= roi.width && roi.x + roi.width <= m.cols && 0 <= roi.y && 0 <= roi.height && roi.y + roi.height <= m.rows in function cv::Mat::Mat(const cv::Mat&, const Rect&)
                     Mat mat = getDefaultCompareSize(mRgba.submat(getImageRect(mRgba.size(), facesArray[0])));
 //                compare(mat,headMat);
-                   LogUtils.i("==截图==");
+//                   LogUtils.i("==截图==");
 
                     //解决截取图片脸显示为蓝色的问题 http://blog.csdn.net/yang_xian521/article/details/7010475
                     Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGBA2BGR, 3);
@@ -762,7 +762,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                 && recognitionModel.getIdcardBean() != null
                 && recognitionModel.getIdCardImage() != null
                 && recognitionModel.getPhoneImage() != null) {
-            Log.e("111", "sendFaceToServer: 发送给服务器" );
+//            Log.e("111", "sendFaceToServer: 发送给服务器" );
             ApiImpl.getInstance().sendFaceDetect(JSON.toJSONString(recognitionModel), this);
             runOnUiThread(new Runnable() {
                 @Override
@@ -795,7 +795,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     frameLayout.setVisibility(View.GONE);
                     faceRecCardInfoLay.setVisibility(View.INVISIBLE);
                     faceRecIntroText.setVisibility(View.VISIBLE);
-                    Log.e("111", "onAPISuccess: "+mInfo );
+//                    Log.e("111", "onAPISuccess: "+mInfo );
                     intent.putExtra("info",mInfo);
                     startActivity(intent);
 //                    showPassDialog();

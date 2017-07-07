@@ -256,13 +256,13 @@ public class WarningDetailActivity extends ZZBaseActivity implements View.OnClic
                     @Override
                     public void call(Bitmap bitmap) {
                         //设置封面
-                        LogUtils.i("observable bitmap");
+//                        LogUtils.i("observable bitmap");
                         videoView.setBackgroundDrawable(new BitmapDrawable(bitmap));
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        LogUtils.i("observable throwable");
+//                        LogUtils.i("observable throwable");
                         videoView.setBackgroundResource(0);
                     }
                 });
@@ -344,7 +344,7 @@ public class WarningDetailActivity extends ZZBaseActivity implements View.OnClic
     public void onAPISuccess(String flag, JSONObject json) {
         hideProgressDialog();
         scrollView.setVisibility(View.VISIBLE);
-        LogUtils.i("json=" + json);
+//        LogUtils.i("json=" + json);
         CheckDetailModel checkDetailModel = JSON.parseObject(json.optString("d"), CheckDetailModel.class);
         //initPlayMedia(checkDetailModel.getAlarm().);
         id = checkDetailModel.getAlarm().getId();

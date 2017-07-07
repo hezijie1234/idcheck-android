@@ -63,6 +63,7 @@ public class BlackRecordAdapter extends BaseAdapter {
         holder.time.setText(dBean.getCreateDate());
         holder.name.setText(dBean.getUserName());
         holder.idCard.setText(dBean.getIdcard());
+        holder.typeName.setText(dBean.getSuspectType());
         String imageStr = dBean.getUserImage();
         int i = imageStr.indexOf("|");
 

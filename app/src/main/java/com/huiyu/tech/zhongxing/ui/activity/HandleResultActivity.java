@@ -212,13 +212,13 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
                     @Override
                     public void call(Bitmap bitmap) {
                         //设置封面
-                        LogUtils.i("observable bitmap");
+//                        LogUtils.i("observable bitmap");
                         vv.setBackgroundDrawable(new BitmapDrawable(bitmap));
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        LogUtils.i("observable throwable");
+//                        LogUtils.i("observable throwable");
                         vv.setBackgroundResource(0);
                     }
                 });

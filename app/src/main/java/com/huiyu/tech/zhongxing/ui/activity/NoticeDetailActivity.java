@@ -64,7 +64,7 @@ public class NoticeDetailActivity extends ZZBaseActivity implements OnResponseLi
         NoticeDetailModel noticeDetailModel = JSON.parseObject(json.optString("d"), NoticeDetailModel.class);
         String content =
                 "<html><head><meta name=\"viewport\" content=\"target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0\"></head><body>"
-                        + noticeDetailModel.getContent() + "</body></html>";
+                        + noticeDetailModel.getContent().replaceAll("<img","<img style='width:100%;'") + "</body></html>";
         wv.loadDataWithBaseURL(ApiImpl.DOMIN, content, "text/html", "utf-8", null);
     }
 

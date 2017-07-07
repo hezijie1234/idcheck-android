@@ -62,9 +62,6 @@
             </intent-filter>
         </receiver>
         <activity
-            android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.FaceLoginActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -105,9 +102,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.HandleResultActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.SearchResultActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ComparePicActivity"

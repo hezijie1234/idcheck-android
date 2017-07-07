@@ -51,7 +51,7 @@ public class HistoryWarnAdapter extends ZZBaseAdapter<WarningDealModel.DBean.Lis
                     .fit()
                     .into(holder.ivHead);
         }
-        holder.tvType.setText(model.getAlarmPlaceMain());
+        holder.tvType.setText(model.getAlarmPlaceDesc());
         holder.tvTime.setText(model.getCreateDate());
         holder.name.setText(model.getAlarmName());
         holder.idCard.setText(model.getAlarmIdcard());

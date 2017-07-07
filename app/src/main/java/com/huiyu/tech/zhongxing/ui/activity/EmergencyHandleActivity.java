@@ -258,7 +258,6 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
                     @Override
                     public void call(Bitmap bitmap) {
                         //设置封面
-                        LogUtils.i("observable bitmap");
                         ivVideo.setBackgroundDrawable(new BitmapDrawable(bitmap));
                     }
                 }, new Action1<Throwable>() {
@@ -370,7 +369,6 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
         if (file == null && imageCount == 0) {
             hideProgressDialog();
         }
-        LogUtils.i("json=" + json);
         switch (flag) {
             case ApiImpl.HANDLE_EMERGENCY:
                 if(imageCount==0){
@@ -380,7 +378,6 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
                     resultId = handlerResultModel.getAlarmretid();
                     if (bitmaps != null && bitmaps.size() > 0) {
                         for (int i = 0; i < imageCount; i++) {
-                            LogUtils.i("upload");
                             File file = ImageUtils.Bitmap2File(ImageUtils.compressImageFromFile(bitmaps.get(i).getPath()), getPhotoFileName(), 90);
                             ApiImpl.getInstance().handlerEmergencyPic(resultId, file, this);
                         }
