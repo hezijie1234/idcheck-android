@@ -343,7 +343,7 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
                 } else {
                     showVideoProgress();
                 }
-                ApiImpl.getInstance().handlerEmergency(id, file, etDesc.getText().toString(), this);
+                 ApiImpl.getInstance().handlerEmergency(id, file, etDesc.getText().toString(), this);
                 break;
         }
     }

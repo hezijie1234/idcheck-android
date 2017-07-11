@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -12,11 +13,13 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
@@ -35,6 +38,7 @@ import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.DataUtils;
 import com.huiyu.tech.zhongxing.utils.SharedPrefUtils;
 import com.huiyu.tech.zhongxing.widget.CircleImageView;
+import com.huiyu.tech.zhongxing.widget.KeepLiveService;
 import com.huiyu.tech.zhongxing.widget.NotificationClickReceiver;
 import com.squareup.picasso.Picasso;
 
@@ -66,6 +70,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
         String lastDate = SharedPrefUtils.getString(this, "lastDate", "");
         if(TextUtils.isEmpty(lastDate)){
             date = "";
@@ -78,6 +83,48 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
         initBase();
         initView();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            new AlertDialog.Builder(this)
+                    .setTitle("系统提示")
+                    .setMessage("退出后将无法接收最新警情")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).show();
+
+        }
+        return true;
+    }
+
+    /**监听对话框里面的button点击事件*/
+    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener()
+    {
+        public void onClick(DialogInterface dialog, int which)
+        {
+            switch (which)
+            {
+                case AlertDialog.BUTTON_POSITIVE:// "确认"按钮退出程序
+                    finish();
+                    break;
+                case AlertDialog.BUTTON_NEGATIVE:// "取消"第二个按钮取消对话框
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     /**
      * if(user != null){
@@ -297,7 +344,7 @@ public class MainActivity2 extends ZZBaseActivity implements View.OnClickListene
 //        intentCancel.putExtra(NotificationBroadcastReceiver.TYPE, "-1");
 //        PendingIntent pendingIntentCancel = PendingIntent.getBroadcast(this, 0, intentCancel, PendingIntent.FLAG_ONE_SHOT);
         Intent installIntent = new Intent(this, WarningDealActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, installIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, installIntent, PendingIntent.FLAG_ONE_SHOT);
         builder.setContentIntent(pendingIntent);
 //        builder.setDeleteIntent(pendingIntentCancel);
         int notifyId = 1001;

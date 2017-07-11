@@ -31,7 +31,6 @@ import com.huiyu.tech.zhongxing.models.EmergencyNoticeModel;
 import com.huiyu.tech.zhongxing.models.NoticeModel;
 import com.huiyu.tech.zhongxing.models.WarningDealModel;
 import com.huiyu.tech.zhongxing.ui.ZZBaseActivity;
-import com.huiyu.tech.zhongxing.ui.adapter.CheckInfoAdapter;
 import com.huiyu.tech.zhongxing.ui.adapter.HistoryWarnAdapter;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.DataUtils;

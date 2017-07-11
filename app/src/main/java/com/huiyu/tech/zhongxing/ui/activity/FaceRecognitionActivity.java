@@ -124,7 +124,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
     private long m_nDeviceHandle = -1;
     private FrameLayout frameLayout;
     private byte[] feature1;
-
+    private View spaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +206,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         faceRecIvHead = (ImageView) findViewById(R.id.face_rec_iv_head);
         faceRecConfirm = (LinearLayout) findViewById(R.id.face_rec_confirm);
         frameLayout = (FrameLayout) findViewById(R.id.frame);
+        spaceView = findViewById(R.id.view);
         faceRecConfirm.setOnClickListener(this);
     }
 
@@ -594,7 +595,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         if (faceRecSurfaceView != null) {
             faceRecSurfaceView.disableView();
         }
-       // mBtDevFinder.turnOffAdapter();
+//        mBtDevFinder.turnOffAdapter();
     }
 
     public void onCameraViewStarted(int width, int height) {
@@ -793,6 +794,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     Intent intent = new Intent(this,FaceRecongResultActivity.class);
                     intent.putExtra("isSuccess",true);
                     frameLayout.setVisibility(View.GONE);
+                    spaceView.setVisibility(View.VISIBLE);
                     faceRecCardInfoLay.setVisibility(View.INVISIBLE);
                     faceRecIntroText.setVisibility(View.VISIBLE);
 //                    Log.e("111", "onAPISuccess: "+mInfo );
@@ -805,6 +807,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     Intent intent = new Intent(this,FaceRecongResultActivity.class);
                     intent.putExtra("isSuccess",false);
                     frameLayout.setVisibility(View.VISIBLE);
+                    spaceView.setVisibility(View.GONE);
                     intent.putExtra("info",mInfo);
                     startActivity(intent);
                 }
@@ -880,6 +883,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 //							"password", tTwoIdInfo, 2);
                     if (!bResult) {
                         frameLayout.setVisibility(View.GONE);
+                        spaceView.setVisibility(View.VISIBLE);
                         CustomToast.showToast(this,"身份证信息获取失败");
                         //AddLog("Call GetTwoIdInfoByMcuServer Error! ErrorCode:" + mLotusCardDriver.GetTwoIdErrorCode(m_nDeviceHandle));
                         return;
@@ -901,6 +905,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     }
                     if (true == bResult) {
                         frameLayout.setVisibility(View.VISIBLE);
+                        spaceView.setVisibility(View.GONE);
                         faceRecCardInfoLay.setVisibility(View.VISIBLE);
                         // 姓名
                         try {
@@ -1011,6 +1016,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 
                     } else {
                         frameLayout.setVisibility(View.GONE);
+                        spaceView.setVisibility(View.VISIBLE);
                         CustomToast.showToast(this,"身份证信息获取失败");
                         //AddLog("GetTwoIdInfoByMcuServer执行失败");
                     }
@@ -1022,6 +1028,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     // }
                 }else{
                     frameLayout.setVisibility(View.GONE);
+                    spaceView.setVisibility(View.VISIBLE);
                     CustomToast.showToast(this,"连接失败");
                 }
             }

@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@mipmap/history_1"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
+
     android:layout_marginTop="10dp"
     android:orientation="vertical"
+    android:descendantFocusability="afterDescendants"
     >
     <!--<RelativeLayout-->
         <!--android:layout_width="match_parent"-->
@@ -97,30 +97,35 @@
             <!--android:layout_below="@+id/place"-->
             <!--android:layout_alignParentEnd="true" />-->
     <!--</RelativeLayout>-->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:orientation="horizontal">
+        >
         <TextView
             android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="成都东站(负一层)1号监控点"
-            android:textColor="#474747"
+            android:textColor="#333333"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
             android:textSize="15sp"/>
         <TextView
             android:id="@+id/time"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="03-15 19:20"
-            android:gravity="right"
-            android:layout_gravity="bottom"
+            android:textColor="#999999"
+            android:drawableLeft="@mipmap/time"
+            android:drawablePadding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
             android:textSize="12sp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
+
     <TextView
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -128,12 +133,64 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee"/>
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="布控人员"/>
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/name"
+                android:textColor="#999999"
+                android:drawablePadding="3dp"
+                android:drawableLeft="@mipmap/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:text="林少君"/>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#999999"/>
+            <TextView
+                android:textColor="#999999"
+                android:drawablePadding="3dp"
+                android:layout_width="wrap_content"
+                android:id="@+id/idcard"
+                android:textSize="11sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@mipmap/idcard"
+                android:layout_height="wrap_content"
+                android:text="429004199212030352"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
         <ImageView
         android:id="@+id/idcard_image"
@@ -148,48 +205,29 @@
         android:layout_width="95dp"
         android:layout_height="110dp"
         android:scaleType="centerCrop"
-        android:layout_marginBottom="20dp"
         android:src="@mipmap/head_test"
         />
-        <LinearLayout
+        <ImageView
+            android:id="@+id/full_view_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="110dp"
             android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:textColor="#474747"
-                android:text="布控人员"/>
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_marginTop="5dp"
-                android:maxLines="1"
-                android:textColor="#474747"
-                android:text="林少君"/>
-            <TextView
-                android:id="@+id/idcard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="429004199212030352"
-                android:textSize="10sp"/>
-            <TextView
-                android:id="@+id/send"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/zz_white"
-                android:background="#234a8c"
-                android:text="立即处理"/>
-        </LinearLayout>
+            android:scaleType="centerCrop"
+            android:src="@mipmap/jz_11"
+            />
+
     </LinearLayout>
+    <TextView
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:textColor="@color/zz_white"
+        android:background="#234a8c"
+        android:layout_margin="10dp"
+        android:text="立即处理"/>
 
 </LinearLayout>

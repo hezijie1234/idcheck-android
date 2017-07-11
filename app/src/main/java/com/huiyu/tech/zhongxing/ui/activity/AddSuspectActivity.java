@@ -229,7 +229,6 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         if(flag.equals(ApiImpl.TEMPLATE_UPLOAD)){
             firstImageString = "";
             secondImageString = "";
-
             firstImage.setImageResource(R.mipmap.muban);
             secondImage.setImageResource(R.mipmap.muban);
             mNameEdit.setText("");

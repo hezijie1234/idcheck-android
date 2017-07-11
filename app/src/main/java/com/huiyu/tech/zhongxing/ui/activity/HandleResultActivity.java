@@ -29,6 +29,7 @@ import com.huiyu.tech.zhongxing.ui.adapter.GridPicAdapter2;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
 import com.huiyu.tech.zhongxing.widget.MyGridView;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -36,6 +37,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -65,6 +68,7 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
     //是否是第一次点击播放
     private boolean isFirst = true;
     private ResultPageModel resultPageModel;
+    private JCVideoPlayerStandard videoPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +122,9 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
         tvDesc = (TextView) findViewById(R.id.tv_desc);
         tvName = (TextView) findViewById(R.id.tv_name);
         tvPhone = (TextView) findViewById(R.id.tv_phone);
+        videoPlayer = (JCVideoPlayerStandard) findViewById(R.id.custom_videoplayer_standard);
         mVideoBackground = (ImageView) findViewById(R.id.video_background_iv);
+
         ivStop.setOnClickListener(this);
     }
 
@@ -164,6 +170,19 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
                 .error(R.mipmap.jz_11)
                 .fit()
                 .into(mVideoBackground);
+        Picasso.with(this).load(ApiImpl.DOMIN +thumbnail).into(mVideoBackground, new Callback() {
+            @Override
+            public void onSuccess() {
+                videoPlayer.thumbImageView.setImageDrawable(mVideoBackground.getDrawable());
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+
+        ;
         if(!TextUtils.isEmpty(videofile)){
             layoutContainer.setVisibility(View.VISIBLE);
             initVideo(ApiImpl.DOMIN+videofile.replaceAll("\\\\","/"));
@@ -174,7 +193,22 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
         Uri uri = Uri.parse(url);
         vv.setMediaController(new MediaController(this));
         vv.setVideoURI(uri);
+        videoPlayer.setUp(url,JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"这是一个测试视频");
         createVideoThumbnail(uri.getPath());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(JCVideoPlayer.backPress()){
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override

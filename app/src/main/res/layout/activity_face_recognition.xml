@@ -80,9 +80,12 @@
             android:layout_height="match_parent"
             android:src="@mipmap/recong_1"/>
     </FrameLayout>
-
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
     <FrameLayout
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gray_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     <ImageView
@@ -91,6 +94,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:scaleType="fitXY"
+        android:background="@drawable/image_shape"
         android:src="@mipmap/recong_3"/>
 
     <RelativeLayout

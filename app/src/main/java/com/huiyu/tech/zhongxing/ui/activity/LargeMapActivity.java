@@ -28,7 +28,7 @@ public class LargeMapActivity extends AppCompatActivity {
         mLargeImage.setLayoutParams(layoutParams);
         String imageurl = intent.getStringExtra("imageurl");
 
-        Picasso.with(this).load(ApiImpl.DOMIN +imageurl)
+        Picasso.with(this).load(imageurl)
                 .placeholder(R.mipmap.jz_11)
                 .error(R.mipmap.jz_11)
                 .fit()

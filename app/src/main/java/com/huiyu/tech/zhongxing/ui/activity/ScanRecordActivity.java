@@ -84,7 +84,6 @@ public class ScanRecordActivity extends ZZBaseActivity implements OnResponseList
             recordType = 2;
             initView(2);
             initData(2);
-
         } else if (type.equals("recog")) {
             recordType = 1;
             initView(1);

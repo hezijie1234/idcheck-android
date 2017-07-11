@@ -95,8 +95,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="3dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:scrollbars="none"
             android:divider="@android:color/transparent"
-            android:dividerHeight="10dp"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+            android:dividerHeight="10dp">
+
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
     <!--</LinearLayout>-->
 </LinearLayout>
