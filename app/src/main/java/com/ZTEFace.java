@@ -43,13 +43,18 @@ public class ZTEFace {
     }
     static  public FaceInfo info = new FaceInfo();
     //初始化模型
-    public static native int loadModel(String model_D , String model_A, String model_DB, String model_P);
+    public static native int loadModel( String model_D , String model_A,String model_DB, String model_P);
     //人脸检测
     public static native byte[]  detectFace( byte[] buf, int width, int height);
     //特征提取
-    public static native byte[]  getFea( byte[] buf, int width, int height,int eyeLeftX,int eyeLeftY,int eyeRightX,int eyeRightY,int eyeNoseX,int eyeNoseY,int mouthLeftX,int mouthLeftY,int mouthRightX,int mouthRightY) ;
+    public static native float[]  getFea( byte[] buf, int width, int height,int eyeLeftX,int eyeLeftY,int eyeRightX,int eyeRightY,int eyeNoseX,int eyeNoseY,int mouthLeftX,int mouthLeftY,int mouthRightX,int mouthRightY) ;
     //特征比对
-    public static native float feaCompare(byte[] fea1, byte[] fea2) ;
+    public static native float feaCompare(float[] fea1, float[] fea2) ;
+//获取注册码 输入参数为"ZTE" 返回 机器码
+    public static native String GetSn(String strkey) ;
+//注册 输入注册码 返回值 0成功 其他值 失败
+    public static native int SetKey(String strkey) ;
+
     private static  long byte2long(byte [] a,int nIndex,boolean bX64){
         //  System.out.println("before a:"+a+" b:"+b+" c:"+c+" d:"+d);
         if(bX64)

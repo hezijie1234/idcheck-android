@@ -9,6 +9,8 @@ import java.io.File;
  * Created by ml on 2016/11/9.
  */
 public class Constants {
+    //人脸比对客户端算法授权码
+    public static final String AUTHORIZATION_CODE = "561F651E20787FBDD132";
 
     public static final String APP_NAME = "Jingwutong";
 //    public static final String IMG_HOST = "http://121.42.178.20:7080";

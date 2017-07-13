@@ -21,6 +21,7 @@ import android.nfc.tech.NfcB;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -33,6 +34,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ZTEFace;
 import com.ZTEUtils;
 import com.alibaba.fastjson.JSON;
 import com.huiyu.tech.zhongxing.Constants;
@@ -123,7 +125,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
     private LotusCardDriver mLotusCardDriver;
     private long m_nDeviceHandle = -1;
     private FrameLayout frameLayout;
-    private byte[] feature1;
+    private float[] feature1;
     private View spaceView;
 
     @Override
@@ -143,11 +145,16 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_face_recognition);
-
+        if(ZTEFace.SetKey(Constants.AUTHORIZATION_CODE) != 0){
+            Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
         initView();
-
         initNFC();
     }
+
+
+
 
     private void initNFC() {
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
@@ -659,7 +666,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     recognitionModel.setPhoneImage(phoneImage);
                     sendFaceToServer();
                     final long start =System.currentTimeMillis();
-                    byte[] feature2 = ZTEUtils.getFaceFeature(mat);
+                    float[] feature2 = ZTEUtils.getFaceFeature(mat);
                     final double result = ZTEUtils.feaCompare(feature1, feature2);
                     final long end =System.currentTimeMillis();
                     runOnUiThread(new Runnable() {

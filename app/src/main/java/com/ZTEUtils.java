@@ -26,7 +26,7 @@ public class ZTEUtils {
      * @param src
      * @return
      */
-    public static byte[] getFaceFeature(Mat src) {
+    public static float[] getFaceFeature(Mat src) {
         long start = System.currentTimeMillis();
         //转化为YUV数据
         Imgproc.cvtColor(src, src, Imgproc.COLOR_RGBA2YUV_I420);
@@ -38,7 +38,7 @@ public class ZTEUtils {
         //人脸信息转换
         ZTEFace.FaceInfo info = ZTEFace.getFaceInfo(ret);
         if (info.info[0] != null) {
-            byte[] fea = getFea(bytes, info.info[0], src.width(), src.height());
+            float[] fea = getFea(bytes, info.info[0], src.width(), src.height());
             long end = System.currentTimeMillis();
             Log.i(TAG, "耗时：" + (end - start) + " ms");
             return fea;
@@ -48,7 +48,7 @@ public class ZTEUtils {
     }
 
 
-    private static byte[] getFea(byte[] bb, ZTEFace.FacePointInfo facePointInfo, int width, int height) {
+    private static float[] getFea(byte[] bb, ZTEFace.FacePointInfo facePointInfo, int width, int height) {
         int eyeLeftX = (int) facePointInfo.ptEyeLeft.x;
         int eyeLeftY = (int) facePointInfo.ptEyeLeft.y;
         int eyeRightX = (int) facePointInfo.ptEyeRight.x;
@@ -71,11 +71,9 @@ public class ZTEUtils {
      * @param fea2
      * @return 结果分数
      */
-    public static double feaCompare(byte[] fea1, byte[] fea2) {
+    public static double feaCompare(float[] fea1, float[] fea2) {
         float result = ZTEFace.feaCompare(fea1, fea2);
         Log.i(TAG, "比对结果：" + Math.sqrt(result) * 10);
         return Math.sqrt(result) * 10;
     }
-
-
 }

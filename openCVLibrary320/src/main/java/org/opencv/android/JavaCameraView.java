@@ -2,12 +2,15 @@ package org.opencv.android;
 
 import android.content.Context;
 import android.graphics.ImageFormat;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.ViewGroup.LayoutParams;
 
 import org.opencv.BuildConfig;
@@ -16,6 +19,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +59,77 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
             Camera.Size size = (Camera.Size) obj;
             return size.height;
         }
+    }
+
+    private static Rect calculateTapArea(float x, float y, float coefficient, int width, int height) {
+        float focusAreaSize = 300;
+        int areaSize = Float.valueOf(focusAreaSize * coefficient).intValue();
+        int centerX = (int) (x / width * 2000 - 1000);
+        int centerY = (int) (y / height * 2000 - 1000);
+
+        int halfAreaSize = areaSize / 2;
+        RectF rectF = new RectF(clamp(centerX - halfAreaSize, -1000, 1000)
+                , clamp(centerY - halfAreaSize, -1000, 1000)
+                , clamp(centerX + halfAreaSize, -1000, 1000)
+                , clamp(centerY + halfAreaSize, -1000, 1000));
+        return new Rect(Math.round(rectF.left), Math.round(rectF.top), Math.round(rectF.right), Math.round(rectF.bottom));
+    }
+    private static int clamp(int x, int min, int max) {
+        if (x > max) {
+            return max;
+        }
+        if (x < min) {
+            return min;
+        }
+        return x;
+    }
+    /**
+     * @param event
+     * @return 获取触摸
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getPointerCount() == 1) {
+            handleFocusMetering(event);
+        }
+        return true;
+    }
+
+    public void handleFocusMetering(MotionEvent event) {
+        int viewWidth = getWidth();
+        int viewHeight = getHeight();
+        Log.e("111", "handleFocusMetering: "+event.getX() + "---" + event.getY() + "---" + viewWidth + "----" + viewHeight );
+        Rect focusRect = calculateTapArea(event.getX(), event.getY(), 1f, viewWidth, viewHeight);
+        Rect meteringRect = calculateTapArea(event.getX(), event.getY(), 1.5f, viewWidth, viewHeight);
+
+        mCamera.cancelAutoFocus();
+        Camera.Parameters params = mCamera.getParameters();
+        if (params.getMaxNumFocusAreas() > 0) {
+            List<Camera.Area> focusAreas = new ArrayList<>();
+            focusAreas.add(new Camera.Area(focusRect, 800));
+            params.setFocusAreas(focusAreas);
+        } else {
+            Log.i(TAG, "focus areas not supported");
+        }
+        if (params.getMaxNumMeteringAreas() > 0) {
+            List<Camera.Area> meteringAreas = new ArrayList<>();
+            meteringAreas.add(new Camera.Area(meteringRect, 800));
+            params.setMeteringAreas(meteringAreas);
+        } else {
+            Log.i(TAG, "metering areas not supported");
+        }
+        final String currentFocusMode = params.getFocusMode();
+        params.setFocusMode(Camera.Parameters.FOCUS_MODE_MACRO);
+        mCamera.setParameters(params);
+
+        mCamera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean success, Camera camera) {
+                Camera.Parameters params = camera.getParameters();
+                params.setFocusMode(currentFocusMode);
+                camera.setParameters(params);
+            }
+        });
     }
 
     public JavaCameraView(Context context, int cameraId) {

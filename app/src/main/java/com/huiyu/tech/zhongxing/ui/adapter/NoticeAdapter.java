@@ -75,7 +75,6 @@ public class NoticeAdapter extends ZZBaseAdapter<NoticeModel.ListBean> {
         //holder.tvDesc.setText(model.getRemarks());
         holder.publisherTv.setText(model.getCreateName());
         holder.publishTime.setText(model.getCreateDate());
-        Log.e("111", "getView: "+model.getImage() );
         if(!TextUtils.isEmpty(model.getImage())){
             Picasso.with(context).load(model.getImage())
                     .placeholder(R.mipmap.jz_11)
