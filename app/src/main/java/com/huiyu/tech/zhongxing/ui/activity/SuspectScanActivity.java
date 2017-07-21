@@ -3,6 +3,7 @@ package com.huiyu.tech.zhongxing.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,7 +58,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
     private RecyclerView list;
     private Mat mRgba;
     private int mAbsoluteFaceSize = 0;
-    private float mRelativeFaceSize = 0.2f;
+    private float mRelativeFaceSize = 0.1f;
     private int num;
 
     private SuspectListAdapter adapter;
@@ -136,7 +137,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
-
+        int face = 0;
         //使用后置摄像头时旋转-90度
         Mat rotateMat = Imgproc.getRotationMatrix2D(new Point(mRgba.cols() / 2, mRgba.rows() / 2), -90, 1);
         Imgproc.warpAffine(mRgba, mRgba, rotateMat, mRgba.size());
@@ -146,6 +147,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
             if (Math.round(height * mRelativeFaceSize) > 0) {
                 mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
             }
+            Log.e("111", "onCameraFrame: " + mAbsoluteFaceSize );
         }
         //需要时可以使用灰度图来检测人脸。
 //        Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2GRAY, 3);
@@ -168,6 +170,16 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
 //                        LogUtils.i("==截图==");
                         //解决截取图片脸显示为蓝色的问题 http://blog.csdn.net/yang_xian521/article/details/7010475
                         //Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGBA2BGR, 3);
+                        if(facesArray[i].height < 200 && face == 0){
+                            face = 1;
+                            cameraView.setZoomAdd();
+                            cameraView.handleZoom(true,cameraView.mCamera);
+                        }
+                        if(facesArray[i].height > 400 && face == 0){
+                            face = 1;
+                            cameraView.setZoomReduce();
+                            cameraView.handleZoom(false,cameraView.mCamera);
+                        }
                         bmp = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888);
                         Utils.matToBitmap(mat, bmp);
 //                        String tempFile = FileUtil.getTempFile();
@@ -216,7 +228,6 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
         //画出外框
 //        Imgproc.rectangle(mRgba, new Point(0,0), new Point(mRgba.cols(),mRgba.rows()), OUTER_RECT_COLOR, 3);
         return mRgba;
-
     }
 
     /**
@@ -240,6 +251,8 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
      * @return 新尺寸
      */
     private Rect getImageRect(Size big, Rect small) {
+        Log.e("111", "getImageRect: " + small.width );
+        Log.e("111", "getImageRect: " + small.height );
         Point point = small.tl();
         int width = (int) (small.width * 1.5);
         int height = (int) (small.height * 1.5);

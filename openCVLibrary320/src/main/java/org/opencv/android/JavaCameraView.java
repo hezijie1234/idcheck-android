@@ -42,7 +42,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
     private Thread mThread;
     private boolean mStopThread;
 
-    protected Camera mCamera;
+    public Camera mCamera;
     protected JavaCameraFrame[] mCameraFrame;
     private SurfaceTexture mSurfaceTexture;
 
@@ -58,6 +58,35 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
         public int getHeight(Object obj) {
             Camera.Size size = (Camera.Size) obj;
             return size.height;
+        }
+    }
+    private int zoom;
+
+
+    public void setZoomAdd() {
+        zoom = zoom + 10;
+    }
+    public void setZoomReduce(){
+        zoom = zoom - 20;
+    }
+
+    public void handleZoom(boolean isZoomIn, Camera camera) {
+        Camera.Parameters params = camera.getParameters();
+        if (params.isZoomSupported()) {
+            int maxZoom = params.getMaxZoom();
+//            zoom = params.getZoom();
+            if (isZoomIn && zoom < maxZoom) {
+                zoom++;
+            } else if (zoom > 0) {
+                zoom--;
+            }
+            //max最大值是90
+            Log.e("111", "maxZoom: "+maxZoom );
+            Log.e("111", "handleZoom: "+zoom );
+            params.setZoom(zoom);
+            camera.setParameters(params);
+        } else {
+            Log.i(TAG, "zoom not supported");
         }
     }
 
@@ -83,6 +112,12 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
         }
         return x;
     }
+    private static float getFingerSpacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float) Math.sqrt(x * x + y * y);
+    }
+    private float oldDist = 1f;
     /**
      * @param event
      * @return 获取触摸
@@ -91,6 +126,21 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getPointerCount() == 1) {
             handleFocusMetering(event);
+        }else{
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    oldDist = getFingerSpacing(event);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    float newDist = getFingerSpacing(event);
+                    if (newDist > oldDist) {
+                        handleZoom(true, mCamera);
+                    } else if (newDist < oldDist) {
+                        handleZoom(false, mCamera);
+                    }
+                    oldDist = newDist;
+                    break;
+            }
         }
         return true;
     }
@@ -98,7 +148,6 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
     public void handleFocusMetering(MotionEvent event) {
         int viewWidth = getWidth();
         int viewHeight = getHeight();
-        Log.e("111", "handleFocusMetering: "+event.getX() + "---" + event.getY() + "---" + viewWidth + "----" + viewHeight );
         Rect focusRect = calculateTapArea(event.getX(), event.getY(), 1f, viewWidth, viewHeight);
         Rect meteringRect = calculateTapArea(event.getX(), event.getY(), 1.5f, viewWidth, viewHeight);
 
@@ -114,6 +163,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
         if (params.getMaxNumMeteringAreas() > 0) {
             List<Camera.Area> meteringAreas = new ArrayList<>();
             meteringAreas.add(new Camera.Area(meteringRect, 800));
+            //设置测光区域
             params.setMeteringAreas(meteringAreas);
         } else {
             Log.i(TAG, "metering areas not supported");

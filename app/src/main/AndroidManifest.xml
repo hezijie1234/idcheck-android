@@ -16,9 +16,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.NFC" />
 
-    <uses-feature
-        android:name="android.hardware.nfc"
-        android:required="true" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -108,7 +106,8 @@
         <activity
             android:name=".ui.activity.ComparePicActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.SuspectScanActivity" />
+        <activity android:name=".ui.activity.SuspectScanActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.LargeMapActivity"
             android:screenOrientation="portrait" />
@@ -141,6 +140,12 @@
             android:screenOrientation="portrait" />
         <service android:name=".widget.KeepLiveService"
                 android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <receiver android:name=".ui.fragment.UserFragment$NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="notification_cancelled"/>
+                <!--<action android:name="notification_clicked"/>-->
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

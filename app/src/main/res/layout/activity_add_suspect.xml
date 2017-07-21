@@ -221,6 +221,8 @@
                 android:layout_width="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
+                android:prompt="@string/module_select"
+                android:spinnerMode="dialog"
                 >
 
             </Spinner>

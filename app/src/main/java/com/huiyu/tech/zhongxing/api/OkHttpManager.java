@@ -8,6 +8,7 @@ import com.huiyu.tech.zhongxing.api.cookie.PersistentCookieStore;
 import com.huiyu.tech.zhongxing.api.okdownload.OkDownloadEnqueueListener;
 import com.huiyu.tech.zhongxing.api.okdownload.OkDownloadManager;
 import com.huiyu.tech.zhongxing.api.okdownload.OkDownloadRequest;
+import com.huiyu.tech.zhongxing.api.okdownload.OkDownloadStatus;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
 
 import java.io.IOException;

@@ -97,4 +97,5 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.2'
     compile 'com.android.support:multidex:1.0.1'
     compile 'fm.jiecao:jiecaovideoplayer:5.5.2'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-5'
 }

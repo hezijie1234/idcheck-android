@@ -39,7 +39,7 @@ public class Constants {
     //用于存放获取的模板图片
     public static final String TEMPLATE_IMG = CASH + "module.png";
     /**持续获取到人脸数量后，就使用当前截图**/
-    public static final int FACE_SUCCESS_COUNT = 10;
+    public static final int FACE_SUCCESS_COUNT = 5;
     /**上传到后台对比图片的尺寸**/
     public static final int COMPARE_SIZE = 320;
     /**

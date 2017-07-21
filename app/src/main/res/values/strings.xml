@@ -119,4 +119,5 @@
     <string name="show_id_card_pic">身份证正反面</string>
 
     <string name="idcard_record">核验记录</string>
+    <string name="module_select">请选择模板类型</string>
 </resources>

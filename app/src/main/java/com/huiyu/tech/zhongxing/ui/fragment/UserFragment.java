@@ -94,6 +94,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     private String PUSH_TYPE_LIVE = "typeLive";
     private NotificationManager manager;
     private LocalBroadcastManager localManager;
+    private static OkHttpManager okHttpManager;
+    private static String verUrl;
 
     @Override
     public void onAttach(Context context) {
@@ -139,7 +141,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         layoutCheckVersion.setOnClickListener(this);
         tvLogout.setOnClickListener(this);
         localManager = LocalBroadcastManager.getInstance(context);
-        localManager.registerReceiver(mBroadcastReceiver,new IntentFilter("local"));
+//        localManager.registerReceiver(mBroadcastReceiver,new IntentFilter("local"));
     }
 
     private void initData() {
@@ -322,7 +324,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case ApiImpl.CHECK_VERSION:
                 VersionModel versionModel = JSON.parseObject(json.optString("d"), VersionModel.class);
-                final String verUrl = ApiImpl.APK_DOWNLOAD + versionModel.getFile();
+                verUrl = ApiImpl.APK_DOWNLOAD + versionModel.getFile();
                 String verName = versionModel.getVersionName();
                 if (versionModel.getVersionCode() > CommonUtils.getVersionCode(getActivity())) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -371,8 +373,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
             return;
         }
 
-        final OkHttpManager okHttpManager = OkHttpManager.getInstance();
-
+        okHttpManager = OkHttpManager.getInstance();
+//        okHttpManager.cancelCallsWithTag(url);
         okHttpManager.download(url, newVersionName, new OkDownloadEnqueueListener() {
 
             private int lastProgress;
@@ -426,6 +428,11 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void sendNotivication(int prograess) {
+        int type = 1;
+        Intent intentCancel = new Intent(context, NotificationBroadcastReceiver.class);
+        intentCancel.setAction("notification_cancelled");
+        intentCancel.putExtra(NotificationBroadcastReceiver.TYPE, type);
+        PendingIntent pendingIntentCancel = PendingIntent.getBroadcast(context, 0, intentCancel, PendingIntent.FLAG_ONE_SHOT);
         manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_logo);
@@ -434,42 +441,39 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         builder.setWhen(System.currentTimeMillis());
         builder.setTicker("安装包下载中……");
         builder.setContentTitle(getString(R.string.text_download_title));
-//        .setDeleteIntent(PendingIntent.getBroadcast(context, 1000, new Intent(NOTIFICATION_DELETED_ACTION).putExtra(PUSH_TYPE, PUSH_TYPE_LIVE), 0));
+        builder.setDeleteIntent(pendingIntentCancel);
         if (prograess < 100) {
             builder.setContentText(getString(R.string.text_downloading, prograess + "%"));
         } else {
             builder.setContentText(getString(R.string.text_download_over));
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
-//        builder.setAutoCancel(true);
-//        Intent installIntent = new Intent(Intent.ACTION_VIEW);
-//        installIntent.setDataAndType(Uri.fromFile(new File(newVersionName))
-//                , "application/vnd.android.package-archive");
-//
-//        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, installIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        builder.setContentIntent(pendingIntent);
-
         int notifyId = 1000;
-        manager.notify(notifyId, builder.build());
+        manager.notify(type, builder.build());
     }
-    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+
+    public static class NotificationBroadcastReceiver extends BroadcastReceiver {
+
+        public static final String TYPE = "type"; //这个type是为了Notification更新信息的，这个不明白的朋友可以去搜搜，很多
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent == null || context == null) {
-                return;
-            }
             String action = intent.getAction();
-            manager.cancel(1000);
+            int type = intent.getIntExtra(TYPE, -1);
 
-            String type = intent.getStringExtra(PUSH_TYPE);
-            if (PUSH_TYPE_LIVE.equals(type)) {
-                //mNumLives = 0;
-                Log.e("111", "onReceive: 停止更新" );
+            if (type != -1) {
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(type);
             }
-            //这里可以重新计数
+            if (action.equals("notification_cancelled")) {
+                //处理滑动清除和点击删除事件
+                if(okHttpManager != null && !TextUtils.isEmpty(verUrl)){
+                    okHttpManager.cancelCallsWithTag(verUrl);
+                }
+                Log.e("111", "onReceive: 通知被滑动删除啦"  );
+            }
         }
-    };
+    }
 
     private final int MSG_DOWNLOAD_START = 0x1001;
     private final int MSG_DOWNLOAD_STOP = 0x1002;
@@ -495,10 +499,19 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         }
     };
 
-    private void installApk() {
+//    private void installApk() {
+//        Intent installIntent = new Intent(Intent.ACTION_VIEW);
+//        installIntent.setDataAndType(Uri.fromFile(new File(newVersionName))
+//                , "application/vnd.android.package-archive");
+//        startActivity(installIntent);
+//    }
+
+    /* 安装apk */
+    public  void installApk() {
         Intent installIntent = new Intent(Intent.ACTION_VIEW);
+        installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         installIntent.setDataAndType(Uri.fromFile(new File(newVersionName))
                 , "application/vnd.android.package-archive");
-        startActivity(installIntent);
+        context.startActivity(installIntent);
     }
 }

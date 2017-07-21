@@ -86,7 +86,7 @@ import cc.lotuscard.TwoIdInfoParam;
  */
 public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnClickListener, CameraBridgeViewBase.CvCameraViewListener2, OnResponseListener {
     private CascadeClassifier mJavaDetector;
-    private float mRelativeFaceSize = 0.2f;
+    private float mRelativeFaceSize = 0.1f;
     private int mAbsoluteFaceSize = 0;
     private Mat mRgba;
     private static final Scalar FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);
@@ -146,9 +146,10 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_face_recognition);
         if(ZTEFace.SetKey(Constants.AUTHORIZATION_CODE) != 0){
+            Log.e("1111", "onCreate: " + ZTEFace.SetKey(Constants.AUTHORIZATION_CODE) );
             Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
-            return;
         }
+        //测试
         initView();
         initNFC();
     }
@@ -557,8 +558,9 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                         e.printStackTrace();
 //                        LogUtils.i("Failed to load cascade. Exception thrown: " + e);
                     }
-
-                    faceRecSurfaceView.enableView();
+                    if(faceRecSurfaceView != null){
+                        faceRecSurfaceView.enableView();
+                    }
                 }
                 break;
                 default: {
@@ -593,8 +595,10 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 
 //        String devinfo[] = DeviceRecoder.getMac(this);
 //        mUserSelectedBTDevMac = devinfo[1];
-        m_NfcAdpater.enableForegroundDispatch(this, pendingIntent, mFilters,
-                mTechLists);
+        if(m_NfcAdpater != null){
+            m_NfcAdpater.enableForegroundDispatch(this, pendingIntent, mFilters,
+                    mTechLists);
+        }
     }
 
     public void onDestroy() {
@@ -624,13 +628,14 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
             int height = mRgba.rows();
             if (Math.round(height * mRelativeFaceSize) > 0) {
                 mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
+
             }
         }
         //在人脸检测之前将每张图片转换成灰度图，测试是否能提高人脸检测效率
 //        Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2GRAY, 3);
         MatOfRect faces = new MatOfRect();
         if (mJavaDetector != null) {
-            mJavaDetector.detectMultiScale(mRgba, faces, 1.1, 2, 2,
+            mJavaDetector.detectMultiScale(mRgba, faces, 1.1, 3, 2,
                     new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
         }
 
@@ -806,6 +811,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     faceRecIntroText.setVisibility(View.VISIBLE);
 //                    Log.e("111", "onAPISuccess: "+mInfo );
                     intent.putExtra("info",mInfo);
+                    intent.putExtra("sum",tvScore.getText().toString());
                     startActivity(intent);
 //                    showPassDialog();
                 }else {
@@ -816,6 +822,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     frameLayout.setVisibility(View.VISIBLE);
                     spaceView.setVisibility(View.GONE);
                     intent.putExtra("info",mInfo);
+                    intent.putExtra("sum",tvScore.getText().toString());
                     startActivity(intent);
                 }
             }else {

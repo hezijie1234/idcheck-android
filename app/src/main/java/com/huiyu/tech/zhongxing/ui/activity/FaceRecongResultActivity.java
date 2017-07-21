@@ -31,6 +31,7 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
     private ImageView mIdCardImageView;
     private Button goToBack;
     private ImageView mResultImage;
+    private TextView scoreText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,8 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
         Intent intent = getIntent();
         boolean isSuccess = intent.getBooleanExtra("isSuccess",false);
         IdCardModule info = intent.getParcelableExtra("info");
+        String sum = intent.getStringExtra("sum");
+        scoreText.setText(sum);
 //        Log.e("111", "initData: "+info );
         if(isSuccess){
             resultText.setText("【人证相符】");
@@ -72,6 +75,7 @@ public class FaceRecongResultActivity extends ZZBaseActivity {
     private void initView() {
         showBackView();
         showTitleView("人证核验结果");
+        scoreText = (TextView) findViewById(R.id.score);
         mResultImage = (ImageView) findViewById(R.id.result_image);
         resultText = (TextView) findViewById(R.id.result_tv);
         mCameraImage = (ImageView) findViewById(R.id.camera_image);

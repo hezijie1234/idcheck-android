@@ -90,7 +90,6 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         mImageString = new ArrayList<>();
         list = new ArrayList<>();
         mTypeList = new ArrayList<>();
-        mTypeList.add("请选择模板类型");
         //获取黑名单类型
         showProgressDialog();
         ApiImpl.getInstance().getBlackType(this);
@@ -100,7 +99,6 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         firstImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mat rotateMat = Imgproc.getRotationMatrix2D(new Point(), -90, 1);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,1);
             }
@@ -117,10 +115,12 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSpinnerImage.setImageResource(R.mipmap.addsuspect_2);
+                Log.e("111", "onItemSelected: "+position );
                 if(list != null && list.size() > 0){
-                    if(position > 0){
-                        BlackTypeModel.DBean dBean = list.get(position - 1);
+                    if(position >= 0){
+                        BlackTypeModel.DBean dBean = list.get(position);
                         value = dBean.getValue();
+                        Log.e("111", "onItemSelected: " + value );
                     }
                 }
             }
@@ -191,7 +191,7 @@ public class AddSuspectActivity extends ZZBaseActivity implements OnResponseList
         mSpinnerImage = (ImageView) findViewById(R.id.spinner_image);
 //        spinner.setDropDownVerticalOffset(70);
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mTypeList);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
