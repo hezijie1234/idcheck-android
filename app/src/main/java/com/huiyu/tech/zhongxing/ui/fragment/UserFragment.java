@@ -448,7 +448,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
             builder.setContentText(getString(R.string.text_download_over));
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
-        int notifyId = 1000;
         manager.notify(type, builder.build());
     }
 
@@ -470,7 +469,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
                 if(okHttpManager != null && !TextUtils.isEmpty(verUrl)){
                     okHttpManager.cancelCallsWithTag(verUrl);
                 }
-                Log.e("111", "onReceive: 通知被滑动删除啦"  );
             }
         }
     }
@@ -507,7 +505,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
 //    }
 
     /* 安装apk */
-    public  void installApk() {
+    public void installApk() {
         Intent installIntent = new Intent(Intent.ACTION_VIEW);
         installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         installIntent.setDataAndType(Uri.fromFile(new File(newVersionName))

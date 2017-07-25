@@ -71,7 +71,7 @@
             android:layout_marginTop="20dp"
             android:paddingTop="8dp"
             android:paddingLeft="5dp"
-            android:hint="@string/text_hint_newpwd"
+            android:hint="请确认新密码："
             android:inputType="textPassword"
             android:maxLength="20"
             android:background="@drawable/add_suspect_editbg"

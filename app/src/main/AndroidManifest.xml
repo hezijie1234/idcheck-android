@@ -146,6 +146,8 @@
                 <!--<action android:name="notification_clicked"/>-->
             </intent-filter>
         </receiver>
+        <activity android:name=".ui.activity.BigImageActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -34,6 +34,8 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,11 +91,20 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 List<ResultPageModel.ImagesBean> items = gridPicAdapter.getItems();
-                String imagefile = items.get(i).getImagefile();
-                Intent intent = new Intent(HandleResultActivity.this,LargeMapActivity.class);
-                intent.putExtra("imageurl",imagefile);
-                LogUtils.e(imagefile);
+//                String imagefile = items.get(i).getImagefile();
+                Intent intent = new Intent(HandleResultActivity.this,BigImageActivity.class);
+//                intent.putExtra("imageurl",ApiImpl.DOMIN + imagefile);
+//                LogUtils.e(imagefile);
+                List<String> urlStr = new ArrayList<>();
+                for (int j = 0; j < items.size(); j++) {
+                    urlStr.add(ApiImpl.DOMIN + items.get(j).getImagefile());
+                }
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("image", (Serializable) urlStr);
+                bundle.putInt("position",i);
+                intent.putExtras(bundle);
                 startActivity(intent);
+                overridePendingTransition(R.anim.in,R.anim.out);
             }
         });
     }
@@ -131,7 +142,6 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
     private void initData(){
         gridPicAdapter = new GridPicAdapter2(this);
         gvPic.setAdapter(gridPicAdapter);
-
         showProgressDialog(true);
         ApiImpl.getInstance().getHandlerResult(id,this);
     }
@@ -144,7 +154,6 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
                 //如果是第一次点击播放，就将显示的第一帧图片隐藏。
                 if(isFirst){
                     isFirst = false;
-
                     mVideoBackground.setVisibility(View.GONE);
                 }
                 vv.start();
@@ -164,6 +173,10 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
         }
         String videofile = resultPageModel.getAlarmret().getVideofile();
         String thumbnail = resultPageModel.getAlarmret().getVideoThumbnail();
+        if(TextUtils.isEmpty(thumbnail)){
+            return;
+        }
+        videoPlayer.setVisibility(View.VISIBLE);
         //在视屏没有播放之前，显示第一帧图片
         Picasso.with(this).load(ApiImpl.DOMIN +thumbnail)
                 .placeholder(R.mipmap.jz_11)
@@ -193,8 +206,8 @@ public class HandleResultActivity extends ZZBaseActivity implements View.OnClick
         Uri uri = Uri.parse(url);
         vv.setMediaController(new MediaController(this));
         vv.setVideoURI(uri);
-        videoPlayer.setUp(url,JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"这是一个测试视频");
-        createVideoThumbnail(uri.getPath());
+        videoPlayer.setUp(url,JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
+//        createVideoThumbnail(uri.getPath());
     }
 
     @Override
