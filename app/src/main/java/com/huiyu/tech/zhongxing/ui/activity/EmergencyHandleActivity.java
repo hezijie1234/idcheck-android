@@ -18,6 +18,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -242,15 +243,6 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
                 retriever.release();
             }
         });
-//        observable.observeOn(Schedulers.io())
-//                .subscribeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Action1<Bitmap>() {
-//                    @Override
-//                    public void call(Bitmap bitmap) {
-//                        //设置封面
-//                        ivVideo.setBackgroundDrawable(new BitmapDrawable(bitmap));
-//                    }
-//                });
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .unsubscribeOn(Schedulers.io())
