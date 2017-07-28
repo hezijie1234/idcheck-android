@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.NFC" />
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -54,12 +53,12 @@
             </intent-filter>
         </activity>
 
-        <!--<receiver android:name=".ui.activity.MainActivity2$NotificationBroadcastReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="notification_cancelled" />-->
-                <!--<action android:name="notification_clicked" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver android:name=".ui.activity.MainActivity2$NotificationBroadcastReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="notification_cancelled" /> -->
+        <!-- <action android:name="notification_clicked" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
 
         <activity
             android:name=".ui.activity.FaceLoginActivity"
@@ -106,8 +105,9 @@
         <activity
             android:name=".ui.activity.ComparePicActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.SuspectScanActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.SuspectScanActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.LargeMapActivity"
             android:screenOrientation="portrait" />
@@ -138,16 +138,22 @@
         <activity
             android:name=".ui.activity.WarningDealActivity"
             android:screenOrientation="portrait" />
-        <service android:name=".widget.KeepLiveService"
-                android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <service
+            android:name=".widget.KeepLiveService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <receiver android:name=".ui.fragment.UserFragment$NotificationBroadcastReceiver">
             <intent-filter>
-                <action android:name="notification_cancelled"/>
-                <!--<action android:name="notification_clicked"/>-->
+                <action android:name="notification_cancelled" />
+                <!-- <action android:name="notification_clicked"/> -->
             </intent-filter>
         </receiver>
-        <activity android:name=".ui.activity.BigImageActivity"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.activity.BigImageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.TransmitActivity"></activity>
     </application>
 
 </manifest>

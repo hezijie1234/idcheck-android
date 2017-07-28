@@ -120,4 +120,5 @@
 
     <string name="idcard_record">核验记录</string>
     <string name="module_select">请选择模板类型</string>
+    <string name="transmit">请选择要转发的人</string>
 </resources>

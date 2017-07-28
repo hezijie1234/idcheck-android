@@ -18,6 +18,7 @@ import com.huiyu.tech.zhongxing.models.WarningDealModel;
 import com.huiyu.tech.zhongxing.ui.ZZBaseAdapter;
 import com.huiyu.tech.zhongxing.ui.activity.HandleResultActivity;
 import com.huiyu.tech.zhongxing.ui.activity.LargeMapActivity;
+import com.huiyu.tech.zhongxing.ui.activity.TransmitActivity;
 import com.huiyu.tech.zhongxing.utils.DataUtils;
 import com.huiyu.tech.zhongxing.utils.LogUtils;
 import com.huiyu.tech.zhongxing.utils.TimeRenderUtils;
@@ -104,6 +105,14 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         holder.tvTime.setText(createTime);
         holder.name.setText(model.getAlarmName());
         holder.idCard.setText(model.getAlarmIdcard());
+
+        holder.pushBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TransmitActivity.class);
+                context.startActivity(intent);
+            }
+        });
         if(!TextUtils.isEmpty(model.getAlarmRemark())){
             holder.remark.setText(model.getAlarmRemark());
         }
@@ -164,6 +173,8 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         TextView idCard;
         TextView remark;
         ImageView fullView;
+        TextView pushPerson;
+        TextView pushBtn;
         ViewHolder(View view) {
             tvType = (TextView) view.findViewById(R.id.place);
             tvTime = (TextView) view.findViewById(R.id.time);
@@ -173,6 +184,10 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
             idCard = (TextView) view.findViewById(R.id.idcard);
             remark = (TextView) view.findViewById(R.id.type);
             fullView = (ImageView) view.findViewById(R.id.full_view_image);
+            pushPerson = (TextView) view.findViewById(R.id.push_person);
+            pushBtn = (TextView) view.findViewById(R.id.push);
+            pushBtn.setVisibility(View.VISIBLE);
+            pushPerson.setVisibility(View.VISIBLE);
         }
 
     }

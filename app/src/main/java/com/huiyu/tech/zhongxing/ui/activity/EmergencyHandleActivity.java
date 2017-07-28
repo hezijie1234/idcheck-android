@@ -69,6 +69,7 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
     private EditText etDesc;
     private TextView tvUndo;
     private TextView tvCommit;
+    private TextView tvAddText;
 
     private AddPicAdapter addPicAdapter;
 
@@ -154,7 +155,7 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
         etDesc = (EditText) findViewById(R.id.et_desc);
         tvUndo = (TextView) findViewById(R.id.tv_undo);
         tvCommit = (TextView) findViewById(R.id.tv_commit);
-
+        tvAddText = (TextView) findViewById(R.id.iv_add_text);
         gvPic.setOnItemClickListener(this);
 
         ivAddVideo.setOnClickListener(this);
@@ -277,6 +278,8 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
                             return;
                         }
                         layoutVideo.setVisibility(View.VISIBLE);
+                        ivAddVideo.setVisibility(View.GONE);
+                        tvAddText.setVisibility(View.GONE);
                         createVideoThumbnail(file.getPath());
                     }
                     break;
@@ -322,6 +325,8 @@ public class EmergencyHandleActivity extends ZZBaseActivity implements View.OnCl
                 break;
             case R.id.iv_delete:
                 layoutVideo.setVisibility(View.GONE);
+                ivAddVideo.setVisibility(View.VISIBLE);
+                tvAddText.setVisibility(View.VISIBLE);
                 file = null;
                 break;
             case R.id.tv_commit:

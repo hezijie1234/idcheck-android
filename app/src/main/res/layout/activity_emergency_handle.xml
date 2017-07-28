@@ -110,7 +110,9 @@
                             android:layout_height="80dp"
                             android:background="@drawable/btn_add_video"
                             android:src="@mipmap/handle_1" />
+
                         <TextView
+                            android:id="@+id/iv_add_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|center_horizontal"

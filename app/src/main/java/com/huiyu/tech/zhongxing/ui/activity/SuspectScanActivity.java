@@ -90,7 +90,6 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
         list = (RecyclerView) findViewById(R.id.list);
         cameraView.setCvCameraViewListener(this);
         cameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_BACK);
-
         adapter = new SuspectListAdapter(data);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);

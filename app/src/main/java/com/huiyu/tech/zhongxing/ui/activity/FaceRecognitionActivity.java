@@ -127,6 +127,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
     private FrameLayout frameLayout;
     private float[] feature1;
     private View spaceView;
+    private boolean isPro = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         if(ZTEFace.SetKey(Constants.AUTHORIZATION_CODE) != 0){
             Log.e("1111", "onCreate: " + ZTEFace.SetKey(Constants.AUTHORIZATION_CODE) );
             Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+            isPro = false;
         }
         //测试
         initView();
@@ -670,17 +672,19 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                     phoneImage.setImgType("2");
                     recognitionModel.setPhoneImage(phoneImage);
                     sendFaceToServer();
-                    final long start =System.currentTimeMillis();
-                    float[] feature2 = ZTEUtils.getFaceFeature(mat);
-                    final double result = ZTEUtils.feaCompare(feature1, feature2);
-                    final long end =System.currentTimeMillis();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvScore.setText(result+"");
-                            tvTime.setText((end-start)+"ms");
-                        }
-                    });
+                    if(isPro){
+                        final long start =System.currentTimeMillis();
+                        float[] feature2 = ZTEUtils.getFaceFeature(mat);
+                        final double result = ZTEUtils.feaCompare(feature1, feature2);
+                        final long end =System.currentTimeMillis();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvScore.setText(result+"");
+                                tvTime.setText((end-start)+"ms");
+                            }
+                        });
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     num = 0;
@@ -1008,7 +1012,9 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
                                 mInfo.setImage(photo);
                                 Mat mat = new Mat();
                                 Utils.bitmapToMat(photo,mat);
-                               feature1 = ZTEUtils.getFaceFeature(mat);
+                                if(isPro){
+                                    feature1 = ZTEUtils.getFaceFeature(mat);
+                                }
                             }
 
                             idcardBeanBean.setIdEntityType("1");

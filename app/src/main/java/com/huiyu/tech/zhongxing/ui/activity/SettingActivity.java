@@ -1,12 +1,10 @@
 package com.huiyu.tech.zhongxing.ui.activity;
 
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.huiyu.tech.zhongxing.R;
 import com.huiyu.tech.zhongxing.ui.ZZBaseActivity;
-import com.huiyu.tech.zhongxing.ui.fragment.ContactsFragment;
 import com.huiyu.tech.zhongxing.ui.fragment.UserFragment;
 
 public class SettingActivity extends ZZBaseActivity {
