@@ -153,7 +153,10 @@
         <activity
             android:name=".ui.activity.BigImageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.TransmitActivity"></activity>
+        <activity android:name=".ui.activity.TransmitActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SecurityCheck"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

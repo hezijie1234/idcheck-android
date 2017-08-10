@@ -7,10 +7,25 @@
     android:orientation="vertical"
     tools:context="com.huiyu.tech.zhongxing.ui.activity.TransmitActivity">
     <include layout="@layout/title_bar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="50dp">
+        <Button
+            android:id="@+id/btn_recall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="撤回"/>
+        <Button
+            android:id="@+id/btn_transmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="转发"/>
+    </RelativeLayout>
     <ExpandableListView
         android:id="@+id/expandablelistview"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 </LinearLayout>

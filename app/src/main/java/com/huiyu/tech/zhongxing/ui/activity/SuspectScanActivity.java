@@ -81,8 +81,15 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                 startActivity(intent);
             }
         });
+//        px2dp();
         initView();
 
+    }
+
+    public void px2dp(){
+        float density = getResources().getDisplayMetrics().density;
+        Log.e("111", "density: " + density );
+        Log.e("111", "dp: "+(int)(600/density + 0.5f));
     }
 
     private void initView() {
@@ -173,7 +180,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                             face = 1;
                             cameraView.setZoomAdd();
                             cameraView.handleZoom(true,cameraView.mCamera);
-                        }
+                        } 
                         if(facesArray[i].height > 400 && face == 0){
                             face = 1;
                             cameraView.setZoomReduce();

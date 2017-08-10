@@ -20,15 +20,17 @@ public class ApiImpl {
 //    public static final String DOMIN = "http://121.42.178.20:7080/idcheck";
 //    public static final String DOMIN = "http://ztesai.3322.org:8800/idcheck";
     //测试
-    public static final String HOST = "http://192.168.1.19:8080";
+//    public static final String HOST = "http://192.168.1.19:8080";
     //杨磊
-
 //    public static final String HOST = "http://192.168.1.252:8080";
 //    public static final String HOST = "http://ztesai.3322.org:8800";
     //四川
 //    public static final String HOST = "http://192.168.3.30:8080";
 //    public static final String HOST = "http://192.168.1.223:8080";
+    //四川演示。
+    public static final String HOST = "http://17k971960n.iask.in:17850";
     public static final String DOMIN = HOST + "/idcheck/";
+
 //    public static final String DOMIN = "http://192.168.0.249:8080/idcheck/";
 
     private static ApiImpl instance = new ApiImpl();
@@ -69,6 +71,12 @@ public class ApiImpl {
     //模板录入的记录
     public static final String  BLACK_LIST = "api/mobile/log/blacklist";
     public static final String WARN_NUM = "api/mobile/alarm/count";
+    //转发人员获取
+    public static final String TRANSLATE_LIST = "api/mobile/query/user";
+    //转发
+    public static final String TRANSLATE = "api/mobile/alarm/forward";
+    public static final String  SECURITY_CHECK = "api/mobile/security/dict";
+    public static final String SECURITY_SEND = "api/mobile/security/add";
     public void faceLogin(String deviceId, String imageName, String imageStr, OnResponseListener listener) {
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("deviceId", deviceId);
@@ -116,6 +124,25 @@ public class ApiImpl {
         OkHttpManager.getInstance().post(DOMIN + MODIFY_PWD, body, new ResultParser(MODIFY_PWD, listener));
     }
 
+    public void transmitEmergency(String id,String receives,OnResponseListener listener){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("alarmId", id);
+        builder.add("receivers", receives);
+        RequestBody body = builder.build();
+        OkHttpManager.getInstance().post(DOMIN + TRANSLATE, body, new ResultParser(TRANSLATE, listener));
+    }
+
+    public void securitySend(String station,String time,String way,String company,String state,OnResponseListener listener){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("station", station);
+        builder.add("passWay", way);
+        builder.add("company", company);
+        builder.add("createDate", time);
+        builder.add("state", state);
+        RequestBody body = builder.build();
+        OkHttpManager.getInstance().post(DOMIN + SECURITY_SEND, body, new ResultParser(SECURITY_SEND, listener));
+    }
+
     /**
      * 更新头像
      *
@@ -128,6 +155,10 @@ public class ApiImpl {
         OkHttpManager.getInstance().post(DOMIN + UPDATE_HEAD, body, new ResultParser(UPDATE_HEAD, listener));
     }
 
+
+
+
+
     /**
      * 获取用户信息
      *
@@ -137,6 +168,17 @@ public class ApiImpl {
         OkHttpManager.getInstance().get(DOMIN + GET_USER_INFO, new ResultParser(GET_USER_INFO, listener));
     }
 
+    public void getTranslateList(OnResponseListener listener){
+        OkHttpManager.getInstance().get(DOMIN + TRANSLATE_LIST ,new ResultParser(TRANSLATE_LIST,listener));
+    }
+
+    /**
+     * @param listener
+     * 安全考核数据下载
+     */
+    public void securityCheck(OnResponseListener listener){
+        OkHttpManager.getInstance().get(DOMIN + SECURITY_CHECK ,new ResultParser(SECURITY_CHECK,listener));
+    }
     /**
      * 登出
      *

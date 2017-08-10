@@ -63,6 +63,9 @@ public class ResultParser implements CallbackWrapper.OnHttpListener {
 
                 JSONObject jsonObject = new JSONObject(result);
                 String state = jsonObject.optString("c");
+//                if(flag.equals(ApiImpl.TRANSLATE_LIST)){
+//                    listener.onAPISuccess(flag, jsonObject);
+//                }
                 if (Integer.parseInt(state) == 0) {
                     listener.onAPISuccess(flag, jsonObject);
                 } else if(Integer.parseInt(state) == 1001){

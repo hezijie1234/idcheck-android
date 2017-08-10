@@ -52,6 +52,7 @@ import com.huiyu.tech.zhongxing.ui.BaseFragment;
 import com.huiyu.tech.zhongxing.ui.activity.AddSuspectActivity;
 import com.huiyu.tech.zhongxing.ui.activity.LoginActivity;
 import com.huiyu.tech.zhongxing.ui.activity.ModifyPwdActivity;
+import com.huiyu.tech.zhongxing.ui.activity.SecurityCheck;
 import com.huiyu.tech.zhongxing.utils.CommonUtils;
 import com.huiyu.tech.zhongxing.utils.CustomToast;
 import com.huiyu.tech.zhongxing.utils.FileUtil;
@@ -83,6 +84,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     private TextView tvVersion;
     private RelativeLayout layoutModifypwd;
     private RelativeLayout layoutCheckVersion;
+    private RelativeLayout layoutSecurity;
     private TextView tvLogout;
 
     // 存放图片路径的list
@@ -134,6 +136,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         tvVersion = (TextView) view.findViewById(R.id.tv_version);
         layoutModifypwd = (RelativeLayout) view.findViewById(R.id.layout_modifypwd);
         layoutCheckVersion = (RelativeLayout) view.findViewById(R.id.layout_check_version);
+        layoutSecurity = (RelativeLayout) view.findViewById(R.id.layout_security);
         tvLogout = (TextView) view.findViewById(R.id.tv_logout);
         tvVersion.setText("当前版本" + CommonUtils.getVersionName(context));
         layoutHead.setOnClickListener(this);
@@ -142,6 +145,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
         tvLogout.setOnClickListener(this);
         localManager = LocalBroadcastManager.getInstance(context);
 //        localManager.registerReceiver(mBroadcastReceiver,new IntentFilter("local"));
+        layoutSecurity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, SecurityCheck.class));
+            }
+        });
     }
 
     private void initData() {
@@ -241,8 +250,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
             intent.putExtra("crop", "true");
             intent.putExtra("aspectX", 1);
             intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 160);
-            intent.putExtra("outputY", 160);
+            intent.putExtra("outputX", 250);
+            intent.putExtra("outputY", 250);
             intent.putExtra("scale", true);
             intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
             intent.putExtra("return-data", false);

@@ -123,7 +123,36 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/gray_light_line"/>
-
+        <RelativeLayout
+            android:id="@+id/layout_security"
+            android:background="@drawable/list_item_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/text_3"
+                android:textSize="15sp"
+                android:drawableLeft="@mipmap/zte_39"
+                android:gravity="center_vertical"
+                android:drawablePadding="6dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:text="安全考核"/>
+            <TextView
+                android:id="@+id/tv_security"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/bg_logout"
+                android:textSize="13sp"
+                android:drawableRight="@mipmap/zte_40"
+                android:gravity="center_vertical"
+                android:drawablePadding="6dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"/>
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.huiyu.tech.zhongxing.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -105,11 +106,14 @@ public class CheckInfoAdapter extends ZZBaseAdapter<WarningDealModel.DBean.ListB
         holder.tvTime.setText(createTime);
         holder.name.setText(model.getAlarmName());
         holder.idCard.setText(model.getAlarmIdcard());
-
+        //设置下划线
+        holder.pushBtn.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        holder.pushBtn.getPaint().setAntiAlias(true);
         holder.pushBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TransmitActivity.class);
+                intent.putExtra("alarmId",model.getId());
                 context.startActivity(intent);
             }
         });

@@ -130,7 +130,7 @@
     public static final android.os.Parcelable$Creator *;
 }
 -keep class com.huiyu.tech.zhongxing.models.* {*;}
--keep class lotuscard.* {*;}
+-keep class cc.lotuscard.* {*;}
 #Fragment不需要在AndroidManifest.xml中注册，需要额外保护下
 -keep public class * extends android.support.v4.app.Fragment
 -keep public class * extends android.app.Fragment

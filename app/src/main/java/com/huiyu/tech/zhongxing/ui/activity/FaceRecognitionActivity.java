@@ -86,7 +86,7 @@ import cc.lotuscard.TwoIdInfoParam;
  */
 public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnClickListener, CameraBridgeViewBase.CvCameraViewListener2, OnResponseListener {
     private CascadeClassifier mJavaDetector;
-    private float mRelativeFaceSize = 0.1f;
+    private float mRelativeFaceSize = 0.2f;
     private int mAbsoluteFaceSize = 0;
     private Mat mRgba;
     private static final Scalar FACE_RECT_COLOR = new Scalar(0, 255, 0, 255);
@@ -637,7 +637,7 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
 //        Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2GRAY, 3);
         MatOfRect faces = new MatOfRect();
         if (mJavaDetector != null) {
-            mJavaDetector.detectMultiScale(mRgba, faces, 1.1, 3, 2,
+            mJavaDetector.detectMultiScale(mRgba, faces, 1.1, 2, 2,
                     new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
         }
 
