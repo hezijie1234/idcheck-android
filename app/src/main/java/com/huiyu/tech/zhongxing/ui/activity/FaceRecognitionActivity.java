@@ -522,8 +522,6 @@ public class FaceRecognitionActivity extends ZZBaseActivity implements View.OnCl
         recognitionModel.setIdCardImage(imageBean);
 
         sendFaceToServer();
-
-
     }
 
 

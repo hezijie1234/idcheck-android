@@ -51,9 +51,11 @@ public class BaseFragment extends Fragment {
         super.onResume();
         LogUtils.i("base onResume");
         if (isFirstResume) {
+            //如果是第一次resume只需要让程序正常执行即可
             isFirstResume = false;
             return;
         }
+        //当不是第一次resume时，fragment重新可见了，那时数据不需要重新加载
         if (getUserVisibleHint()) {
             onUserVisible(false);
         }

@@ -28,8 +28,11 @@ public class ApiImpl {
 //    public static final String HOST = "http://192.168.3.30:8080";
 //    public static final String HOST = "http://192.168.1.223:8080";
     //四川演示。
-    public static final String HOST = "http://17k971960n.iask.in:17850";
+//    public static final String HOST = "http://17k971960n.iask.in:17850";
+
+    public static final String HOST = "http://www.ztesai.3322.org:8002/";
     public static final String DOMIN = HOST + "/idcheck/";
+
 
 //    public static final String DOMIN = "http://192.168.0.249:8080/idcheck/";
 

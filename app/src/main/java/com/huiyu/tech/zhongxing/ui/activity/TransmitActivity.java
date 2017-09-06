@@ -50,7 +50,6 @@ public class TransmitActivity extends ZZBaseActivity implements OnResponseListen
         showBackView();
         init();
         initView();
-
         ApiImpl.getInstance().getTranslateList(this);
         showProgressDialog();
     }
@@ -73,7 +72,6 @@ public class TransmitActivity extends ZZBaseActivity implements OnResponseListen
                         builder.append(",").append(mTranslatedPserson.get(i));
                     }
                 }
-
                 ApiImpl.getInstance().transmitEmergency(alarmId,builder.toString(),TransmitActivity.this);
             }
         });

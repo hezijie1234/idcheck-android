@@ -359,7 +359,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener, 
     public void onAPIError(String flag, int code, String error) {
         hideProgressDialog();
         CustomToast.showToast(context, error);
-
     }
 
     private String newVersionName;

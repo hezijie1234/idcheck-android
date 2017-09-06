@@ -10,14 +10,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_gravity="bottom"
+        android:layout_marginTop="10dp"
         android:layout_height="50dp">
         <Button
+            android:layout_marginLeft="10dp"
             android:id="@+id/btn_recall"
+            android:background="@color/gray_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="撤回"/>
         <Button
+            android:layout_marginRight="10dp"
             android:id="@+id/btn_transmit"
+            android:background="@color/gray_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

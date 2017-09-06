@@ -2,7 +2,6 @@ package com.huiyu.tech.zhongxing.ui.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -208,7 +206,6 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
             pinyinComparator = new PinyinComparator2();
         }
         Collections.sort(sortList, pinyinComparator);
-
         return sortList;
     }
 
@@ -279,10 +276,12 @@ public class ContactsFragment extends BaseFragment implements OnResponseListener
             for (ContactsPageModel.ListBean listBean : checkInfo.getList()){
                 if(listBean != null){
                     if(userId.equals(listBean.getId())){
+                        //根据id删除联系人中的自己。
                         mAllContactsList.remove(listBean);
                     }
                 }
             }
+            //将获取到的数据进行删选
             sortList = getSortContacts(mAllContactsList);
             contactsAdapter.setItems(sortList);
         }

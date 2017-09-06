@@ -88,7 +88,6 @@ public class NoticeFragment extends BaseFragment implements PullToRefreshBase.On
 
     private void initView(){
         //showTitleView(getResources().getString(R.string.title_notice));
-
         lvInfo = (PullToRefreshListView) view.findViewById(R.id.lv_info);
         startLinear = (LinearLayout) view.findViewById(R.id.start_linear);
         endLinear = (LinearLayout) view.findViewById(R.id.end_linear);

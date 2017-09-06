@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -40,6 +41,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
@@ -58,7 +60,7 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
     private RecyclerView list;
     private Mat mRgba;
     private int mAbsoluteFaceSize = 0;
-    private float mRelativeFaceSize = 0.1f;
+    private float mRelativeFaceSize = 0.2f;
     private int num;
 
     private SuspectListAdapter adapter;
@@ -175,7 +177,8 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                         final Mat mat = getDefaultCompareSize(mRgba.submat(getImageRect(mRgba.size(), facesArray[i])));
 //                        LogUtils.i("==截图==");
                         //解决截取图片脸显示为蓝色的问题 http://blog.csdn.net/yang_xian521/article/details/7010475
-                        //Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGBA2BGR, 3);
+//                        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGBA2BGR, 3);
+                        Imgcodecs.imwrite(Constants.CASH_IMG, mat);
                         if(facesArray[i].height < 200 && face == 0){
                             face = 1;
                             cameraView.setZoomAdd();
@@ -209,19 +212,22 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                         ImageInfo info = new ImageInfo();
                         info.imageName = new Date().getTime() + "";
                         info.imageStr = Base64Util.bitmapToBase64(bmp);
+                        Log.e("111", "onCameraFrame: " + info.imageStr );
                         list.add(info);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                Log.e("111", "发送给服务器" );
                 ApiImpl.getInstance().sendFaceScan(JSON.toJSONString(list), this);
+                //正在发送网络请求。
                 isRequesting = true;
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        showProgressDialog();
-//                    }
-//                });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showProgressDialog();
+                    }
+                });
             }
 
             for (int i = 0; i < facesArray.length; i++) {
@@ -293,7 +299,6 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
                         File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
                         File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
                         FileOutputStream os = new FileOutputStream(mCascadeFile);
-
                         byte[] buffer = new byte[4096];
                         int bytesRead;
                         while ((bytesRead = is.read(buffer)) != -1) {
@@ -328,28 +333,34 @@ public class SuspectScanActivity extends ZZBaseActivity implements CameraBridgeV
 
     @Override
     public void onAPISuccess(String flag, JSONObject json) {
+        //网络请求成功，可以再次发送网络请求。
         isRequesting = false;
-//        hideProgressDialog();
+        hideProgressDialog();
+        Log.e("111", "onAPISuccess: "+json );
         if (json != null) {
             LogUtils.i(json.toString());
-            if (json.optInt("c") == 0 && !TextUtils.isEmpty(json.optString("d"))) {
-                List<SuspectInfo> infos = JSON.parseObject(json.optString("d"), new TypeReference<List<SuspectInfo>>() {
-                });
-                if (infos.size() > 0) {
-                    int size = data.size();
+            //c==0表示操作成功。
+            if (json.optInt("c") == 0 ) {
+                if (!TextUtils.isEmpty(json.optString("d"))){
+                    List<SuspectInfo> infos = JSON.parseObject(json.optString("d"), new TypeReference<List<SuspectInfo>>() {
+                    });
+                    if (infos.size() > 0) {
+                        int size = data.size();
 //                    LogUtils.i("size---" + infos.size());
-                    data.addAll(infos);
-                    adapter.notifyItemRangeChanged(size, infos.size());
-                    list.scrollToPosition(data.size() - 1);
+                        data.addAll(infos);
+                        adapter.notifyItemRangeChanged(size, infos.size());
+                        list.scrollToPosition(data.size() - 1);
+                    }
+                }else {
+                    Toast.makeText(this, "核验通过", Toast.LENGTH_SHORT).show();
                 }
             }
         }
-
     }
 
     @Override
     public void onAPIError(String flag, int code, String error) {
         isRequesting = false;
-//        hideProgressDialog();
+        hideProgressDialog();
     }
 }
